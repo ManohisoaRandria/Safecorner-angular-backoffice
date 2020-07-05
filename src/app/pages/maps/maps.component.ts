@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 //declare const google: any;
-import * as L from 'node_modules/leaflet';
+import * as L from "node_modules/leaflet";
 
 @Component({
-  selector: 'app-maps',
-  templateUrl: './maps.component.html',
-  styleUrls: ['./maps.component.scss']
+  selector: "app-maps",
+  templateUrl: "./maps.component.html",
+  styleUrls: ["./maps.component.scss"]
 })
 export class MapsComponent implements OnInit {
   private map;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     // let map = document.getElementById('map-canvas');
@@ -58,12 +58,11 @@ export class MapsComponent implements OnInit {
 
   //FONCTON POUR LA MAP
   //affciher map
-  showMap(){
-    this.map = L.map('map-canvas').setView([-18.929744,47.509419],12);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{
-      attribution: 'SafeCorner',
+  showMap() {
+    this.map = L.map("map-canvas").setView([-18.929744, 47.509419], 12);
+    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      attribution: "SafeCorner",
       minZoom: 5
-    }).addTo(this.map); 
+    }).addTo(this.map);
   }
-
 }

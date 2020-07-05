@@ -1,3 +1,6 @@
+import { ModifyProtocoleSocieteComponent } from './../../pages/societe/protocole/modify-protocole-societe/modify-protocole-societe.component';
+import { InsertProtocoleSocieteComponent } from './../../pages/societe/protocole/insert-protocole-societe/insert-protocole-societe.component';
+import { InsertSocieteComponent } from './../../pages/societe/insert-societe/insert-societe.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -11,5 +14,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'societe',           component: InsertSocieteComponent },
+    { path: 'add-protocole-societe',           component: InsertProtocoleSocieteComponent },
+    { path: 'add-protocole-societe/:id',           component: InsertProtocoleSocieteComponent },
+    { path: 'modify-protocole-societe',           component: ModifyProtocoleSocieteComponent },
 ];
