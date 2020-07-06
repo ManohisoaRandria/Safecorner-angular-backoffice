@@ -17,5 +17,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'societe',           component: InsertSocieteComponent },
     { path: 'add-protocole-societe',           component: InsertProtocoleSocieteComponent },
     { path: 'add-protocole-societe/:id',           component: InsertProtocoleSocieteComponent },
-    { path: 'modify-protocole-societe',           component: ModifyProtocoleSocieteComponent },
+    { path: 'modif-protocole-societe/:id',           component: ModifyProtocoleSocieteComponent },
 ];

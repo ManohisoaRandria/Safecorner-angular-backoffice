@@ -1,1 +1,149 @@
-<p>insert-protocole-societe works!</p>
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col-lg-6 ">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Protocole
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">Insert</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-success text-white rounded-circle shadow"
+                  >
+                    <i class="ni ni-fat-add"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 " (click)="goToUpdate()">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">
+                          Protocole
+                        </h5>
+                        <span class="h2 font-weight-bold mb-0">Update/Delete</span>
+                      </div>
+                      <div class="col-auto">
+                        <div
+                          class="icon icon-shape bg-blue text-white rounded-circle shadow"
+                        >
+                          <i class="ni ni-ruler-pencil"></i>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-2 mb-3 mb-xl-0"></div>
+    <div class="col-xl-8 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-uppercase text-light ls-1 mb-1">Nouveau</h6>
+              <h2 class="text-back mb-0">Ajout Protocole pour societe.</h2>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" [ngClass]="classBlocSociete">
+          <form>
+            <h6 class="heading-small text-muted mb-4">categorie</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country"
+                      >Categorie du protocole</label
+                    >
+                    <select name="categorie" class="form-control form-control-alternative">
+                      <option value="1">perso</option>
+                      <option value="2">client</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">NOM</th>
+                    <th scope="col">DUREE</th>
+                    <th scope="col">CHOISIR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Gastro Pizza
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input
+                              type="number"
+                              name="lat"
+                              class="form-control form-control-alternative"
+                              placeholder="duree(en heure)"
+                            />
+                          </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="checkbox" style="width: 30px;height: 30px;"/>
+                          </div>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td>
+                        Gastro Pizza
+                      </td>
+                      <td>
+                          <div class="form-group">
+                              <input
+                                type="number"
+                                name="lat"
+                                class="form-control form-control-alternative"
+                                placeholder="duree(en heure)"
+                              />
+                            </div>
+                      </td>
+                      <td>
+                          <div class="form-group">
+                              <input type="checkbox" style="width: 30px;height: 30px;"/>
+                            </div>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 offset-lg-8">
+                  <input type="submit" class="btn btn-primary form-control" value="insert">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
