@@ -16,12 +16,8 @@
             </div>
             <div class="col">
               <ul class="nav nav-pills justify-content-end">
-                <li class="nav-item">
-                  <i
-                    [ngClass]="classIconActive"
-                    class="icon_activation_insert_societe"
-                    (click)="onAnimeBlocInsertSociete()"
-                  ></i>
+                <li class="nav-item" (click)="onAnimeBlocInsertSociete()">
+                  <i [ngClass]="classIconActive"></i>
                 </li>
               </ul>
             </div>
@@ -248,7 +244,7 @@
                   5.5
                 </td>
                 <td>
-                  <div class="col text-center">
+                  <div class="col text-left">
                     <a
                       [routerLink]="['/add-protocole-societe', 2]"
                       class="btn btn-sm btn-primary"

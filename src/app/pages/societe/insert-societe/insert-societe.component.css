@@ -18,16 +18,22 @@
 
 .bloc_form_insert_societe_active{
     height: auto;
-    transition: transform .2s;
+    transition: transform .2s linear;
     transform: scaleY(1);
     transform-origin: top;
 }
 
 .bloc_form_insert_societe_non_active{
-    transition: transform .2s;
+    transition: transform .2s ease-in-out;
+    transition: height .6s ease-in-out;
     transform: scaleY(0);
     transform-origin: top;
     height: 0px;
+}
+.bloc_form_insert_societe_non_active_initial{/*hi evitena anle animation am volou vo miditra amle page*/
+  transform: scaleY(0);
+  transform-origin: top;
+  height: 0px;
 }
 
 /* proproete icon */
