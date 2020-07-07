@@ -1,0 +1,200 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body"></div>
+    </div>
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-2 mb-3 mb-xl-0"></div>
+      <div class="col-xl-8 mb-5 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header bg-transparent">
+            <div class="row align-items-center">
+              <div class="col">
+                <h6 class="text-uppercase text-light ls-1 mb-1">Decente</h6>
+                <h2 class="text-back mb-0">La société</h2>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-username"
+                        >Nom</label
+                      >
+                     <h4>Gastro Pizza</h4>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-username"
+                        >Email</label
+                      >
+                     <h4>gastro@gmail.com</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Lieu</label
+                        >
+                       <h4>Tana</h4>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-username"
+                            >Tel</label
+                          >
+                         <h4>+26132 56 987 25</h4>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Description</label
+                        >
+                       <h4>ksjhgfjdgfjgsjfg cvxcvxcvx xdcvxcv xcvxcv xzdcvxcv xcvsdfwqlekshdfskjhe ehfiuwgddkfhdih r riutheig riueh riuhieuyr </h4>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-xl-2 mb-3 mb-xl-0"></div>
+      <div class="col-xl-8 mb-5 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Les protocoles</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Projects table -->
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan=3 >PERSO</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">DESCRIPTION</th>
+                        <th scope="col">DUREE</th>
+                        <th scope="col" class="text-right">APPLICATION</th>
+                    </tr>
+                </thead>
+              <tbody>
+                <tr>
+                  <th>
+                   Blabla
+                  </th>
+                  <td>
+                  48 heures
+                  </td>
+                  <td>
+                    <div class="form-group text-right" style="margin: 0px;">
+                        <input type="checkbox" style="width: 30px;height: 30px; margin:0px" (change)="onApplique($event)" />
+                      </div>
+                  </td>
+                </tr>
+              </tbody>
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" colspan=3 >CLIENT</th>
+                </tr>
+                <tr>
+                    <th scope="col">NOM</th>
+                    <th scope="col">DUREE</th>
+                    <th scope="col" class="text-right">APPLICATION</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>
+                    Blabla
+                  </th>
+                  <td>
+                    48 heure
+                  </td>
+                  <td>
+                    <div class="form-group text-right" style="margin: 0px;">
+                        <input type="checkbox" style="width: 30px;height: 30px; margin:0px" (change)="onApplique($event)"/>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                    <th>
+                      Blabla
+                    </th>
+                    <td>
+                      48 heure
+                    </td>
+                    <td>
+                      <div class="form-group text-right" style="margin: 0px;">
+                          <input type="checkbox" style="width: 30px;height: 30px; margin:0px" value="b" (change)="onApplique($event)"/>
+                        </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer py-4">
+              <div class="row">
+                  <div class="col-lg-6">
+                      <p>Nombre de protocoles appliquées: {{nombreApplique}}</p>
+                  </div>
+                  <div class="col-lg-6 text-right">
+                    <button class="btn btn-primary">VALIDER</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-xl-2 mb-3 mb-xl-0"></div>
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Historique descente</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                      <th scope="col">POINT</th>
+                      <th scope="col">DATE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      5.6
+                    </th>
+                    <td>
+                      07 jul 2020
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  
