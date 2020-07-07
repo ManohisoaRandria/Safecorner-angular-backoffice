@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-modify-protocole-societe',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModifyProtocoleSocieteComponent implements OnInit {
 
-  constructor() { }
+  id:string="";
+  constructor(private router:Router,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id=this.route.snapshot.params['id'];
+  }
+  goToInsert(){
+    this.router.navigate(['/add-protocole-societe',this.id]);
   }
 
 }

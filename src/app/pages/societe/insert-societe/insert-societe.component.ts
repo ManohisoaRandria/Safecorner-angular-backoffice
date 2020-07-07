@@ -21,7 +21,9 @@ export class InsertSocieteComponent implements OnInit {
   categorie:string = "";
   lat:number = 0;
   lng:number = 0;
-
+//animation bloc insert societe
+classIconActive:string = "ni ni-bold-down icon_activation_insert_societe";
+classBlocSociete:string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
   constructor() { }
 
   ngOnInit(): void {
@@ -39,16 +41,15 @@ export class InsertSocieteComponent implements OnInit {
     });
   }
 
-  //animation bloc insert societe
-  classIconActive:string = "ni ni-bold-down"; 
-  classBlocSociete:string = "bloc_form_insert_societe bloc_form_insert_societe_non_active";
+
   onAnimeBlocInsertSociete(){
-    if(this.classBlocSociete == "bloc_form_insert_societe bloc_form_insert_societe_non_active"){
+    if(this.classBlocSociete == "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial" ||
+    this.classBlocSociete == "bloc_form_insert_societe bloc_form_insert_societe_non_active"){
       this.classBlocSociete = "bloc_form_insert_societe bloc_form_insert_societe_active";
-      this.classIconActive = "ni ni-bold-up";
+      this.classIconActive = "ni ni-bold-up icon_activation_insert_societe";
     }else{
       this.classBlocSociete = "bloc_form_insert_societe bloc_form_insert_societe_non_active";
-      this.classIconActive = "ni ni-bold-down";
+      this.classIconActive = "ni ni-bold-down icon_activation_insert_societe";
     }
   }
 
@@ -65,7 +66,7 @@ export class InsertSocieteComponent implements OnInit {
   //AUTRE FONCTION
   onAddCoordSociete(){
     this.lat = this.marker._latlng.lat;
-    this.lng = this.marker._latlng.lng; 
+    this.lng = this.marker._latlng.lng;
   }
 
 }
