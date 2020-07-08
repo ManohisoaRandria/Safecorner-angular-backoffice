@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { DescenteComponent } from './pages/societe/descente/descente.component';
+import { InsertComponent } from './pages/insert/insert.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { DescenteComponent } from './pages/societe/descente/descente.component';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    DescenteComponent
+    DescenteComponent,
+    InsertComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -35,7 +35,6 @@ classBlocSociete:string = "bloc_form_insert_societe bloc_form_insert_societe_non
         this.map.removeLayer(this.marker);
       }
       this.marker = L.marker(e.latlng);
-      console.log(this.marker);
       this.marker.bindPopup("<p>lat: "+e.latlng.lat+"</p><p>lng: "+e.latlng.lng+"</p>").openPopup();
       this.marker.addTo(this.map);
     });

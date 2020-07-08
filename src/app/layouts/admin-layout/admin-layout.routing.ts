@@ -2,6 +2,7 @@ import { ModifyProtocoleSocieteComponent } from './../../pages/societe/protocole
 import { InsertProtocoleSocieteComponent } from './../../pages/societe/protocole/insert-protocole-societe/insert-protocole-societe.component';
 import { InsertSocieteComponent } from './../../pages/societe/insert-societe/insert-societe.component';
 import { DescenteComponent } from './../../pages/societe/descente/descente.component';
+import { InsertComponent } from './../../pages/insert/insert.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -20,4 +21,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'add-protocole-societe/:id',           component: InsertProtocoleSocieteComponent },
     { path: 'modif-protocole-societe/:id',           component: ModifyProtocoleSocieteComponent },
     { path: 'descente-societe/:id',           component: DescenteComponent },
+    { path: 'insert',           component: InsertComponent },
 ];

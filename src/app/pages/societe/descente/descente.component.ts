@@ -17,7 +17,8 @@ export class DescenteComponent implements OnInit {
   }
 
   onApplique($event){
-    if(event.target.checked){
+    const target = event.target as HTMLInputElement;
+    if(target.checked){
       this.nombreApplique++;
     }else{
       if(this.nombreApplique > 0){
