@@ -11,6 +11,7 @@ import "leaflet/dist/images/marker-icon-2x.png";
   styleUrls: ['./insert-societe.component.css']
 })
 export class InsertSocieteComponent implements OnInit {
+  erreur:string = "";
   private map:any;
   private marker:any = null;
   nom = "";
@@ -18,7 +19,7 @@ export class InsertSocieteComponent implements OnInit {
   descritpion:string = "";
   email:string = "";
   tel:string = "";
-  categorie:string = "";
+  categorie:string = "";      
   lat:number = 0;
   lng:number = 0;
 //animation bloc insert societe
