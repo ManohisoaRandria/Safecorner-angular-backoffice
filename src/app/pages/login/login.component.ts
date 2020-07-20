@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.messageErreur='';
     this.auth.login(form.value.nom,form.value.mdp).then(res => {
       console.log(res);
+      form.reset();
       this.router.navigate(['/dashboard']);
     }).catch(err => {
       this.messageErreur=err.error.message;
