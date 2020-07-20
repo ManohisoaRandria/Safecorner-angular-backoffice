@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { DescenteComponent } from './pages/societe/descente/descente.component';
 import { InsertComponent } from './pages/insert/insert.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { InsertComponent } from './pages/insert/insert.component';
   ],
   providers: [
     AuthService,
-    {provide:HTTP_INTERCEPTORS,useClass:WebRequestInterceptorService,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:WebRequestInterceptorService,multi:true},
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

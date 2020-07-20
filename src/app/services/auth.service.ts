@@ -41,12 +41,19 @@ export class AuthService {
       })
     });
   }
+  isAuth(){
+    if(!localStorage.getItem('ngam') && !localStorage.getItem('ngam')){
+      return false;
+    }
+    return true;
+  }
   logout() {
     this.http.post(this.BASE_URL + 'user/logout', {}).subscribe(res => {
       localStorage.removeItem('ngam');
       localStorage.removeItem('ngamAt');
       //redirection makany am login
       console.log("logged out");
+      this.router.navigate(['/login']);
     },
       err => {
         console.log(err);
@@ -88,7 +95,7 @@ export class AuthService {
   //get set Base_URL
   public getBASE_URL(){
     return this.BASE_URL;
-  } 
+  }
 
   public setBASE_URL(valeur:String){
     this.BASE_URL = valeur;
