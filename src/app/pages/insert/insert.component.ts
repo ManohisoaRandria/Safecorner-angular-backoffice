@@ -70,7 +70,7 @@ animationClass:any = [
     const requestOptions = {
       headers: header
     };
-    this.http.post('http://localhost:80/safecorner/api/v1/categorieSociete',JSON.stringify(info),requestOptions).subscribe(res => {
+    this.http.post('http://localhost:80/safecorner-api/api/v1/categorieSociete',JSON.stringify(info),requestOptions).subscribe(res => {
       console.log(res);
     }, error => {
       console.log(error);
