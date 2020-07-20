@@ -70,4 +70,3 @@ classBlocSociete:string = "bloc_form_insert_societe bloc_form_insert_societe_non
   }
 
 }
-
