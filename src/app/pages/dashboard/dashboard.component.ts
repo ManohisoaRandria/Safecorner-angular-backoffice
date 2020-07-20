@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
   login() {
-    this.auth.login('rakoto', '123').then(res => {
+    this.auth.login('Tahiana', '1234').then(res => {
       console.log(res);
     }).catch(err => {
       console.log(err);

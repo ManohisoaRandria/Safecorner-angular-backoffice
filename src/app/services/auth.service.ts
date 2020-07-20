@@ -84,4 +84,13 @@ export class AuthService {
   getAccTok(): string {
     return localStorage.getItem('ngamAt');
   }
+
+  //get set Base_URL
+  public getBASE_URL(){
+    return this.BASE_URL;
+  } 
+
+  public setBASE_URL(valeur:String){
+    this.BASE_URL = valeur;
+  }
 }
