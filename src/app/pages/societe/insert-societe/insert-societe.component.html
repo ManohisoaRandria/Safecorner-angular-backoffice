@@ -24,6 +24,8 @@
           </div>
         </div>
         <div class="card-body" [ngClass]="classBlocSociete">
+          <p class="text-erreur" *ngIf="erreur != ''" >{{erreur}}</p>
+          <p class="text-success" *ngIf="success != ''" >{{success}}</p>
           <form>
             <h6 class="heading-small text-muted mb-4">information</h6>
             <div class="pl-lg-4">
@@ -159,9 +161,9 @@
                       [(ngModel)]="categorie"
                       class="form-control form-control-alternative"
                     >
-                      <option value="1">test</option>
-                      <option value="2">test1</option>
-                      <option value="3">test2</option>
+                      <option value="CS0001">Restaurant</option>
+                      <option value="CS0006">Supermarché</option>
+                      <option value="CS0009">Pharmacie</option>
                     </select>
                   </div>
                 </div>
@@ -170,7 +172,7 @@
                     <label class="form-control-label" for="input-country"
                       >Validation</label
                     >
-                    <button class="btn btn-primary form-control ">
+                    <button class="btn btn-primary form-control " (click)="onInsertSociete()">
                       VALIDER
                     </button>
                   </div>
