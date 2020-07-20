@@ -6,6 +6,10 @@
     color: rgb(241, 28, 28);
 }
 
+.text-success{
+    color: rgb(18, 136, 14);
+}
+
 .rond {
     width: 20px;
     height: 20px;

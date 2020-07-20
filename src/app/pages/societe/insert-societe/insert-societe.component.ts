@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InsertService } from '../../../services/insert.service';
 
 import * as L from "node_modules/leaflet";
 
@@ -12,6 +13,7 @@ import "leaflet/dist/images/marker-icon-2x.png";
 })
 export class InsertSocieteComponent implements OnInit {
   erreur:string = "";
+  success:string = "";
   private map:any;
   private marker:any = null;
   nom = "";
@@ -25,11 +27,10 @@ export class InsertSocieteComponent implements OnInit {
 //animation bloc insert societe
 classIconActive:string = "ni ni-bold-down icon_activation_insert_societe";
 classBlocSociete:string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
-  constructor() { }
+  constructor(private insertService:InsertService) { }
 
   ngOnInit(): void {
     this.showMap();
-
     //MOUS EVENT
     this.map.on('click',(e)=>{ //ajouter des marker sur la map
       if(this.marker != null){
@@ -69,4 +70,17 @@ classBlocSociete:string = "bloc_form_insert_societe bloc_form_insert_societe_non
     this.lng = this.marker._latlng.lng;
   }
 
+
+  //INSERTION SOCIETE
+  onInsertSociete(){
+    this.insertService.Societe(this.nom,this.categorie,this.descritpion,this.lieu,this.email,this.tel,this.lat,this.lng).then((res:any)=>{
+      this.erreur = "";
+      this.success = res['message'];
+    }).catch((error)=>{
+      this.success = "";
+      console.log(error);
+      this.erreur = error['error']['message'];
+    }
+  );
+  }
 }
