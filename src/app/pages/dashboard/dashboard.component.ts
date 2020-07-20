@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 
@@ -22,8 +23,24 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  constructor() { }
-
+  constructor(private auth: AuthService) { }
+  login() {
+    this.auth.login('rakoto', '123').then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+  logout(){
+    this.auth.logout();
+  }
+  recherche() {
+    this.auth.recherche().then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
   ngOnInit() {
 
     this.datasets = [
@@ -47,10 +64,10 @@ export class DashboardComponent implements OnInit {
     var chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+      type: 'line',
+      options: chartExample1.options,
+      data: chartExample1.data
+    });
   }
 
 
