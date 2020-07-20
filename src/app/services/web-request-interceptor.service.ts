@@ -9,17 +9,15 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class WebRequestInterceptorService implements HttpInterceptor {
-
-  private BASE_URL: String = 'https://safe-corner-api.herokuapp.com/api/v1/';
   private HAH = 'keyBackOfficeRFTenc-api';
   constructor(private auth: AuthService) { }
-test:Boolean=false;
+  test:Boolean=false;
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    let tabTest = req.url.split('' + this.BASE_URL);
+    let tabTest = req.url.split('' + this.auth.getBASE_URL());
     if (tabTest.length == 2) {
-      console.log(req.url.split('' + this.BASE_URL));
+      console.log(req.url.split('' + this.auth.getBASE_URL()));
 
       if (tabTest[1] != 'user/login') {
         //refa requette tsotra de tokony tsisy refreshtoken fa access token ihany
