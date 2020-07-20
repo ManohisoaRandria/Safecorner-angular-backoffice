@@ -1,6 +1,8 @@
-import { Injectable, OnInit} from '@angular/core'; 
+import { Injectable, OnInit} from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
+import { Societe } from '../modele/societe';
+import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class InsertService {
 
     constructor(private authService:AuthService,
-                private http:HttpClient) {
+                private http:HttpClient,private api: ApiService) {
     }
 
     //insert categorie societe
@@ -68,7 +70,13 @@ export class InsertService {
                 "coordLong":coordLong
             }
             this.http.post(this.authService.getBASE_URL() + 'societe',data).subscribe(res => {
-              resolve(res);
+              let societe=new Societe(res['data'].id,
+                res['data'].nom, res['data'].idCategorieSociete,
+                res['data'].description, res['data'].lieu,
+                res['data'].dateCreation, res['data'].email,
+                res['data'].tel, res['data'].coordonnee,0);
+                this.api.addSociete(societe);
+              resolve(societe);
             }, error => {
               reject(error);
             })

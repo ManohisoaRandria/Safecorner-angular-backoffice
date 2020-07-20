@@ -1,4 +1,5 @@
 export class Societe {
+
   constructor(public id,
     public nom,
     public idCategorieSociete,
@@ -7,7 +8,7 @@ export class Societe {
     public dateCreation,
     public email,
     public tel,
-    public coordonnee){
+    public coordonnee,public points){
 
   }
 }
