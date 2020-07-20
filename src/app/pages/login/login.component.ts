@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   messageErreur:string='';
-
+loading:boolean=false;
   constructor(private auth: AuthService,private router:Router) {}
 
   ngOnInit() {
@@ -19,11 +19,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   login(form:NgForm) {
     this.messageErreur='';
+    this.loading=true;
     this.auth.login(form.value.nom,form.value.mdp).then(res => {
       console.log(res);
       form.reset();
+      this.loading=false;
       this.router.navigate(['/dashboard']);
     }).catch(err => {
+      this.loading=false;
       this.messageErreur=err.error.message;
     });
   }

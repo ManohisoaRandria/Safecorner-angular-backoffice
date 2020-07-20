@@ -17,7 +17,7 @@ import { ComponentsModule } from './components/components.module';
 import { DescenteComponent } from './pages/societe/descente/descente.component';
 import { InsertComponent } from './pages/insert/insert.component';
 import { AuthGuardService } from './services/auth-guard.service';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -26,7 +26,8 @@ import { AuthGuardService } from './services/auth-guard.service';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatProgressBarModule
   ],
   declarations: [
     AppComponent,
