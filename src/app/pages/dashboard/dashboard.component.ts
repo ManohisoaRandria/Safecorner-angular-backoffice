@@ -54,7 +54,6 @@ export class DashboardComponent implements OnInit {
 
     parseOptions(Chart, chartOptions());
 
-
     var ordersChart = new Chart(chartOrders, {
       type: 'bar',
       options: chartExample2.options,
