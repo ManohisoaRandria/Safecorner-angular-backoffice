@@ -1,7 +1,7 @@
 # [Safe Corner Back-Office](https://git.heroku.com/safe-corner-api.git)
 
 ## Quick start
-- Clone the repo: `git clone https://github.com/creativetimofficial/argon-dashboard-angular.git`.
+- Clone the repo: `git clone https://gitlab.com/ManohisoaRandria/safecorner-backoffice.git`.
 - npm install
 - ng serve
 
@@ -14,7 +14,7 @@ At present, we officially aim to support the last two versions of the following 
 ## Resources
 - Demo: <https://git.heroku.com/safe-corner-api.git>
 
-### Social Media
+### Developers
 
 Manohisoa: <https://web.facebook.com/randriambahiny1?ref=bookmarks>
 
