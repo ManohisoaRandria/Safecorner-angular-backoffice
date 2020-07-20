@@ -25,7 +25,8 @@
           </div>
           <div class="card-body" [ngClass]="animationClass[0].blocActive" >
             <form>
-                <p class="text-erreur" *ngIf="messageErreurInsertCategorieSociete != ''" >{{messageErreurInsertCategorieSociete}}</p>
+              <p class="text-erreur" *ngIf="messageErreurInsertCategorieSociete != ''" >{{messageErreurInsertCategorieSociete}}</p>
+              <p class="text-success" *ngIf="messageSuccessInsertCategorieSociete != ''" >{{messageSuccessInsertCategorieSociete}}</p>
               <div class="pl-lg-4">
                 <div class="row">
                   <div class="col-lg-6">
@@ -81,6 +82,7 @@
             <div class="card-body" [ngClass]="animationClass[1].blocActive" >
               <form>
                 <p class="text-erreur" *ngIf="messageErreurInsertCategorieProtocole != ''" >{{messageErreurInsertCategorieProtocole}}</p>
+                <p class="text-success" *ngIf="messageSuccessInsertCategorieProtocole != ''" >{{messageSuccessInsertCategorieProtocole}}</p>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-6">
@@ -102,7 +104,7 @@
                         <label class="form-control-label" for="input-country"
                           >Validation</label
                         >
-                        <button class="btn btn-primary form-control ">
+                        <button class="btn btn-primary form-control " (click)="onInsertCategorieProtocole()">
                           VALIDER
                         </button>
                       </div>
@@ -136,6 +138,7 @@
             <div class="card-body" [ngClass]="animationClass[2].blocActive" >
               <form>
                 <p class="text-erreur" *ngIf="messageErreurInsertProtocole != ''" >{{messageErreurInsertProtocole}}</p>
+                <p class="text-success" *ngIf="messageSuccessInsertProtocole != ''" >{{messageSuccessInsertProtocole}}</p>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-6">
@@ -157,7 +160,7 @@
                         <label class="form-control-label" for="input-country"
                           >Validation</label
                         >
-                        <button class="btn btn-primary form-control ">
+                        <button class="btn btn-primary form-control " (click)="onInsertProtocole()">
                           VALIDER
                         </button>
                       </div>
