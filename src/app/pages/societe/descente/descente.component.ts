@@ -16,7 +16,10 @@ import { from } from 'rxjs';
 })
 export class DescenteComponent implements OnInit {
   private id:string = "";
+  erreur = "";
+  success = "";
   societe:Societe;
+  loading:boolean = false;
   nombreApplique:number = 0;
   protocoleClient:Protocole[];
   protocolePerso:Protocole[];
@@ -36,9 +39,11 @@ export class DescenteComponent implements OnInit {
       }
     });
     //maka anle protocole rehetra amnio societe io
+    this.loading = true;
     this.getService.getProtocolesBySociete(this.id).then((res:any)=>{
       this.protocolePerso = res.perso;
       this.protocoleClient = res.client;
+      this.loading = false;
     }).catch(err=>{
       console.log(err);
     })
@@ -57,7 +62,22 @@ export class DescenteComponent implements OnInit {
 
   //insertion de l'historique de la descente
   onInsertHistoDescente(form:NgForm){
-    this.nombreApplique = 0;
-    form.reset();
+    if(form.value.description != ""){
+      this.loading = true;
+      this.insertService.historiqueDescente(this.societe.id,form.value.description,this.nombreApplique).then((res: any) => {
+        this.erreur = "";
+        this.success = res['message'];
+        this.nombreApplique = 0;
+        form.reset();
+        this.loading = false;
+      }).catch((error) => {
+        this.success = "";
+        console.log(error);
+        this.erreur = error['error']['message'];
+      }
+      );
+    }else{
+      this.erreur = "Invalid description.";
+    }
   }
 }

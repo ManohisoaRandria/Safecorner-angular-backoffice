@@ -81,8 +81,27 @@
             </div>
           </div>
           <form (ngSubmit)="onInsertHistoDescente(f)" #f="ngForm" >
+            <div class="pl-lg-4">
+              <p class="text-erreur" *ngIf="erreur != ''" >{{erreur}}</p>
+              <p class="text-success" *ngIf="success != ''" >{{success}}</p>
+              <div class="row">
+                <div class="col-lg-11">
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea
+                      rows="4"
+                      name="description"
+                      class="form-control form-control-alternative"
+                      placeholder="..."
+                      ngModel
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="table-responsive">
               <!-- Projects table -->
+              <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
               <table class="table align-items-center table-flush">
                   <thead class="thead-light">
                       <tr>
@@ -142,7 +161,7 @@
                         <p>Nombre de protocoles appliquées: {{nombreApplique}}</p>
                     </div>
                     <div class="col-lg-6 text-right">
-                      <input type="submit" class="btn btn-primary" value="insert" />
+                      <input type="submit" class="btn btn-primary" value="insert"/>
                     </div>
                 </div>
             </div>
