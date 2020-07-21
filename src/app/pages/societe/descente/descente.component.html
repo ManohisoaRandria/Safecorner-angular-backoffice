@@ -24,7 +24,7 @@
                       <label class="form-control-label" for="input-username"
                         >Nom</label
                       >
-                     <h4>Gastro Pizza</h4>
+                     <h4>{{ societe.nom }}</h4>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -32,7 +32,7 @@
                       <label class="form-control-label" for="input-username"
                         >Email</label
                       >
-                     <h4>gastro@gmail.com</h4>
+                     <h4>{{societe.email}}</h4>
                     </div>
                   </div>
                 </div>
@@ -42,7 +42,7 @@
                         <label class="form-control-label" for="input-username"
                           >Lieu</label
                         >
-                       <h4>Tana</h4>
+                       <h4>{{societe.lieu}}</h4>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -50,7 +50,7 @@
                           <label class="form-control-label" for="input-username"
                             >Tel</label
                           >
-                         <h4>+26132 56 987 25</h4>
+                         <h4>{{societe.tel}}</h4>
                         </div>
                       </div>
                   </div>
@@ -60,7 +60,7 @@
                         <label class="form-control-label" for="input-username"
                           >Description</label
                         >
-                       <h4>ksjhgfjdgfjgsjfg cvxcvxcvx xdcvxcv xcvxcv xzdcvxcv xcvsdfwqlekshdfskjhe ehfiuwgddkfhdih r riutheig riueh riuhieuyr </h4>
+                       <h4>{{societe.description}}</h4>
                       </div>
                     </div>
                   </div>
@@ -80,84 +80,73 @@
               </div>
             </div>
           </div>
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                    <tr>
-                        <th colspan=3 >PERSO</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">DESCRIPTION</th>
-                        <th scope="col">DUREE</th>
-                        <th scope="col" class="text-right">APPLICATION</th>
-                    </tr>
-                </thead>
-              <tbody>
-                <tr>
-                  <th>
-                   Blabla
-                  </th>
-                  <td>
-                  48 heures
-                  </td>
-                  <td>
-                    <div class="form-group text-right" style="margin: 0px;">
-                        <input type="checkbox" style="width: 30px;height: 30px; margin:0px" (change)="onApplique($event)" />
-                      </div>
-                  </td>
-                </tr>
-              </tbody>
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col" colspan=3 >CLIENT</th>
-                </tr>
-                <tr>
-                    <th scope="col">NOM</th>
-                    <th scope="col">DUREE</th>
-                    <th scope="col" class="text-right">APPLICATION</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>
-                    Blabla
-                  </th>
-                  <td>
-                    48 heure
-                  </td>
-                  <td>
-                    <div class="form-group text-right" style="margin: 0px;">
-                        <input type="checkbox" style="width: 30px;height: 30px; margin:0px" (change)="onApplique($event)"/>
-                      </div>
-                  </td>
-                </tr>
-                <tr>
+          <form (ngSubmit)="onInsertHistoDescente(f)" #f="ngForm" >
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                      <tr>
+                          <th colspan=3 >PERSO</th>
+                      </tr>
+                      <tr>
+                          <th scope="col">NOM</th>
+                          <th scope="col">DUREE</th>
+                          <th scope="col" class="text-right">APPLICATION</th>
+                      </tr>
+                  </thead>
+                <tbody>
+                  <tr *ngFor="let proto of protocolePerso">
                     <th>
-                      Blabla
+                    {{proto.nom}}
                     </th>
                     <td>
-                      48 heure
+                    {{proto.duree}} heures
                     </td>
                     <td>
                       <div class="form-group text-right" style="margin: 0px;">
-                          <input type="checkbox" style="width: 30px;height: 30px; margin:0px" value="b" (change)="onApplique($event)"/>
+                          <input type="checkbox" name="chek" style="width: 30px;height: 30px; margin:0px" ngModel (change)="onApplique($event)"  />
                         </div>
                     </td>
                   </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="card-footer py-4">
-              <div class="row">
-                  <div class="col-lg-6">
-                      <p>Nombre de protocoles appliquées: {{nombreApplique}}</p>
-                  </div>
-                  <div class="col-lg-6 text-right">
-                    <button class="btn btn-primary">VALIDER</button>
-                  </div>
-              </div>
-          </div>
+                </tbody>
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" colspan=3 >CLIENT</th>
+                  </tr>
+                  <tr>
+                      <th scope="col">NOM</th>
+                      <th scope="col">DUREE</th>
+                      <th scope="col" class="text-right">APPLICATION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let proto of protocoleClient" >
+                    <th>
+                      {{proto.nom}}
+                    </th>
+                    <td>
+                      {{proto.duree}} heure
+                    </td>
+                    <td>
+                      <div class="form-group text-right" style="margin: 0px;">
+                          <input type="checkbox" name="chek" style="width: 30px;height: 30px; margin:0px" ngModel (change)="onApplique($event)" />
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer py-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>Nombre de protocoles appliquées: {{nombreApplique}}</p>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                      <input type="submit" class="btn btn-primary" value="insert" />
+                    </div>
+                </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
