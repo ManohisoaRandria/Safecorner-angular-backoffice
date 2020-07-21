@@ -8,6 +8,8 @@ import { CategorieProtocole } from '../../../../modele/categorie-protocole';
 import { element } from 'protractor';
 import { NgForm } from '@angular/forms';
 import { InsertService } from '../../../../services/insert.service';
+import { GetService } from '../../../../services/get.service';
+import { resolve } from 'path';
 
 @Component({
   selector: 'app-insert-protocole-societe',
@@ -27,7 +29,8 @@ CategorieProtocoleSubscription: Subscription;
   constructor(private router:Router,
               private route:ActivatedRoute,
               private api:ApiService,
-              private insertService:InsertService) { }
+              private insertService:InsertService,
+              private getService:GetService) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -38,11 +41,6 @@ CategorieProtocoleSubscription: Subscription;
       }
     });
     this.protocoleChoisi = [];
-    this.protocoleSubscription = this.api.protocolesSubject.subscribe(
-      (protocole: Protocole[]) => {
-        this.protocoles = protocole;
-      }
-    );
     this.CategorieProtocoleSubscription = this.api.CategorieProtocoleSubject.subscribe(
       (catep: CategorieProtocole[]) => {
         this.CategorieProtocole = catep;
@@ -67,25 +65,45 @@ CategorieProtocoleSubscription: Subscription;
     }
   }
 
+  //set Protocoles
+  setProtocole(idSociete,idCategorieSociete){
+    this.getService.getOutProtocoleSociete(idSociete,idCategorieSociete).then((res:Protocole[])=>{
+      this.protocoles = res;
+      console.log(this.protocoles);
+    }).catch(err=>{
+      console.log(err);
+      this.router.navigate(['societe']);    
+    });
+  }
+
+  //onChangeProtocole
+  onChangeProtocole(event){
+    const target = event.target as HTMLInputElement;
+    this.setProtocole(this.societe.id,target.value);
+  }
+
   //add protocole
   onAddProtocole(form: NgForm){
     var protoChoisi = [];
-    this.protocoleChoisi.forEach(element => {
-      protoChoisi.push({
-        "idProtocole":element.id,
-        "duree":+form.value[element.id]
+    if(this.protocoleChoisi.length >= 1){
+      this.protocoleChoisi.forEach(element => {
+        protoChoisi.push({
+          "idProtocole":element.id,
+          "duree":+form.value[element.id]
+        });
       });
-    });
-    this.insertService.AddProtocoleSociete(this.societe.id,form.value.categorie,
-      protoChoisi).then((res: any) => {
-        this.erreur = "";
-        this.success = res['message'];
-        form.reset();
-        this.protocoleChoisi = [];
-      }).catch((error) => {
-        this.success = "";
-        this.erreur = error['error']['message'];
-      }
-    );
+      this.insertService.AddProtocoleSociete(this.societe.id,form.value.categorie,
+        protoChoisi).then((res: any) => {
+          this.erreur = "";
+          this.success = res['message'];
+          form.reset();
+          this.protocoleChoisi = [];
+          this.protocoles = [];
+        }).catch((error) => {
+          this.success = "";
+          this.erreur = error['error']['message'];
+        }
+      );
+    }else{ this.erreur = "Choisissez un ou plusieurs protocole(s).";}
   }
 }
