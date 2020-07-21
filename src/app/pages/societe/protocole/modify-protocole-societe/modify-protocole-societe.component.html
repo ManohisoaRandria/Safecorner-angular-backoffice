@@ -25,176 +25,174 @@
           </div>
         </div>
         <div class="col-lg-6" (click)="goToInsert()">
-            <div class="card card-stats mb-4 mb-xl-0">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">
-                      Protocole
-                    </h5>
-                    <span class="h2 font-weight-bold mb-0">Insert</span>
-                  </div>
-                  <div class="col-auto">
-                    <div
-                      class="icon icon-shape bg-success text-white rounded-circle shadow"
-                    >
-                      <i class="ni ni-fat-add"></i>
-                    </div>
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Protocole
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">Insert</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-success text-white rounded-circle shadow"
+                  >
+                    <i class="ni ni-fat-add"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <div class="container-fluid mt--7">
-    <div class="row">
-      <div class="col-xl-2 mb-3 mb-xl-0"></div>
-      <div class="col-xl-8 mb-5 mb-xl-0">
-        <div class="card shadow">
-          <div class="card-header bg-transparent">
-            <div class="row align-items-center">
-              <div class="col">
-                <h6 class="text-uppercase text-light ls-1 mb-1">Modifier</h6>
-                <h2 class="text-back mb-0">Update/delete Protocole pour societe.</h2>
-              </div>
+  <div class="row">
+    <div class="col-xl-2 mb-3 mb-xl-0"></div>
+    <div class="col-xl-8 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-uppercase text-light ls-1 mb-1">Modifier</h6>
+              <h2 class="text-back mb-0">
+                Update/delete Protocole pour societe.
+              </h2>
             </div>
           </div>
-          <div class="card-body" [ngClass]="classBlocSociete">
-            <form>
-                <h6 class="heading-small text-muted mb-4">Protocoles pour les Clients</h6>
-                <div class="table-responsive">
-                    <!-- Projects table -->
-                    <table class="table align-items-center table-flush">
-                      <thead class="thead-light">
-                        <tr>
-                          <th scope="col">NOM</th>
-                          <th scope="col">DUREE</th>
-                          <th scope="col">CHOISIR</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            Gastro Pizza
-                          </td>
-                          <td>
-                              <div class="form-group">
-                                  <input
-                                    type="number"
-                                    name="lat"
-                                    class="form-control form-control-alternative"
-                                    placeholder="duree(en heure)"
-                                  />
-                                </div>
-                          </td>
-                          <td>
-                              <div class="form-group">
-                                  <input type="checkbox" style="width: 30px;height: 30px;"/>
-                                </div>
-                          </td>
-                        </tr>
-                        <tr>
-                            <td>
-                              Gastro Pizza
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input
-                                      type="number"
-                                      name="lat"
-                                      class="form-control form-control-alternative"
-                                      placeholder="duree(en heure)"
-                                    />
-                                  </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="checkbox" style="width: 30px;height: 30px;"/>
-                                  </div>
-                            </td>
-                          </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4 offset-lg-4 mb-2">
-                        <input type="submit" class="btn btn-danger form-control" value="Delete">
-                    </div>
-                    <div class="col-lg-4">
-                        <input type="submit" class="btn btn-primary form-control" value="update">
-                    </div>
-                  </div>
-              <hr class="my-4" />
-              <h6 class="heading-small text-muted mb-4">Protocole pour les personnels</h6>
-              <div class="table-responsive">
-                <!-- Projects table -->
-                <table class="table align-items-center table-flush">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">NOM</th>
-                      <th scope="col">DUREE</th>
-                      <th scope="col">CHOISIR</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        Gastro Pizza
-                      </td>
-                      <td>
-                          <div class="form-group">
-                              <input
-                                type="number"
-                                name="lat"
-                                class="form-control form-control-alternative"
-                                placeholder="duree(en heure)"
-                              />
-                            </div>
-                      </td>
-                      <td>
-                          <div class="form-group">
-                              <input type="checkbox" style="width: 30px;height: 30px;"/>
-                            </div>
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>
-                          Gastro Pizza
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <input
-                                  type="number"
-                                  name="lat"
-                                  class="form-control form-control-alternative"
-                                  placeholder="duree(en heure)"
-                                />
-                              </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <input type="checkbox" style="width: 30px;height: 30px;"/>
-                              </div>
-                        </td>
-                      </tr>
-                  </tbody>
-                </table>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onModifClient(fclient)" #fclient="ngForm">
+            <h6 class="heading-small text-muted mb-4">
+              Protocoles pour les Clients
+            </h6>
+            <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">NOM</th>
+                    <th scope="col">DUREE</th>
+                    <th scope="col">CHOISIR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let protocole of protocolesClient">
+                    <td>
+                      {{protocole.nom}}
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input
+                          type="number"
+                          name="{{protocole.id}}"
+                          class="form-control form-control-alternative"
+                          placeholder="duree(en heure)"
+                          [value]="protocole.duree"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input
+                          name="checkClient"
+                          type="checkbox"
+                          style="width: 30px;height: 30px;"
+                      value="{{protocole.id}}"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 offset-lg-4 mb-2">
+                <input
+                  type="submit"
+                  class="btn btn-danger form-control"
+                  value="Delete"
+                />
               </div>
-              <div class="row">
-                  <div class="col-lg-4 offset-lg-4 mb-2">
-                      <input type="submit" class="btn btn-danger form-control" value="Delete">
-                  </div>
-                  <div class="col-lg-4">
-                      <input type="submit" class="btn btn-primary form-control" value="update">
-                  </div>
-                </div>
-            </form>
-          </div>
+              <div class="col-lg-4">
+                <input
+                  type="submit"
+                  class="btn btn-primary form-control"
+                  value="update"
+                />
+              </div>
+            </div>
+          </form>
+
+          <hr class="my-4" />
+          <form (ngSubmit)="onModifPerso(fperso)" #fperso="ngForm" ngControl="fperso" >
+            <h6 class="heading-small text-muted mb-4">
+              Protocole pour les personnels
+            </h6>
+            <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">NOM</th>
+                    <th scope="col">DUREE</th>
+                    <th scope="col">CHOISIR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let protocole of protocolesPerso">
+                    <td>
+                      {{protocole.nom}}
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input
+                          type="number"
+                          name="{{protocole.id}}"
+                          class="form-control form-control-alternative"
+                          placeholder="duree(en heure)"
+                          [value]="protocole.duree"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group">
+                        <input
+                          name="checkPerso"
+                          type="checkbox"
+                          style="width: 30px;height: 30px;"
+                      value="{{protocole.id}}"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 offset-lg-4 mb-2">
+                <input
+                  type="submit"
+                  class="btn btn-danger form-control"
+                  value="Delete"
+                />
+              </div>
+              <div class="col-lg-4">
+                <input
+                  type="submit"
+                  class="btn btn-primary form-control"
+                  value="update"
+                />
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-
   </div>
+</div>

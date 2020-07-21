@@ -74,21 +74,21 @@ export class GetService {
   getProtocolesBySociete(id:string){
     return new Promise((resolve, reject) => {
       this.http.get(this.auth.getBASE_URL() + 'protocoles?societe='+id+'&type=all').subscribe(res => {
-        console.log(res);
         let protocolePerso=[];
         let protocoleClient=[];
         if(res['data']['protocoles']['Perso']){
           protocolePerso = res['data']['protocoles']['Perso'].map((element) => {
             return new Protocole(element.protocole.id,
-              element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.protocole.dureeLimiteDeChangement);
+              element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.dureeLimiteDeChangement);
           });
         }
        if(res['data']['protocoles']['Client']){
         protocoleClient = res['data']['protocoles']['Client'].map((element) => {
           return new Protocole(element.protocole.id,
-            element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.protocole.dureeLimiteDeChangement);
+            element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.dureeLimiteDeChangement);
         });
        }
+
         resolve({
           'perso':protocolePerso,
           'client':protocoleClient
