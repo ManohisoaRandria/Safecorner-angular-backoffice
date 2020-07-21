@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Societe } from '../modele/societe';
 import { ApiService } from './api.service';
+import { GetService } from '../services/get.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,9 @@ import { ApiService } from './api.service';
 export class InsertService {
 
     constructor(private authService:AuthService,
-                private http:HttpClient,private api: ApiService) {
+                private http:HttpClient,
+                private api: ApiService,
+                private getService: GetService) {
     }
 
     //insert categorie societe
@@ -112,6 +115,22 @@ export class InsertService {
           };
 
           this.http.put(this.authService.getBASE_URL() + 'protocoleChoisi',data).subscribe(res => {
+            resolve(res);
+          }, error => {
+            reject(error);
+          })
+      });
+    }
+    //insert historique descente
+    historiqueDescente(idSociete:String,description:String,nombreProtocole:number){
+      return new Promise((resolve, reject) => {
+          let data = {
+              "idSociete":idSociete,
+              "description": description,
+              "nombreProtocole":nombreProtocole
+          }
+          this.http.post(this.authService.getBASE_URL() + 'historiqueDescente', data).subscribe(res => {
+            this.getService.getAllSociete();
             resolve(res);
           }, error => {
             reject(error);

@@ -20,6 +20,7 @@ export class InsertProtocoleSocieteComponent implements OnInit {
 id:string="";
 erreur = "";
 success = "";
+dureeParDefaut = 48;
 protocoleChoisi:Protocole[];
 societe:Societe;
 protocoles: Protocole[] = [];
