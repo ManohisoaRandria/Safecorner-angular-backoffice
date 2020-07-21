@@ -72,9 +72,9 @@ export class GetService {
       })
     });
   }
-  getOutProtocoleSociete(idSociete:String){
+  getOutProtocoleSociete(idSociete:String,idCategorieProtocole:String){
     return new Promise((resolve, reject) => {
-      this.http.get(this.auth.getBASE_URL() + 'outProtocoleSociete?idSociete='+idSociete).subscribe(res => {
+      this.http.get(this.auth.getBASE_URL() + 'outProtocoleSociete?idSociete='+idSociete+'&idCategorieProtocole='+idCategorieProtocole).subscribe(res => {
         let protocole = res['data'].map((element) => {
           return new Protocole(element.id,
             element.nom,element.description,element.dateCreation);

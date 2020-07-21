@@ -74,7 +74,7 @@
                     <label class="form-control-label" for="input-country"
                       >Categorie du protocole</label
                     >
-                    <select name="categorie" class="form-control form-control-alternative" ngModel required>
+                    <select name="categorie" class="form-control form-control-alternative" ngModel required (change)="onChangeProtocole($event)">
                       <option [value]="catep.id" *ngFor="let catep of CategorieProtocole" >{{catep.description}}</option>
                     </select>
                   </div>
