@@ -12,11 +12,9 @@ import { CategorieProtocole } from '../modele/categorie-protocole';
 export class ApiService {
   private societes:Societe[]=[];
   private categorieSociete:CategorieSociete[]=[];
-  private protocoles:Protocole[]=[];
   private categorieProtocole:CategorieProtocole[]=[];
   societeSubject=new BehaviorSubject([]);
   categorieSocieteSubject=new BehaviorSubject([]);
-  protocolesSubject=new BehaviorSubject([]);
   CategorieProtocoleSubject=new BehaviorSubject([]);
   init: boolean = false;
   emitSociete(){
@@ -24,9 +22,6 @@ export class ApiService {
   }
   emitCategorieSociete(){
     this.categorieSocieteSubject.next(this.categorieSociete);
-  }
-  emitProtocole(){
-    this.protocolesSubject.next(this.protocoles);
   }
   emitCategorieProtocole(){
     this.CategorieProtocoleSubject.next(this.categorieProtocole);
@@ -47,10 +42,7 @@ setAllCategorieSociete(categs:Societe[]){
   this.categorieSociete=categs;
   this.emitCategorieSociete();
 }
-setAllProtocole(proto:Protocole[]){
-  this.protocoles=proto;
-  this.emitProtocole();
-}
+
 setAllCategorieProtocole(catep:CategorieProtocole[]){
   this.categorieProtocole=catep;
   this.emitCategorieProtocole();

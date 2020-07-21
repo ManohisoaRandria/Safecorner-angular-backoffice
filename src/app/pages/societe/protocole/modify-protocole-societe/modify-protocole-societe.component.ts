@@ -1,3 +1,4 @@
+import { GetService } from 'src/app/services/get.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Societe } from '../../../../modele/societe';
@@ -13,9 +14,11 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
 
   id: string = "";
   societe: Societe;
+  loading:boolean=false;
   constructor(private router: Router,
     private api: ApiService,
     private insertService: InsertService,
+    private getService:GetService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -27,7 +30,11 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
       }
     });
     //maka anle protocole rehetra amnio societe io
-
+    this.getService.getProtocolesBySociete(this.id).then(res=>{
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    })
   }
   goToInsert() {
     this.router.navigate(['/add-protocole-societe', this.id]);

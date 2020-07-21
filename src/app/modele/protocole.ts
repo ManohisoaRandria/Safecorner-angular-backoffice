@@ -3,7 +3,8 @@ export class Protocole {
     public id,
     public nom,
     public description,
-    public dateCreation){
+    public dateCreation,
+    public duree?){
 
   }
 }

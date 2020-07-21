@@ -45,20 +45,6 @@ export class GetService {
       })
     });
   }
-  getProtocoles(){
-    return new Promise((resolve, reject) => {
-      this.http.get(this.auth.getBASE_URL() + 'allProtocole?all=true&page=0&limit=0').subscribe(res => {
-        let protocole = res['data'].map((element) => {
-          return new Protocole(element.id,
-            element.nom,element.description,element.dateCreation);
-        });
-        this.api.setAllProtocole(protocole);
-        resolve(protocole);
-      }, error => {
-        reject(error);
-      })
-    });
-  }
   getCategorieProtocole(){
     return new Promise((resolve, reject) => {
       this.http.get(this.auth.getBASE_URL() + 'categorieProtocole').subscribe(res => {
@@ -79,8 +65,34 @@ export class GetService {
           return new Protocole(element.id,
             element.nom,element.description,element.dateCreation);
         });
-        this.api.setAllProtocole(protocole);
         resolve(protocole);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  getProtocolesBySociete(id:string){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'protocoles?societe='+id+'&type=all').subscribe(res => {
+        console.log(res);
+        let protocolePerso=[];
+        let protocoleClient=[];
+        if(res['data']['protocoles']['Perso']){
+          protocolePerso = res['data']['protocoles']['Perso'].map((element) => {
+            return new Protocole(element.protocole.id,
+              element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.protocole.dureeLimiteDeChangement);
+          });
+        }
+       if(res['data']['protocoles']['Client']){
+        protocoleClient = res['data']['protocoles']['Client'].map((element) => {
+          return new Protocole(element.protocole.id,
+            element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.protocole.dureeLimiteDeChangement);
+        });
+       }
+        resolve({
+          'perso':protocolePerso,
+          'client':protocoleClient
+        });
       }, error => {
         reject(error);
       })
