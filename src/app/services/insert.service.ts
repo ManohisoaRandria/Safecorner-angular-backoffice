@@ -82,4 +82,20 @@ export class InsertService {
             })
         });
     }
+
+    //add protocole choisi
+    AddProtocoleSociete(idSociete:String,idCategorieProtocole:String,protocoleChoisi:any){
+        return new Promise((resolve, reject) => {
+            let data = {
+                "idSociete":idSociete,
+                "idCategorieProtocole":idCategorieProtocole,
+                "protocoleChoisi":protocoleChoisi
+            }
+            this.http.post(this.authService.getBASE_URL() + 'addProtocoleChoisi',data).subscribe(res => {
+              resolve(res);
+            }, error => {
+              reject(error);
+            })
+        });
+    }
 }

@@ -7,6 +7,7 @@ import * as L from "node_modules/leaflet";
 import "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/images/marker-icon-2x.png";
 import { CategorieSociete } from 'src/app/modele/categorie-societe';
+import { Protocole } from '../../../modele/protocole';
 import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
 import { GetService } from 'src/app/services/get.service';
@@ -60,8 +61,18 @@ export class InsertSocieteComponent implements OnInit {
       this.getService.getAllSociete().then((res) => {
         //refa azo le societe de alaina ndray le categorie societe
         this.getService.getCategorieSociete().then((res) => {
-          console.log("categorie,societe OK");
-          this.api.init = true;
+          //avieo maka an le protocoles rehetra.
+          this.getService.getProtocoles().then((res)=>{
+            //avieo maka an le categorie protocole
+            this.getService.getCategorieProtocole().then((res)=>{
+              console.log("categorie,societe,protocole,cate protocole OK");
+              this.api.init = true;
+            }).catch((err)=>{
+              console.log(err);
+            });
+          }).catch((err)=>{
+            console.log(err);
+          });
         }).catch(err => {
           console.log(err);
         });

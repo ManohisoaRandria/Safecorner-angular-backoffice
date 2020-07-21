@@ -1,3 +1,8 @@
-.error{
-  color: rgb(233, 35, 35);
+.text-erreur{
+  color: rgb(241, 28, 28);
 }
+
+.text-success{
+  color: rgb(18, 136, 14);
+}
+
