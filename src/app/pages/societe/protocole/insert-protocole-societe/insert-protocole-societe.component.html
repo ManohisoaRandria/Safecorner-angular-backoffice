@@ -82,6 +82,7 @@
               </div>
             </div>
             <hr class="my-4" />
+            <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
             <div class="table-responsive">
               <!-- Projects table -->
               <table class="table align-items-center table-flush">
@@ -105,13 +106,14 @@
                               value="48"
                               class="form-control form-control-alternative"
                               placeholder="duree(en heure)"
+                              min="1"
                               ngModel
                              />
                           </div>
                     </td>
                     <td>
                         <div class="form-group">
-                            <input type="checkbox" name="chek" value="{{proto.id}}" style="width: 30px;height: 30px;" ngModel (change)="onAddCheck($event)" />
+                            <input type="checkbox" name="chek" value="{{proto.id}}" style="width: 30px;height: 30px;" ngModel (change)="onAddCheck($event,f)" />
                           </div>
                     </td>
                   </tr>
@@ -120,7 +122,7 @@
             </div>
             <div class="row">
               <div class="col-lg-4 offset-lg-8">
-                  <input type="submit" class="btn btn-primary form-control" value="insert">
+                  <input type="submit" [disabled]="protocoleChoisi.length==0 || f.invalid" class="btn btn-primary form-control" value="insert">
               </div>
             </div>
           </form>
