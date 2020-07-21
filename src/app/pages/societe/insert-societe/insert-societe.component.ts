@@ -61,15 +61,10 @@ export class InsertSocieteComponent implements OnInit {
       this.getService.getAllSociete().then((res) => {
         //refa azo le societe de alaina ndray le categorie societe
         this.getService.getCategorieSociete().then((res) => {
-          //avieo maka an le protocoles rehetra.
-          this.getService.getProtocoles().then((res)=>{
-            //avieo maka an le categorie protocole
-            this.getService.getCategorieProtocole().then((res)=>{
-              console.log("categorie,societe,protocole,cate protocole OK");
-              this.api.init = true;
-            }).catch((err)=>{
-              console.log(err);
-            });
+          //avieo maka an le categorie protocole
+          this.getService.getCategorieProtocole().then((res)=>{
+            console.log("categorie,societe,cate protocole ok");
+            this.api.init = true;
           }).catch((err)=>{
             console.log(err);
           });

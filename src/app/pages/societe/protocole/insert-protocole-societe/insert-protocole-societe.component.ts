@@ -8,6 +8,8 @@ import { CategorieProtocole } from '../../../../modele/categorie-protocole';
 import { element } from 'protractor';
 import { NgForm } from '@angular/forms';
 import { InsertService } from '../../../../services/insert.service';
+import { GetService } from '../../../../services/get.service';
+import { resolve } from 'path';
 
 @Component({
   selector: 'app-insert-protocole-societe',
@@ -27,7 +29,8 @@ CategorieProtocoleSubscription: Subscription;
   constructor(private router:Router,
               private route:ActivatedRoute,
               private api:ApiService,
-              private insertService:InsertService) { }
+              private insertService:InsertService,
+              private getService:GetService) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -38,11 +41,13 @@ CategorieProtocoleSubscription: Subscription;
       }
     });
     this.protocoleChoisi = [];
-    this.protocoleSubscription = this.api.protocolesSubject.subscribe(
-      (protocole: Protocole[]) => {
-        this.protocoles = protocole;
-      }
-    );
+    this.getService.getOutProtocoleSociete(this.id).then((res:Protocole[])=>{
+      this.protocoles = res;
+      console.log(this.protocoles);
+    }).catch(err=>{
+      console.log(err);
+      this.router.navigate(['societe']);    
+    });
     this.CategorieProtocoleSubscription = this.api.CategorieProtocoleSubject.subscribe(
       (catep: CategorieProtocole[]) => {
         this.CategorieProtocole = catep;
