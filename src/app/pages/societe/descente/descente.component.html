@@ -180,22 +180,63 @@
                 </div>
               </div>
             </div>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-11">
+                  <div class="form-group">
+                    <label>Date de l'historique:</label>
+                    <form (ngSubmit)="onAfficheHistorique(f2)" #f2="ngForm" >
+                      <div class="row">
+                        <div class="col-lg-5">
+                          <select
+                          name="mois"
+                          required
+                          class="form-control form-control-alternative"
+                          [ngModel]="mois"
+                          >
+                            <option  *ngFor="let elem of lesMois;let index = index" value="{{elem.value}}" >{{elem.name}}</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-5">
+                          <select
+                          name="annee"
+                          required
+                          class="form-control form-control-alternative"
+                          [ngModel]="this.annee"
+                          >
+                            <option *ngFor="let elem of lesAnnees" value="{{elem}}">{{elem}}</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-2">
+                          <input type="submit" class="btn btn-primary form-control" value="Afficher">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="table-responsive">
+              <mat-progress-bar *ngIf="loadingHistoDescente" mode="query" color="primary"></mat-progress-bar>
               <!-- Projects table -->
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
+                      <th scope="col">DESCRIPTION</th>
                       <th scope="col">POINT</th>
                       <th scope="col">DATE</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr *ngFor="let elem of historiqueDescentes" >
                     <th>
-                      5.6
+                      {{elem.description}}
+                    </th>
+                    <th>
+                      {{elem.points}}
                     </th>
                     <td>
-                      07 jul 2020
+                      {{elem.dateCreation | date:'d MMM y'}}
                     </td>
                   </tr>
                 </tbody>
