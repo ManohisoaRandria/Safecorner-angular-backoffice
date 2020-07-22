@@ -101,7 +101,26 @@ export class InsertService {
             })
         });
     }
+    //update/delete protocole choisi
+    ModifProtocoleSociete(idSociete:String,protocoleChoisi:any,fafana?:string){
+      return new Promise((resolve, reject) => {
+          let data = fafana?{
+              "idSociete":idSociete,
+              "protocoleChoisi":protocoleChoisi,
+              "delete":"true"
+          }:{
+            "idSociete":idSociete,
+            "protocoleChoisi":protocoleChoisi,
+            "delete":"false"
+          };
 
+          this.http.put(this.authService.getBASE_URL() + 'protocoleChoisi',data).subscribe(res => {
+            resolve(res);
+          }, error => {
+            reject(error);
+          })
+      });
+    }
     //insert historique descente
     historiqueDescente(idSociete:String,description:String,nombreProtocole:number){
       return new Promise((resolve, reject) => {
