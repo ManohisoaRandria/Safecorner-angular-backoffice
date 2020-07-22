@@ -1,0 +1,146 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body"></div>
+    </div>
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-2 mb-1 mb-xl-0"></div>
+      <div class="col-xl-8 mb-1 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header bg-transparent">
+            <div class="row align-items-center">
+              <div class="col">
+                <h6 class="text-uppercase text-light ls-1 mb-1">List de protocoles</h6>
+                <h2 class="text-back mb-0">La société</h2>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-username"
+                        >Nom</label
+                      >
+                     <h4>{{ societe.nom }}</h4>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-username"
+                        >Email</label
+                      >
+                     <h4>{{societe.email}}</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Lieu</label
+                        >
+                       <h4>{{societe.lieu}}</h4>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-username"
+                            >Tel</label
+                          >
+                         <h4>{{societe.tel}}</h4>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Description</label
+                        >
+                       <h4>{{societe.description}}</h4>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-xl-2 mb-3 mb-xl-0"></div>
+      <div class="col-xl-8 mb-5 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">List de protocoles</h3>
+              </div>
+              <div class="col text-right">
+                <button class="btn btn-primary" [routerLink]="['/add-protocole-societe', societe.id]" >Add</button>
+                <button class="btn btn-warning" [routerLink]="['/modif-protocole-societe', societe.id]" >Edit</button>
+            </div>
+            </div>
+          </div>
+            <div class="table-responsive">
+                <!-- Projects table -->
+                <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th colspan="3" style="background-color: rgb(169, 197, 252); color: rgb(98, 98, 99);" class="text-center" >PERSO</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">NOM</th>
+                            <th scope="col">DUREE</th>
+                            <th scope="col" class="text-center">DATE DE CREATION</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    <tr *ngFor="let elem of protocolePerso">
+                        <th>
+                            {{elem.nom}}
+                        </th>
+                        <td>
+                            {{elem.duree}} heure(s)
+                        </td>
+                        <td>
+                            {{elem.dateCreation | date:'d MMM y'}}
+                        </td>
+                    </tr>
+                </tbody>
+                <thead class="thead-light">
+                    <tr>
+                    <th colspan="3" style="background-color: rgb(169, 197, 252); color: rgb(98, 98, 99);" class="text-center"  >CLIENT</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">NOM</th>
+                        <th scope="col">DUREE</th>
+                        <th scope="col" class="text-center">DATE DE CREATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let elem of protocoleClient">
+                        <th>
+                            {{elem.nom}}
+                        </th>
+                        <td>
+                            {{elem.duree}} heure(s)
+                        </td>
+                        <td>
+                            {{elem.dateCreation | date:'d MMM y'}}
+                        </td>
+                    </tr>
+                    <tr>
+                       <td colspan="3">Dsecription: dkfjhsjdgfedsufhbesdfhg</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>        
+  </div>
+  

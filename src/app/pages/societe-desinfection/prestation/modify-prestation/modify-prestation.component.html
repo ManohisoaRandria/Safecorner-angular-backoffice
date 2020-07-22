@@ -1,0 +1,94 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body"></div>
+    </div>
+  </div>
+  <div class="container-fluid mt--7">
+    <!-- insert prestation -->
+    <div class="row">
+        <div class="col-xl-2 mb-1 mb-xl-0"></div>
+        <div class="col-xl-8 mb-1 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h2 class="text-back mb-0">Modifiez la préstation</h2>
+                </div>
+                <div class="col">
+                  <ul class="nav nav-pills justify-content-end">
+                    <li class="nav-item" >
+                      <i [ngClass]="classIconActive" (click)="onAnimeBlocInsert()"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card-body" [ngClass]="classBloc" >
+              <form  (ngSubmit)="onInsertPrestation(f)" #f="ngForm">
+                <p class="text-erreur" *ngIf="1 != 0" ></p>
+                <p class="text-success" *ngIf="1 != 0" ></p>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                          >Nom</label
+                        >
+                        <input
+                          type="text"
+                          name="nom"
+                          class="form-control form-control-alternative"
+                          placeholder="Nom du préstation"
+                          ngModel
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country"
+                          >Prix</label
+                        >
+                        <input
+                          type="number"
+                          name="nom"
+                          class="form-control form-control-alternative"
+                          placeholder="Prix de la préstation"
+                          ngModel
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!-- Description -->
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country" 
+                        >Description</label>
+                        <textarea
+                          rows="4"
+                          name="descritpion"
+                          class="form-control form-control-alternative"
+                          placeholder="..."
+                          ngModel
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!-- Validation -->
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country" 
+                        >Validation</label>
+                        <input type="submit" class="btn btn-primary form-control" value="Update" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  

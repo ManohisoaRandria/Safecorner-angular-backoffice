@@ -1,7 +1,7 @@
 import { Injectable, OnInit} from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Societe } from '../modele/societe';
+import { Societe,SocieteDesinfection } from '../modele/societe';
 import { ApiService } from './api.service';
 import { GetService } from '../services/get.service';
 
@@ -59,7 +59,7 @@ export class InsertService {
         });
     }
 
-    //insert protocole
+    //insert Societe
     Societe(nom:String,idCategorieSociete:String,descritpion:String,lieu:String,email:String,tel:String,coordLat,coordLong){
         return new Promise((resolve, reject) => {
             let data = {
@@ -79,13 +79,12 @@ export class InsertService {
                 res['data'].dateCreation, res['data'].email,
                 res['data'].tel, res['data'].coordonnee,0);
                 this.api.addSociete(societe);
-              resolve(societe);
+              resolve(res);
             }, error => {
               reject(error);
             })
         });
     }
-
     //add protocole choisi
     AddProtocoleSociete(idSociete:String,idCategorieProtocole:String,protocoleChoisi:any){
         return new Promise((resolve, reject) => {
@@ -136,5 +135,30 @@ export class InsertService {
             reject(error);
           })
       });
+  }
+  //insert Societe desinfection
+  SocieteDesinfection(nom:String,descritpion:String,lieu:String,email:String,tel:String,coordLat,coordLong){
+    return new Promise((resolve, reject) => {
+        let data = {
+            "nom":nom,
+            "description": descritpion,
+            "lieu":lieu,
+            "email":email,
+            "tel":tel,
+            "coordLat":coordLat,
+            "coordLong":coordLong
+        }
+        this.http.post(this.authService.getBASE_URL() + 'societeDesinfect',data).subscribe(res => {
+          let societeD=new SocieteDesinfection(res['data'].id,
+            res['data'].nom,
+            res['data'].description, res['data'].lieu,
+            res['data'].dateCreation, res['data'].email,
+            res['data'].tel, res['data'].coordonnee);
+            //mila manao setSocieteDesinfection
+          resolve(res);
+        }, error => {
+          reject(error);
+        })
+    });
   }
 }

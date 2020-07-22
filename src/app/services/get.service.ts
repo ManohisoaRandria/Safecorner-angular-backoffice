@@ -12,7 +12,7 @@ import { HistoriqueDescente } from '../modele/historique-descente';
   providedIn: 'root'
 })
 export class GetService {
-
+  
   constructor(private http: HttpClient, private auth: AuthService, private api: ApiService) { }
 
   getAllSociete() {
