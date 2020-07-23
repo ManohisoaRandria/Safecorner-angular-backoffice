@@ -53,6 +53,9 @@ export class UpdateSocieteComponent implements OnInit {
       this.tel = this.societe.tel;
       this.description = this.societe.description;
       this.categorie = this.societe.idCategorieSociete
+      var coord = JSON.parse(this.societe.coordonnee);
+      this.lat = coord.coordinates[0];
+      this.lng = coord.coordinates[1];
     });
     this.categSocieteSubscription = this.api.categorieSocieteSubject.subscribe(
       (catep: CategorieSociete[]) => {
@@ -80,8 +83,8 @@ export class UpdateSocieteComponent implements OnInit {
       attribution: "SafeCorner",
       minZoom: 5
     }).addTo(this.map);
-    // this.marker = L.marker([-18.916193244957622,47.52146212491431]);
-    // this.marker.addTo(this.map);
+    this.marker = L.marker([this.lat,this.lng]);
+    this.marker.addTo(this.map);
   }
 
   //AUTRE FONCTION

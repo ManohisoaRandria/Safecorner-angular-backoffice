@@ -21,9 +21,9 @@ export class GetService {
         let societes = res['data'].map((element) => {
           return new Societe(element.id,
             element.nom, element.idCategorieSociete,
-            element.description, element.lieu,
+            element.description, element.lieux,
             element.dateCreation, element.email,
-            element.tel, element.coordonnee,element.points);
+            element.tel,element.coordonne,element.points);
         });
         this.api.setAllSociete(societes);
         resolve(societes);
