@@ -17,6 +17,9 @@ import { Subscription } from 'rxjs';
 export class ModifyProtocoleSocieteComponent implements OnInit {
 
   id: string = "";
+  categProt:string="";
+  erreur = "";
+success = "";
   societe: Societe;
   updatePerso: boolean = false;
   deletePerso: boolean = false;
@@ -51,18 +54,19 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
    //onChangeProtocole
    onChangeProtocole(event){
     const target = event.target as HTMLInputElement;
-    this.setProtocole(this.societe.id,target.value);
+    let tab=target.value.split(' ');
+    this.categProt=tab[1];
+    this.setProtocole(this.societe.id,tab[0]);
   }
    //set Protocoles
    setProtocole(idSociete,typeCategorieSociete){
     this.loading=true;
     this.getService.getProtocolesBySocieteByCategorieProtocole(idSociete,typeCategorieSociete).then((res:Protocole[])=>{
       this.protocolesPerso = res;
-      console.log(this.protocolesPerso);
       this.loading=false;
     }).catch(err=>{
       this.loading=false;
-      console.log(err);
+      this.erreur=err;
       this.router.navigate(['societe']);
     });
   }
@@ -86,6 +90,7 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
   }
 
   onModifPerso(fperso: NgForm) {
+    this.resetError();
     if (this.updatePerso) {
       console.log("update");
       this.resetUpdateDelete();
@@ -98,13 +103,14 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
           });
         });
         this.loading = true;
-        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie).then((res: any) => {
+        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie.split(' ')[0]).then((res: any) => {
           fperso.reset();
           this.loading = false;
           this.protocolePersoChoisi = [];
           this.protocolesPerso = [];
+          this.success=" update successfull";
         }).catch((error) => {
-          console.log(error);
+          this.erreur=error;
           this.loading = false;
         }
         );
@@ -121,13 +127,14 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
           });
         });
         this.loading = true;
-        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie,"true").then((res: any) => {
+        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie.split(' ')[0],"true").then((res: any) => {
           fperso.reset();
           this.loading = false;
           this.protocolePersoChoisi = [];
           this.protocolesPerso = [];
+          this.success=" delete successfull";
         }).catch((error) => {
-          console.log(error);
+          this.erreur=error;
           this.loading = false;
         }
         );
@@ -138,6 +145,10 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
   resetUpdateDelete() {
     this.updatePerso = false;
     this.deletePerso = false;
+  }
+  resetError() {
+    this.erreur = '';
+    this.success = '';
   }
 
   updatePersoClick() {

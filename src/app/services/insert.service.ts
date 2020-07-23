@@ -115,7 +115,6 @@ export class InsertService {
             "protocoleChoisi":protocoleChoisi,
             "delete":"false"
           };
-
           this.http.put(this.authService.getBASE_URL() + 'protocoleChoisi',data).subscribe(res => {
             resolve(res);
           }, error => {
@@ -209,14 +208,25 @@ export class InsertService {
     });
   }
   //insert prestation
-  Prestation(idSocieteDesinfection:String,prix:number,descritpion:String){
+  Prestation(idSocieteDesinfection:String,nom:String,prix:number,descritpion:String){
     return new Promise((resolve, reject) => {
       let data = {
           "societe":idSocieteDesinfection,
+          "nom":nom,
           "prix":prix,
           "description": descritpion
       }
       this.http.post(this.authService.getBASE_URL() + 'prestation',data).subscribe(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  deleteSociete(id:String){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.authService.getBASE_URL() + 'societe?id='+id).subscribe(res => {
+        this.getService.getAllSociete();
         resolve(res);
       }, error => {
         reject(error);

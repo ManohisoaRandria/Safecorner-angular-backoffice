@@ -158,10 +158,12 @@ export class GetService {
       this.http.get(this.auth.getBASE_URL() + 'prestations?societe='+idSocieteDesinfection).subscribe(res => {
         let prestation = res['data']['prestations'].map((element) => {
           return new Prestation(element.id,
+            element.nom,
             element.description,
             element.idSocieteDesinfection,
             element.prix);
         });
+        console.log(res);
         resolve(prestation);
       }, error => {
         reject(error);

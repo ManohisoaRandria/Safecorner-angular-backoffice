@@ -32,7 +32,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'protocole/:id',           component: ProtocoleComponent },
     { path: 'update-societe/:id',           component: UpdateSocieteComponent },
     { path: 'prestation/:id',           component: PrestationComponent },
-    { path: 'modify-prestation/:id',           component: ModifyPrestationComponent },
+    { path: 'modify-prestation',           component: ModifyPrestationComponent },
     { path: 'update-societe-desinfection/:id',           component: UpdateSocieteDesinfectionComponent },
     { path: 'insert',           component: InsertComponent },
 ];

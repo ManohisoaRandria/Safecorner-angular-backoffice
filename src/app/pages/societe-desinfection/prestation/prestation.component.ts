@@ -5,8 +5,10 @@ import { SocieteDesinfection } from '../../../modele/societe';
 import { Prestation } from '../../../modele/prestation';
 import { ApiService } from 'src/app/services/api.service';
 import { GetService } from '../../../services/get.service';
+import { TransferDataService } from '../../../services/transferData.service';
 
 import { NgForm } from '@angular/forms';
+import { from } from 'rxjs';
 @Component({
   selector: 'app-prestation',
   templateUrl: './prestation.component.html',
@@ -28,7 +30,8 @@ export class PrestationComponent implements OnInit {
               private api:ApiService,
               private route:ActivatedRoute,
               private router:Router,
-              private getService:GetService) { }
+              private getService:GetService,
+              private transData:TransferDataService) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -61,6 +64,7 @@ export class PrestationComponent implements OnInit {
   onInsertPrestation(form: NgForm) {
     this.loadingInsertPrestation = true;
     this.insertService.Prestation(this.id,
+      form.value.nom,
       form.value.prix,
       form.value.descritpion).then((res: any) => {
         this.erreur = "";
@@ -81,6 +85,14 @@ export class PrestationComponent implements OnInit {
         this.erreur = error['error']['message'];
       }
     );
+  }
+
+  //makany am update prestation: mila manofoka an le prestation am transferData
+  onGoUpdatePrestation(event){
+    const target = event.target as HTMLInputElement;
+    var prestation = this.prestations.find(element => element.id == target.id);
+    this.transData.setData(prestation);
+    this.router.navigate(['/modify-prestation']);
   }
 
 }

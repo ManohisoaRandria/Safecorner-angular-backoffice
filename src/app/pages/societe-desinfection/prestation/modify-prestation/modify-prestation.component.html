@@ -14,17 +14,10 @@
                 <div class="col">
                   <h2 class="text-back mb-0">Modifiez la préstation</h2>
                 </div>
-                <div class="col">
-                  <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item" >
-                      <i [ngClass]="classIconActive" (click)="onAnimeBlocInsert()"></i>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
-            <div class="card-body" [ngClass]="classBloc" >
-              <form  (ngSubmit)="onInsertPrestation(f)" #f="ngForm">
+            <div class="card-body">
+              <form  (ngSubmit)="onUpdatePrestation(f)" #f="ngForm">
                 <p class="text-erreur" *ngIf="1 != 0" ></p>
                 <p class="text-success" *ngIf="1 != 0" ></p>
                 <div class="pl-lg-4">
@@ -39,7 +32,8 @@
                           name="nom"
                           class="form-control form-control-alternative"
                           placeholder="Nom du préstation"
-                          ngModel
+                          required
+                          [ngModel]="nom"
                         />
                       </div>
                     </div>
@@ -50,10 +44,11 @@
                         >
                         <input
                           type="number"
-                          name="nom"
+                          name="prix"
                           class="form-control form-control-alternative"
                           placeholder="Prix de la préstation"
-                          ngModel
+                          required
+                          [ngModel]="prix"
                         />
                       </div>
                     </div>
@@ -69,7 +64,8 @@
                           name="descritpion"
                           class="form-control form-control-alternative"
                           placeholder="..."
-                          ngModel
+                          required
+                          [ngModel]="description"
                         ></textarea>
                       </div>
                     </div>
@@ -80,7 +76,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-country" 
                         >Validation</label>
-                        <input type="submit" class="btn btn-primary form-control" value="Update" />
+                        <input type="submit" [disabled]="f.invalid" class="btn btn-primary form-control" value="Update" />
                       </div>
                     </div>
                   </div>

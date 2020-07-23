@@ -59,23 +59,24 @@
             <div class="col">
               <h6 class="text-uppercase text-light ls-1 mb-1">Modifier</h6>
               <h2 class="text-back mb-0">
-                Update/delete Protocole pour societe.
+                Update/delete Protocole pour societe {{societe.nom}}
               </h2>
             </div>
           </div>
         </div>
         <div class="card-body">
+          <p class="text-erreur" *ngIf="erreur != ''" >{{erreur}}</p>
+          <p class="text-success" *ngIf="success != ''" >{{success}}</p>
           <form (ngSubmit)="onModifPerso(fperso)" #fperso="ngForm" ngControl="fperso" >
             <h6 class="heading-small text-muted mb-4">categorie</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-country"
-                      >Categorie du protocole</label
+                    <label class="form-control-label" for="input-country">Categorie du protocole</label
                     >
                     <select name="categorie" class="form-control form-control-alternative" ngModel required (change)="onChangeProtocole($event)">
-                      <option [value]="catep.id" *ngFor="let catep of CategorieProtocole" >{{catep.description}}</option>
+                      <option [value]="catep.id+' '+catep.description" *ngFor="let catep of CategorieProtocole" >{{catep.description}}</option>
                     </select>
                   </div>
                 </div>
@@ -83,7 +84,7 @@
             </div>
             <hr class="my-4" />
             <h6 class="heading-small text-muted mb-4">
-              Protocole pour les personnels
+              Protocole pour les {{categProt.toLowerCase()=='client' ?'Clients':'Personnels'}}
             </h6>
             <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
             <div class="table-responsive">
@@ -137,6 +138,7 @@
                   class="btn btn-danger form-control"
                   value="Delete"
                   (click)="deletePersoClick()"
+                  [disabled]="protocolePersoChoisi.length==0 || fperso.invalid"
                 />
               </div>
               <div class="col-lg-4">
@@ -146,6 +148,7 @@
                   class="btn btn-primary form-control"
                   value="Update"
                   (click)="updatePersoClick()"
+                  [disabled]="protocolePersoChoisi.length==0 || fperso.invalid"
                 />
               </div>
             </div>
