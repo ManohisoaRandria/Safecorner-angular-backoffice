@@ -115,7 +115,6 @@ export class InsertService {
             "protocoleChoisi":protocoleChoisi,
             "delete":"false"
           };
-
           this.http.put(this.authService.getBASE_URL() + 'protocoleChoisi',data).subscribe(res => {
             resolve(res);
           }, error => {
