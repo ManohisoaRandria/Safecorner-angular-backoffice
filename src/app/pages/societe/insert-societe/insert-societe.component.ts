@@ -39,6 +39,7 @@ export class InsertSocieteComponent implements OnInit {
     this.societeSubscription = this.api.societeSubject.subscribe(
       (societes: Societe[]) => {
         this.societes = societes;
+        this.setEtoiles();
       }
     );
     this.categSocieteSubscription = this.api.categorieSocieteSubject.subscribe(
@@ -62,10 +63,10 @@ export class InsertSocieteComponent implements OnInit {
         //refa azo le societe de alaina ndray le categorie societe
         this.getService.getCategorieSociete().then((res) => {
           //avieo maka an le categorie protocole
-          this.getService.getCategorieProtocole().then((res)=>{
+          this.getService.getCategorieProtocole().then((res) => {
             console.log("categorie,societe,cate protocole ok");
             this.api.initSociete = true;
-          }).catch((err)=>{
+          }).catch((err) => {
             console.log(err);
           });
         }).catch(err => {
@@ -74,12 +75,38 @@ export class InsertSocieteComponent implements OnInit {
       }).catch(err => {
         console.log(err);
       });
+
     }
 
   }
-refreshSociete(){
-  this.getService.getAllSociete();
-}
+  setEtoiles(){
+    this.societes.forEach(ele=>{
+      ele.etoile=this. getEtoilesSequence(ele.points);
+    })
+  }
+  getEtoilesSequence(num){
+    let numExact=Math.floor(num);
+    let tab=[];
+    while (true) {
+      if(numExact<=0)break;
+
+      if(numExact>=2)tab.push('F');
+      else if(numExact==1)tab.push('H');
+
+      numExact-=2;
+
+    }
+    if(tab.length<5){
+      let ambony=5-tab.length;
+      for (let index = 0; index < ambony; index++) {
+        tab.push('E');
+      }
+    }
+    return tab;
+  }
+  refreshSociete() {
+    this.getService.getAllSociete();
+  }
 
   onAnimeBlocInsertSociete() {
     if (this.classBlocSociete == "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial" ||
@@ -130,12 +157,12 @@ refreshSociete(){
       );
   }
   //delete societe
-  onDeleteSociete(id:String){
+  onDeleteSociete(id: String) {
     this.erreur = "";
     this.success = "";
-    this.insertService.deleteSociete(id).then(res=>{
+    this.insertService.deleteSociete(id).then(res => {
       this.success = "societe deleted";
-    }).catch(err=>{
+    }).catch(err => {
       this.erreur = err;
     });
   }

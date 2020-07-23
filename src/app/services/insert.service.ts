@@ -130,6 +130,7 @@ export class InsertService {
               "description": description,
               "nombreProtocole":nombreProtocole
           }
+          console.log(data);
           this.http.post(this.authService.getBASE_URL() + 'historiqueDescente', data).subscribe(res => {
             this.getService.getAllSociete();
             resolve(res);
