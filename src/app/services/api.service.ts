@@ -11,10 +11,12 @@ import { CategorieProtocole } from '../modele/categorie-protocole';
 })
 export class ApiService {
   private societes:Societe[]=[];
+  private userName:string="";
   private societesDesinfection:SocieteDesinfection[]=[];
   private categorieSociete:CategorieSociete[]=[];
   private categorieProtocole:CategorieProtocole[]=[];
   societeSubject=new BehaviorSubject([]);
+  userNameSubject=new BehaviorSubject("");
   societeDesinfectionSubject=new BehaviorSubject([]);
   categorieSocieteSubject=new BehaviorSubject([]);
   CategorieProtocoleSubject=new BehaviorSubject([]);
@@ -22,6 +24,9 @@ export class ApiService {
   initSocieteDesinfection: boolean = false;
   emitSociete(){
     this.societeSubject.next(this.societes);
+  }
+  emitUserName(){
+    this.userNameSubject.next(this.userName);
   }
   emitSocieteDesinfection(){
     this.societeDesinfectionSubject.next(this.societesDesinfection);
@@ -31,6 +36,10 @@ export class ApiService {
   }
   emitCategorieProtocole(){
     this.CategorieProtocoleSubject.next(this.categorieProtocole);
+  }
+  setUserName(name:string){
+    this.userName=name;
+    this.emitUserName();
   }
 addSociete(societe:Societe){
   this.societes.push(societe);
