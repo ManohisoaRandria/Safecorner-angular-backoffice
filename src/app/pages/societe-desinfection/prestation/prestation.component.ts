@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { SocieteDesinfection } from '../../../modele/societe'; 
+import { Prestation } from '../../../modele/prestation';
 import { ApiService } from 'src/app/services/api.service';
+import { GetService } from '../../../services/get.service';
 
 import { NgForm } from '@angular/forms';
 @Component({
@@ -18,13 +20,15 @@ export class PrestationComponent implements OnInit {
   loadingGetPrestation:boolean = true;
 
   societeDesinfection:SocieteDesinfection;
+  prestations:Prestation[];
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBloc: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
   constructor(private insertService: InsertService,
               private api:ApiService,
               private route:ActivatedRoute,
-              private router:Router) { }
+              private router:Router,
+              private getService:GetService) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -33,6 +37,13 @@ export class PrestationComponent implements OnInit {
       if(this.societeDesinfection == undefined){
         this.router.navigate(['societe-desinfection']);
       }
+    });
+    this.loadingGetPrestation = true;
+    this.getService.getPrestations(this.id).then((res:Prestation[])=>{
+      this.prestations = res;
+      this.loadingGetPrestation = false;
+    }).catch((err)=>{
+      console.log(err);
     });
   }
 
@@ -55,13 +66,21 @@ export class PrestationComponent implements OnInit {
         this.erreur = "";
         this.success = res['message'];
         form.reset();
+        //mila averina alaina le prestation rehetra
+        this.loadingInsertPrestation = true;
+        this.getService.getPrestations(this.id).then((res:Prestation[])=>{
+          this.prestations = res;
+          this.loadingInsertPrestation = false;
+        }).catch((err)=>{
+          console.log(err);
+        });
         this.loadingInsertPrestation = false;
       }).catch((error) => {
         this.success = "";
         console.log(error);
         this.erreur = error['error']['message'];
       }
-      );
+    );
   }
 
 }
