@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { CategorieSociete } from '../modele/categorie-societe';
-import { Societe } from '../modele/societe';
+import { Societe,SocieteDesinfection } from '../modele/societe';
 import { CategorieProtocole } from '../modele/categorie-protocole';
 import { HistoriqueDescente } from '../modele/historique-descente';
 
@@ -128,6 +128,24 @@ export class GetService {
             ,element.dateCreation);
         });
         resolve(histo);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  getAllSocieteDesinfection() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'societeDesinfect?all=true').subscribe(res => {
+        let societesD = res['data'].map((element) => {
+          return new SocieteDesinfection(element.id,
+            element.nom,
+            element.description, element.lieux,
+            element.dateCreation, element.email,
+            element.tel,element.coordonne);
+        });
+        this.api.setAllSocieteDesinfection(societesD);
+        console.log(res);
+        resolve(res);
       }, error => {
         reject(error);
       })

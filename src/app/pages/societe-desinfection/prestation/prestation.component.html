@@ -12,7 +12,7 @@
             <div class="row align-items-center">
               <div class="col">
                 <h6 class="text-uppercase text-light ls-1 mb-1">List de protocoles</h6>
-                <h2 class="text-back mb-0">La société</h2>
+                <h2 class="text-back mb-0">La société de désinfection</h2>
               </div>
             </div>
           </div>
@@ -24,7 +24,7 @@
                       <label class="form-control-label" for="input-username"
                         >Nom</label
                       >
-                     <h4>asdasd</h4>
+                     <h4>{{societeDesinfection.nom}}</h4>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -32,7 +32,7 @@
                       <label class="form-control-label" for="input-username"
                         >Email</label
                       >
-                     <h4>sdasd</h4>
+                     <h4>{{societeDesinfection.email}}</h4>
                     </div>
                   </div>
                 </div>
@@ -42,7 +42,7 @@
                         <label class="form-control-label" for="input-username"
                           >Lieu</label
                         >
-                       <h4>asdasd</h4>
+                       <h4>{{societeDesinfection.lieu}}</h4>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -50,7 +50,7 @@
                           <label class="form-control-label" for="input-username"
                             >Tel</label
                           >
-                         <h4>asdasd</h4>
+                         <h4>{{societeDesinfection.tel}}</h4>
                         </div>
                       </div>
                   </div>
@@ -60,7 +60,7 @@
                         <label class="form-control-label" for="input-username"
                           >Description</label
                         >
-                       <h4>asdasd</h4>
+                       <h4>{{societeDesinfection.description}}</h4>
                       </div>
                     </div>
                   </div>
@@ -88,7 +88,10 @@
                 </div>
               </div>
             </div>
+            <mat-progress-bar *ngIf="loadingInsertPrestation" mode="query" color="primary"></mat-progress-bar>
             <div class="card-body" [ngClass]="classBloc" >
+              <p class="text-erreur" *ngIf="erreur != ''">{{ erreur }}</p>
+              <p class="text-success" *ngIf="success != ''">{{ success }}</p>
               <form  (ngSubmit)="onInsertPrestation(f)" #f="ngForm">
                 <p class="text-erreur" *ngIf="1 != 0" ></p>
                 <p class="text-success" *ngIf="1 != 0" ></p>
@@ -96,30 +99,25 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username"
-                          >Nom</label
-                        >
-                        <input
-                          type="text"
-                          name="nom"
-                          class="form-control form-control-alternative"
-                          placeholder="Nom du préstation"
-                          ngModel
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
                         <label class="form-control-label" for="input-country"
                           >Prix</label
                         >
                         <input
                           type="number"
-                          name="nom"
+                          name="prix"
                           class="form-control form-control-alternative"
+                          required
                           placeholder="Prix de la préstation"
-                          ngModel
+                          [ngModel]="0"
                         />
+                      </div>
+                    </div>
+                     <!-- Validation -->
+                     <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country" 
+                        >Validation</label>
+                        <input type="submit" [disabled]="f.invalid" class="btn btn-primary form-control" value="Add"/>
                       </div>
                     </div>
                   </div>
@@ -133,19 +131,10 @@
                           rows="4"
                           name="descritpion"
                           class="form-control form-control-alternative"
+                          required
                           placeholder="..."
                           ngModel
                         ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <!-- Validation -->
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-country" 
-                        >Validation</label>
-                        <input type="submit" class="btn btn-primary form-control" value="Add" />
                       </div>
                     </div>
                   </div>
@@ -171,7 +160,7 @@
           </div>
             <div class="table-responsive">
                 <!-- Projects table -->
-                <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
+                <mat-progress-bar *ngIf="loadingGetPrestation" mode="query" color="primary"></mat-progress-bar>
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>

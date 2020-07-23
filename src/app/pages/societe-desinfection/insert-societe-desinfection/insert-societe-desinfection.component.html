@@ -224,28 +224,28 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">COULEUR</th>
                   <th scope="col">NOM</th>
+                  <th scope="col">EMAIL</th>
                   <th scope="col">OPTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let elem of societesDesinfection">
                   <th>
-                    <div class="rond"></div>
+                    {{ elem.nom }}
                   </th>
                   <td>
-                    dkfjhdkfgh
+                    {{ elem.email }}
                   </td>
                   <td>
                     <div class="col text-center">
                       <a
-                        [routerLink]="['/prestation',1]"
+                        [routerLink]="['/prestation',elem.id]"
                         class="btn btn-sm btn-primary"
                         >Péstation</a
                       >
                       <a
-                        [routerLink]="['/update-societe-desinfection',1]"
+                        [routerLink]="['/update-societe-desinfection',elem.id]"
                         class="btn btn-sm btn-warning"
                         >Update</a
                       >

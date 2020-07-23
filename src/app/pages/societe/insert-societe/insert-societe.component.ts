@@ -56,7 +56,7 @@ export class InsertSocieteComponent implements OnInit {
       this.marker.bindPopup("<p>lat: " + e.latlng.lat + "</p><p>lng: " + e.latlng.lng + "</p>").openPopup();
       this.marker.addTo(this.map);
     });
-    if (!this.api.init) {
+    if (!this.api.initSociete) {
       //maka anle societe rehetra am volou
       this.getService.getAllSociete().then((res) => {
         //refa azo le societe de alaina ndray le categorie societe
@@ -64,7 +64,7 @@ export class InsertSocieteComponent implements OnInit {
           //avieo maka an le categorie protocole
           this.getService.getCategorieProtocole().then((res)=>{
             console.log("categorie,societe,cate protocole ok");
-            this.api.init = true;
+            this.api.initSociete = true;
           }).catch((err)=>{
             console.log(err);
           });

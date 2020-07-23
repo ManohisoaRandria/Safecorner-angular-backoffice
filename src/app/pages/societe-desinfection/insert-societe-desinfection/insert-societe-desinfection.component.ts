@@ -1,4 +1,4 @@
-import { Societe } from './../../../modele/societe';
+import { Societe,SocieteDesinfection } from './../../../modele/societe';
 import { Component, OnInit } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
 
@@ -24,8 +24,8 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   private map: any;
   private marker: any = null;
 
-  // societes: Societe[] = [];
-  // societeSubscription: Subscription;
+  societesDesinfection: SocieteDesinfection[] = [];
+  societeDesinfectionSubscription: Subscription;
   lat: number;
   lng: number;
   //animation bloc insert societe
@@ -34,11 +34,11 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   constructor(private insertService: InsertService, private api: ApiService, private getService: GetService) { }
 
   ngOnInit(): void {
-    // this.societeSubscription = this.api.societeSubject.subscribe(
-    //   (societes: Societe[]) => {
-    //     this.societes = societes;
-    //   }
-    // );
+    this.societeDesinfectionSubscription = this.api.societeDesinfectionSubject.subscribe(
+      (societes: SocieteDesinfection[]) => {
+        this.societesDesinfection = societes;
+      }
+    );
     this.showMap();
     //MOUS EVENT
     this.map.on('click', (e) => { //ajouter des marker sur la map
@@ -49,16 +49,15 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
       this.marker.bindPopup("<p>lat: " + e.latlng.lat + "</p><p>lng: " + e.latlng.lng + "</p>").openPopup();
       this.marker.addTo(this.map);
     });
-    // if (!this.api.init) {
-    //   //maka anle societe rehetra am volou
-    //   this.getService.getAllSociete().then((res) => {
-    //     console.log("societe desinfection");
-    //     this.api.init = true;
-    //   }).catch(err => {
-    //     console.log(err);
-    //   });
-    // }
-
+    if (!this.api.initSocieteDesinfection) {
+      //maka anle societe desinfection rehetra am volou
+      this.getService.getAllSocieteDesinfection().then((res) => {
+        console.log("societeDesinfection Ok");
+        this.api.initSocieteDesinfection = true;
+      }).catch(err => {
+        console.log(err);
+      });
+    }
   }
 
 
