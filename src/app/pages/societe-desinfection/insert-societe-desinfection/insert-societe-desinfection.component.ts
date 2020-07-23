@@ -59,7 +59,9 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
       });
     }
   }
-
+  refreshSocieteDesinfection(){
+    this.getService.getAllSocieteDesinfection();
+  }
 
   onAnimeBlocInsertSociete() {
     if (this.classBlocSociete == "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial" ||
@@ -107,5 +109,15 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
         this.erreur = error['error']['message'];
       }
       );
+  }
+  //delete
+  onDelete(id){
+    this.insertService.deleteSocieteDesinfection(id).then(res=>{
+      this.erreur = "";
+      this.success = "deleted";
+    }).catch(err=>{
+      this.success = "";
+      this.erreur = err['error']['message'];
+    })
   }
 }

@@ -167,7 +167,7 @@
                       [disabled]="f.invalid"
                       type="submit"
                         class="btn btn-primary form-control "
-  
+
                       >
                         VALIDER
                       </button>
@@ -215,7 +215,7 @@
                 <h3 class="mb-0">Les sociétés de désinfection</h3>
               </div>
               <div class="col text-right">
-                <i class="ni ni-spaceship icon_load"></i>
+                <i class="ni ni-spaceship icon_load" (click)="refreshSocieteDesinfection()"></i>
               </div>
             </div>
           </div>
@@ -251,6 +251,7 @@
                       >
                       <a style="color: white;"
                         class="btn btn-sm btn-danger"
+                        (click)="onDelete(elem.id)"
                         >Delete</a
                       >
                     </div>
@@ -263,4 +264,3 @@
       </div>
     </div>
   </div>
-  
