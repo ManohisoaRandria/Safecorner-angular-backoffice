@@ -6,6 +6,8 @@ import { Societe } from '../../../../modele/societe';
 import { ApiService } from 'src/app/services/api.service';
 import { InsertService } from 'src/app/services/insert.service';
 import { Protocole } from 'src/app/modele/protocole';
+import { CategorieProtocole } from 'src/app/modele/categorie-protocole';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-modify-protocole-societe',
@@ -16,17 +18,18 @@ export class ModifyProtocoleSocieteComponent implements OnInit {
 
   id: string = "";
   societe: Societe;
-  loading:boolean=false;
-  protocolesPerso:Protocole[]=[];
-  protocolesClient:Protocole[]=[];
-  protocolePersoChoisi:Protocole[]=[];
-  protocoleClientChoisi:Protocole[]=[];
-delete:string='Delete';
-update:string='Update';
+  updatePerso: boolean = false;
+  deletePerso: boolean = false;
+  loading: boolean = false;
+  protocolesPerso: Protocole[] = [];
+  protocolePersoChoisi: Protocole[] = [];
+  CategorieProtocole: CategorieProtocole[] = [];
+  CategorieProtocoleSubscription: Subscription;
+
   constructor(private router: Router,
     private api: ApiService,
     private insertService: InsertService,
-    private getService:GetService,
+    private getService: GetService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -37,88 +40,113 @@ update:string='Update';
         this.router.navigate(['societe']);
       }
     });
-
-    //maka anle protocole rehetra amnio societe io
-    this.loadData();
+    this.CategorieProtocoleSubscription = this.api.CategorieProtocoleSubject.subscribe(
+      (catep: CategorieProtocole[]) => {
+        this.CategorieProtocole = catep;
+        console.log(this.CategorieProtocole);
+      }
+    );
 
   }
-  loadData(){
+   //onChangeProtocole
+   onChangeProtocole(event){
+    const target = event.target as HTMLInputElement;
+    this.setProtocole(this.societe.id,target.value);
+  }
+   //set Protocoles
+   setProtocole(idSociete,typeCategorieSociete){
     this.loading=true;
-    this.getService.getProtocolesBySociete(this.id).then(res=>{
-      this.protocolesPerso=res['perso'];
-      this.protocolesClient=res['client'];
+    this.getService.getProtocolesBySocieteByCategorieProtocole(idSociete,typeCategorieSociete).then((res:Protocole[])=>{
+      this.protocolesPerso = res;
+      console.log(this.protocolesPerso);
       this.loading=false;
-
     }).catch(err=>{
       this.loading=false;
       console.log(err);
-    })
+      this.router.navigate(['societe']);
+    });
   }
-  onAddCheckPerso($event,fperso:NgForm){
+  onAddCheckPerso($event, fperso: NgForm) {
     const target = event.target as HTMLInputElement;
-    if(target.checked){
-      this.protocolePersoChoisi.push(this.protocolesPerso.find(element=> element.id == target.value));
+    if (target.checked) {
+      this.protocolePersoChoisi.push(this.protocolesPerso.find(element => element.id == target.value));
       //manampy validators requred dynamiquement
       fperso.controls[target.value].setValidators(Validators.required);
       //tsmaints apina anty raha tsy zany tsy miova le izy refa en execution
       fperso.controls[target.value].updateValueAndValidity();
       console.log(this.protocolePersoChoisi);
-    }else{
-      var index = this.protocolePersoChoisi.indexOf(this.protocolePersoChoisi.find(element=> element.id == target.value));
-        this.protocolePersoChoisi.splice(index, 1);
-        //manala validators requred dynamiquement
-        fperso.controls[target.value].clearValidators();
-        //tsmaints apina anty raha tsy zany tsy miova le izy refa en execution
-        fperso.controls[target.value].updateValueAndValidity();
-    }
-  }
-  onAddCheckClient($event,fclient:NgForm){
-    const target = event.target as HTMLInputElement;
-    if(target.checked){
-      this.protocoleClientChoisi.push(this.protocolesClient.find(element=> element.id == target.value));
-      //manampy validators requred dynamiquement
-      fclient.controls[target.value].setValidators(Validators.required);
+    } else {
+      var index = this.protocolePersoChoisi.indexOf(this.protocolePersoChoisi.find(element => element.id == target.value));
+      this.protocolePersoChoisi.splice(index, 1);
+      //manala validators requred dynamiquement
+      fperso.controls[target.value].clearValidators();
       //tsmaints apina anty raha tsy zany tsy miova le izy refa en execution
-      fclient.controls[target.value].updateValueAndValidity();
-      console.log(this.protocoleClientChoisi);
-    }else{
-      var index = this.protocoleClientChoisi.indexOf(this.protocoleClientChoisi.find(element=> element.id == target.value));
-        this.protocoleClientChoisi.splice(index, 1);
-        //manala validators requred dynamiquement
-        fclient.controls[target.value].clearValidators();
-        //tsmaints apina anty raha tsy zany tsy miova le izy refa en execution
-        fclient.controls[target.value].updateValueAndValidity();
+      fperso.controls[target.value].updateValueAndValidity();
     }
   }
 
-  onModifPerso(fperso:NgForm){
-    console.log(fperso.value);
-    // var protoChoisi = [];
-    // if(this.protocolePersoChoisi.length >= 1){
-    //   this.protocolePersoChoisi.forEach(element => {
-    //     protoChoisi.push({
-    //       "idProtocole":element.id,
-    //       "duree":+fperso.value[element.id]
-    //     });
-    //   });
-    //   this.loading=true;
-    //   this.insertService.AddProtocoleSociete(this.societe.id,form.value.categorie,
-    //     protoChoisi).then((res: any) => {
+  onModifPerso(fperso: NgForm) {
+    if (this.updatePerso) {
+      console.log("update");
+      this.resetUpdateDelete();
+      let protoChoisi = [];
+      if (this.protocolePersoChoisi.length >= 1) {
+        this.protocolePersoChoisi.forEach(element => {
+          protoChoisi.push({
+            "idProtocole": element.id,
+            "duree": +fperso.value[element.id]
+          });
+        });
+        this.loading = true;
+        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie).then((res: any) => {
+          fperso.reset();
+          this.loading = false;
+          this.protocolePersoChoisi = [];
+          this.protocolesPerso = [];
+        }).catch((error) => {
+          console.log(error);
+          this.loading = false;
+        }
+        );
+      }
+    } else if (this.deletePerso) {
+      console.log("delete");
+      this.resetUpdateDelete();
+      let protoChoisi = [];
+      if (this.protocolePersoChoisi.length >= 1) {
+        this.protocolePersoChoisi.forEach(element => {
+          protoChoisi.push({
+            "idProtocole": element.id,
+            "duree": +fperso.value[element.id]
+          });
+        });
+        this.loading = true;
+        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie,"true").then((res: any) => {
+          fperso.reset();
+          this.loading = false;
+          this.protocolePersoChoisi = [];
+          this.protocolesPerso = [];
+        }).catch((error) => {
+          console.log(error);
+          this.loading = false;
+        }
+        );
+      }
+    }
 
-    //       fperso.reset();
-
-    //       this.loading=false;
-    //     }).catch((error) => {
-    //       this.success = "";
-    //       this.erreur = error['error']['message'];
-    //       this.loading=false;
-    //     }
-    //   );
-    // }
   }
-  onModifClient(fclient:NgForm){
-
+  resetUpdateDelete() {
+    this.updatePerso = false;
+    this.deletePerso = false;
   }
+
+  updatePersoClick() {
+    this.updatePerso = true;
+  }
+  deletePersoClick() {
+    this.deletePerso = true;
+  }
+
   goToInsert() {
     this.router.navigate(['/add-protocole-societe', this.id]);
   }

@@ -94,6 +94,7 @@ export class InsertService {
                 "protocoleChoisi":protocoleChoisi
             }
             this.http.post(this.authService.getBASE_URL() + 'addProtocoleChoisi',data).subscribe(res => {
+              this.getService.getAllSociete();
               resolve(res);
             }, error => {
               reject(error);
@@ -101,14 +102,16 @@ export class InsertService {
         });
     }
     //update/delete protocole choisi
-    ModifProtocoleSociete(idSociete:String,protocoleChoisi:any,fafana?:string){
+    ModifProtocoleSociete(idSociete:String,protocoleChoisi:any,idCategorieProtocole:String,fafana?:string){
       return new Promise((resolve, reject) => {
           let data = fafana?{
-              "idSociete":idSociete,
+              "societe":idSociete,
+              "idCategorieProtocole":idCategorieProtocole,
               "protocoleChoisi":protocoleChoisi,
               "delete":"true"
           }:{
-            "idSociete":idSociete,
+            "societe":idSociete,
+            "idCategorieProtocole":idCategorieProtocole,
             "protocoleChoisi":protocoleChoisi,
             "delete":"false"
           };

@@ -1,10 +1,10 @@
+import { Protocole } from 'src/app/modele/protocole';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { CategorieSociete } from '../modele/categorie-societe';
 import { Societe } from '../modele/societe';
-import { Protocole } from '../modele/protocole';
 import { CategorieProtocole } from '../modele/categorie-protocole';
 import { HistoriqueDescente } from '../modele/historique-descente';
 
@@ -12,7 +12,7 @@ import { HistoriqueDescente } from '../modele/historique-descente';
   providedIn: 'root'
 })
 export class GetService {
-  
+
   constructor(private http: HttpClient, private auth: AuthService, private api: ApiService) { }
 
   getAllSociete() {
@@ -94,6 +94,23 @@ export class GetService {
           'perso':protocolePerso,
           'client':protocoleClient
         });
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  getProtocolesBySocieteByCategorieProtocole(id:string,categProtocole:string){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'protocoles?societe='+id+'&type='+categProtocole).subscribe(res => {
+        let protocole:Protocole[]=[];
+
+        if(res['data']['protocoles']){
+          protocole = res['data']['protocoles'].map((element) => {
+            return new Protocole(element.protocole.id,
+              element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.dureeLimiteDeChangement);
+          });
+        }
+        resolve(protocole);
       }, error => {
         reject(error);
       })
