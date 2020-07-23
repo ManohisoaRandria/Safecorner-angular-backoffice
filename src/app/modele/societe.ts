@@ -8,7 +8,7 @@ export class Societe {
     public dateCreation,
     public email,
     public tel,
-    public coordonnee,public points){
+    public coordonnee,public points,public etoile?:any){
   }
 }
 
