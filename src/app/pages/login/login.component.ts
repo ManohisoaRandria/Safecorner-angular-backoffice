@@ -3,6 +3,7 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,7 +22,6 @@ loading:boolean=false;
     this.messageErreur='';
     this.loading=true;
     this.auth.login(form.value.nom,form.value.mdp).then(res => {
-      console.log(res);
       form.reset();
       this.loading=false;
       this.router.navigate(['/dashboard']);

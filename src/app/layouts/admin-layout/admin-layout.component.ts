@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-admin-layout',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService, private auth: AuthService) { }
 
   ngOnInit() {
+    let tok = this.auth.getAccTok();
+    let decode = jwt_decode(tok);
+    this.api.setUserName(decode['data'].nom);
   }
 
 }

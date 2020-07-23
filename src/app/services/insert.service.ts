@@ -250,4 +250,24 @@ export class InsertService {
       })
     });
   }
+  deleteSocieteDesinfection(id:String){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.authService.getBASE_URL() + 'societeDesinfect?id='+id).subscribe(res => {
+        this.getService.getAllSocieteDesinfection();
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  deletePrestation(id:String){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.authService.getBASE_URL() + 'prestation?id='+id).subscribe(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
 }
+

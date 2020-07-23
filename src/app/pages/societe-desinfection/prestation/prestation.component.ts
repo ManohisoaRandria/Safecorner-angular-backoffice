@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
-import { Router, ActivatedRoute } from '@angular/router'; 
-import { SocieteDesinfection } from '../../../modele/societe'; 
+import { Router, ActivatedRoute } from '@angular/router';
+import { SocieteDesinfection } from '../../../modele/societe';
 import { Prestation } from '../../../modele/prestation';
 import { ApiService } from 'src/app/services/api.service';
 import { GetService } from '../../../services/get.service';
@@ -15,37 +15,37 @@ import { from } from 'rxjs';
   styleUrls: ['./prestation.component.css']
 })
 export class PrestationComponent implements OnInit {
-  private id:string="";
+  private id: string = "";
   erreur: string = "";
   success: string = "";
-  loadingInsertPrestation:boolean = false;
-  loadingGetPrestation:boolean = true;
+  loadingInsertPrestation: boolean = false;
+  loadingGetPrestation: boolean = true;
 
-  societeDesinfection:SocieteDesinfection;
-  prestations:Prestation[];
+  societeDesinfection: SocieteDesinfection;
+  prestations: Prestation[];
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBloc: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
   constructor(private insertService: InsertService,
-              private api:ApiService,
-              private route:ActivatedRoute,
-              private router:Router,
-              private getService:GetService,
-              private transData:TransferDataService) { }
+    private api: ApiService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private getService: GetService,
+    private transData: TransferDataService) { }
 
   ngOnInit(): void {
-    this.id=this.route.snapshot.params['id'];
-    this.api.societeDesinfectionSubject.subscribe((societe: SocieteDesinfection[])=>{
+    this.id = this.route.snapshot.params['id'];
+    this.api.societeDesinfectionSubject.subscribe((societe: SocieteDesinfection[]) => {
       this.societeDesinfection = societe.find(element => element.id == this.id);
-      if(this.societeDesinfection == undefined){
+      if (this.societeDesinfection == undefined) {
         this.router.navigate(['societe-desinfection']);
       }
     });
     this.loadingGetPrestation = true;
-    this.getService.getPrestations(this.id).then((res:Prestation[])=>{
+    this.getService.getPrestations(this.id).then((res: Prestation[]) => {
       this.prestations = res;
       this.loadingGetPrestation = false;
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err);
     });
   }
@@ -72,10 +72,10 @@ export class PrestationComponent implements OnInit {
         form.reset();
         //mila averina alaina le prestation rehetra
         this.loadingInsertPrestation = true;
-        this.getService.getPrestations(this.id).then((res:Prestation[])=>{
+        this.getService.getPrestations(this.id).then((res: Prestation[]) => {
           this.prestations = res;
           this.loadingInsertPrestation = false;
-        }).catch((err)=>{
+        }).catch((err) => {
           console.log(err);
         });
         this.loadingInsertPrestation = false;
@@ -84,15 +84,32 @@ export class PrestationComponent implements OnInit {
         console.log(error);
         this.erreur = error['error']['message'];
       }
-    );
+      );
   }
 
   //makany am update prestation: mila manofoka an le prestation am transferData
-  onGoUpdatePrestation(event){
+  onGoUpdatePrestation(event) {
     const target = event.target as HTMLInputElement;
     var prestation = this.prestations.find(element => element.id == target.id);
     this.transData.setData(prestation);
     this.router.navigate(['/modify-prestation']);
+  }
+  //delete
+  onDelete(id) {
+    this.loadingGetPrestation = true;
+    this.insertService.deletePrestation(id).then(res => {
+      this.getService.getPrestations(this.id).then((res2: Prestation[]) => {
+        this.prestations = res2;
+        this.loadingGetPrestation = false;
+        this.erreur = "";
+        this.success = "deleted";
+      }).catch((err) => {
+        console.log(err);
+      });
+    }).catch(err => {
+      this.success = "";
+      this.erreur = err['error']['message'];
+    })
   }
 
 }
