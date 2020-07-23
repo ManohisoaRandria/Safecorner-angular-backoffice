@@ -83,6 +83,7 @@ export class UpdateSocieteComponent implements OnInit {
       attribution: "SafeCorner",
       minZoom: 5
     }).addTo(this.map);
+    this.map.setView([this.lat,this.lng], 18);
     this.marker = L.marker([this.lat,this.lng]);
     this.marker.addTo(this.map);
   }
@@ -95,23 +96,22 @@ export class UpdateSocieteComponent implements OnInit {
 
   //INSERTION SOCIETE
   onUpdateSociete(form: NgForm) {
-    // this.insertService.Societe(form.value.nom,
-    //   form.value.categorie,
-    //   form.value.description,
-    //   form.value.lieu,
-    //   form.value.email,
-    //   form.value.tel,
-    //   form.value.lat,
-    //   form.value.lng).then((res: any) => {
-    //     this.erreur = "";
-    //     this.success = res['message'];
-    //     form.reset();
-    //   }).catch((error) => {
-    //     this.success = "";
-    //     console.log(error);
-    //     this.erreur = error['error']['message'];
-    //   }
-    //   );
+    this.insertService.UpdateSociete(this.id,form.value.nom,
+      form.value.categorie,
+      form.value.description,
+      form.value.lieu,
+      form.value.email,
+      form.value.tel,
+      form.value.lat,
+      form.value.lng).then((res: any) => {
+        this.erreur = "";
+        this.success = res['message'];
+      }).catch((error) => {
+        this.success = "";
+        console.log(error);
+        this.erreur = error['error']['message'];
+      }
+      );
   }
 
 }

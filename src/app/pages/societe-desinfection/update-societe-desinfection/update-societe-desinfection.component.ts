@@ -6,7 +6,7 @@ import * as L from "node_modules/leaflet";
 
 import "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/images/marker-icon-2x.png";
-import { Societe } from '../../../modele/societe'; 
+import { SocieteDesinfection } from '../../../modele/societe'; 
 import { ApiService } from 'src/app/services/api.service';
 import { NgForm } from '@angular/forms';
 
@@ -22,7 +22,7 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
   private map: any;
   private marker: any = null;
 
-  societe:Societe;
+  societeDesinfection:SocieteDesinfection;
   nom:string = "";
   lieu:string = "";
   description:string="";
@@ -37,16 +37,19 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
-    this.api.societeSubject.subscribe((societe: Societe[])=>{
-      this.societe = societe.find(element => element.id == this.id);
-      if(this.societe == undefined){
+    this.api.societeDesinfectionSubject.subscribe((societe: SocieteDesinfection[])=>{
+      this.societeDesinfection = societe.find(element => element.id == this.id);
+      if(this.societeDesinfection == undefined){
         this.router.navigate(['societe-desinfection']);
       }
-      this.nom = this.societe.nom;
-      this.lieu = this.societe.lieu;
-      this.email = this.societe.email;
-      this.tel = this.societe.tel;
-      this.description = this.societe.description;
+      this.nom = this.societeDesinfection.nom;
+      this.lieu = this.societeDesinfection.lieu;
+      this.email = this.societeDesinfection.email;
+      this.tel = this.societeDesinfection.tel;
+      this.description = this.societeDesinfection.description;
+      var coord = JSON.parse(this.societeDesinfection.coordonnee);
+      this.lat = coord.coordinates[0];
+      this.lng = coord.coordinates[1];
     });
 
     this.showMap();
@@ -69,8 +72,9 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
       attribution: "SafeCorner",
       minZoom: 5
     }).addTo(this.map);
-    // this.marker = L.marker([-18.916193244957622,47.52146212491431]);
-    // this.marker.addTo(this.map);
+    this.map.setView([this.lat,this.lng], 18);
+    this.marker = L.marker([this.lat,this.lng]);
+    this.marker.addTo(this.map);
   }
 
   //AUTRE FONCTION
@@ -79,24 +83,22 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
     this.lng = this.marker._latlng.lng;
   }
 
-  //INSERTION SOCIETE
+  //INSERTION SOCIETE DESINFECTION
   onUpdateSociete(form: NgForm) {
-    // this.insertService.Societe(form.value.nom,
-    //   form.value.categorie,
-    //   form.value.description,
-    //   form.value.lieu,
-    //   form.value.email,
-    //   form.value.tel,
-    //   form.value.lat,
-    //   form.value.lng).then((res: any) => {
-    //     this.erreur = "";
-    //     this.success = res['message'];
-    //     form.reset();
-    //   }).catch((error) => {
-    //     this.success = "";
-    //     console.log(error);
-    //     this.erreur = error['error']['message'];
-    //   }
-    //   );
+    this.insertService.UpdateSocieteDesinfection(this.id,form.value.nom,
+      form.value.description,
+      form.value.lieu,
+      form.value.email,
+      form.value.tel,
+      form.value.lat,
+      form.value.lng).then((res: any) => {
+        this.erreur = "";
+        this.success = res['message'];
+      }).catch((error) => {
+        this.success = "";
+        console.log(error);
+        this.erreur = error['error']['message'];
+      }
+      );
   }
 }

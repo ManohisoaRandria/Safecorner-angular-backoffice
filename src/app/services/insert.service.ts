@@ -156,11 +156,70 @@ export class InsertService {
             res['data'].description, res['data'].lieu,
             res['data'].dateCreation, res['data'].email,
             res['data'].tel, res['data'].coordonnee);
-            //mila manao setSocieteDesinfection
+            //mila manao saddSocieteDesinfection
+            this.api.addSocieteDesinfection(societeD);
           resolve(res);
         }, error => {
           reject(error);
         })
+    });
+  }
+  //update societe
+  UpdateSociete(id:String,nom:String,idCategorieSociete:String,descritpion:String,lieu:String,email:String,tel:String,coordLat,coordLong){
+    return new Promise((resolve, reject) => {
+      let data = {
+          "id":id,
+          "nom":nom,
+          "idCategorieSociete":idCategorieSociete,
+          "description": descritpion,
+          "lieu":lieu,
+          "email":email,
+          "tel":tel,
+          "coordLat":coordLat,
+          "coordLong":coordLong
+      }
+      this.http.put(this.authService.getBASE_URL() + 'societe',data).subscribe(res => {
+        this.getService.getAllSociete();
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //update societe desinfection
+  UpdateSocieteDesinfection(id:String,nom:String,descritpion:String,lieu:String,email:String,tel:String,coordLat,coordLong){
+    return new Promise((resolve, reject) => {
+      let data = {
+          "id":id,
+          "nom":nom,
+          "description": descritpion,
+          "lieu":lieu,
+          "email":email,
+          "tel":tel,
+          "coordLat":coordLat,
+          "coordLong":coordLong
+      }
+      this.http.put(this.authService.getBASE_URL() + 'societeDesinfect',data).subscribe(res => {
+        this.getService.getAllSocieteDesinfection();
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //insert prestation
+  Prestation(idSocieteDesinfection:String,prix:number,descritpion:String){
+    return new Promise((resolve, reject) => {
+      let data = {
+          "societe":idSocieteDesinfection,
+          "prix":prix,
+          "description": descritpion
+      }
+      this.http.post(this.authService.getBASE_URL() + 'prestation',data).subscribe(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
     });
   }
 }
