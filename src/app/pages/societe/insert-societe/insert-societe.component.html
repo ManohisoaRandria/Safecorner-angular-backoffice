@@ -5,8 +5,8 @@
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-    <div class="col-xl-2 mb-3 mb-xl-0"></div>
-    <div class="col-xl-8 mb-5 mb-xl-0">
+    <div class="col-xl-2 mb-1 mb-xl-0"></div>
+    <div class="col-xl-8 mb-1 mb-xl-0">
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
@@ -222,14 +222,14 @@
       </div>
     </div>
   </div>
-  <div class="row mt-5">
+  <div class="row mt-3">
     <div class="col-xl-2 mb-3 mb-xl-0"></div>
     <div class="col-xl-8 mb-5 mb-xl-0">
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">Les societe</h3>
+              <h3 class="mb-0">List de sociétés</h3>
             </div>
             <div class="col text-right">
               <i class="ni ni-spaceship icon_load"></i>
@@ -244,7 +244,7 @@
                 <th scope="col">COULEUR</th>
                 <th scope="col">NOM</th>
                 <th scope="col">POINT</th>
-                <th scope="col">PROTOCOLE</th>
+                <th scope="col">OPTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -259,21 +259,25 @@
                   {{ societe.points }}
                 </td>
                 <td>
-                  <div class="col text-left">
+                  <div class="col text-center">
                     <a
-                      [routerLink]="['/add-protocole-societe', societe.id]"
+                      [routerLink]="['/protocole', societe.id]"
                       class="btn btn-sm btn-primary"
-                      >Add</a
-                    >
-                    <a
-                      [routerLink]="['/modif-protocole-societe', societe.id]"
-                      class="btn btn-sm btn-primary"
-                      >Edit</a
+                      >Protocoles</a
                     >
                     <a
                       [routerLink]="['/descente-societe', societe.id]"
-                      class="btn btn-sm btn-warning"
+                      class="btn btn-sm btn-success"
                       >Descente</a
+                    >
+                    <a
+                      [routerLink]="['/update-societe', societe.id]"
+                      class="btn btn-sm btn-warning"
+                      >Update</a
+                    >
+                    <a style="color: white;"
+                      class="btn btn-sm btn-danger"
+                      >Delete</a
                     >
                   </div>
                 </td>

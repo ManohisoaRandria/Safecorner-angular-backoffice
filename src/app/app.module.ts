@@ -18,6 +18,13 @@ import { DescenteComponent } from './pages/societe/descente/descente.component';
 import { InsertComponent } from './pages/insert/insert.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ProtocoleComponent } from './pages/societe/protocole/protocole.component';
+import { UpdateSocieteComponent } from './pages/societe/update-societe/update-societe.component';
+import { InsertSocieteDesinfectionComponent } from './pages/societe-desinfection/insert-societe-desinfection/insert-societe-desinfection.component';
+import { PrestationComponent } from './pages/societe-desinfection/prestation/prestation.component';
+import { UpdateSocieteDesinfectionComponent } from './pages/societe-desinfection/update-societe-desinfection/update-societe-desinfection.component';
+import { InsertPrestationComponent } from './pages/societe-desinfection/prestation/insert-prestation/insert-prestation.component';
+import { ModifyPrestationComponent } from './pages/societe-desinfection/prestation/modify-prestation/modify-prestation.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -34,7 +41,14 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AdminLayoutComponent,
     AuthLayoutComponent,
     DescenteComponent,
-    InsertComponent
+    InsertComponent,
+    ProtocoleComponent,
+    UpdateSocieteComponent,
+    InsertSocieteDesinfectionComponent,
+    PrestationComponent,
+    UpdateSocieteDesinfectionComponent,
+    InsertPrestationComponent,
+    ModifyPrestationComponent
   ],
   providers: [
     AuthService,

@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { CategorieSociete } from '../modele/categorie-societe';
 import { Societe } from '../modele/societe';
 import { CategorieProtocole } from '../modele/categorie-protocole';
+import { HistoriqueDescente } from '../modele/historique-descente';
 
 @Injectable({
   providedIn: 'root'
@@ -110,6 +111,23 @@ export class GetService {
           });
         }
         resolve(protocole);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  getHistoriqueDescente(idSociete:String,mois:number,annee:number){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'historiqueDescente?idSociete='+idSociete+'&mois='+mois+'&annee='+annee).subscribe(res => {
+        let histo = res['data']['historiqueDescente'].map((element) => {
+          return new HistoriqueDescente(
+            element.id
+            ,element.idSociete
+            ,element.description
+            ,element.points
+            ,element.dateCreation);
+        });
+        resolve(histo);
       }, error => {
         reject(error);
       })

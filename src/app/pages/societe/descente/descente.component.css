@@ -5,3 +5,8 @@
 .text-success{
     color: rgb(18, 136, 14);
 }
+
+.bloc-form-histo{
+    padding-top: 10px;
+    background-color: rgb(236, 242, 252);
+}
