@@ -233,4 +233,21 @@ export class InsertService {
       })
     });
   }
+  //update prestation
+  UpdatePrestation(id:String,nom:String,prix:number,idSocieteDesinfection:String,description:String){
+    return new Promise((resolve, reject) => {
+      let data = {
+          "id":id,
+          "nom":nom,
+          "prix":prix,
+          "idSocieteDesinfection":idSocieteDesinfection,
+          "description": description
+      }
+      this.http.put(this.authService.getBASE_URL() + 'prestation',data).subscribe(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
 }
