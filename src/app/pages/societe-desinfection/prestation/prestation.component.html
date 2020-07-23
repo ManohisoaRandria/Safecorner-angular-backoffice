@@ -100,6 +100,21 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-country"
+                          >Nom</label
+                        >
+                        <input
+                          type="text"
+                          name="nom"
+                          class="form-control form-control-alternative"
+                          required
+                          placeholder="Nom de la préstation"
+                          ngModel
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country"
                           >Prix</label
                         >
                         <input
@@ -110,14 +125,6 @@
                           placeholder="Prix de la préstation"
                           [ngModel]="0"
                         />
-                      </div>
-                    </div>
-                     <!-- Validation -->
-                     <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-country" 
-                        >Validation</label>
-                        <input type="submit" [disabled]="f.invalid" class="btn btn-primary form-control" value="Add"/>
                       </div>
                     </div>
                   </div>
@@ -135,6 +142,15 @@
                           placeholder="..."
                           ngModel
                         ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country" 
+                        >Validation</label>
+                        <input type="submit" [disabled]="f.invalid" class="btn btn-primary form-control" value="Add"/>
                       </div>
                     </div>
                   </div>
@@ -166,26 +182,22 @@
                         <tr>
                             <th scope="col">NOM</th>
                             <th scope="col">PRIX</th>
-                            <th scope="col" class="text-center">DATE DE CREATION</th>
-                            <th scope="col" class="text-center">DATE DE CREATION</th>
+                            <th scope="col" class="text-center">OPTIONS</th>
                         </tr>
                     </thead>
                 <tbody>
-                    <tr >
-                        <th>
-                            dfsdf
-                        </th>
+                    <tr *ngFor="let elem of prestations">
                         <td>
-                            blabla
+                          {{elem.nom}}
                         </td>
                         <td>
-                            20 jun 2020
+                          {{elem.prix}}
                         </td>
                         <td>
-                            <a
-                            [routerLink]="['/modify-prestation',1]"
+                          <a id="{{elem.id}}"
+                            style="color: white;"
                             class="btn btn-sm btn-warning"
-                            >Edit</a
+                            (click)="onGoUpdatePrestation($event)" >Edit</a
                           >
                           <a style="color: white;"
                             class="btn btn-sm btn-danger"

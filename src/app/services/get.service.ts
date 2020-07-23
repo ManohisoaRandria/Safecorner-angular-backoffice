@@ -7,6 +7,7 @@ import { CategorieSociete } from '../modele/categorie-societe';
 import { Societe,SocieteDesinfection } from '../modele/societe';
 import { CategorieProtocole } from '../modele/categorie-protocole';
 import { HistoriqueDescente } from '../modele/historique-descente';
+import { Prestation } from '../modele/prestation';
 
 @Injectable({
   providedIn: 'root'
@@ -146,6 +147,24 @@ export class GetService {
         this.api.setAllSocieteDesinfection(societesD);
         console.log(res);
         resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //get prestation by societe
+  getPrestations(idSocieteDesinfection:String){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'prestations?societe='+idSocieteDesinfection).subscribe(res => {
+        let prestation = res['data']['prestations'].map((element) => {
+          return new Prestation(element.id,
+            element.nom,
+            element.description,
+            element.idSocieteDesinfection,
+            element.prix);
+        });
+        console.log(res);
+        resolve(prestation);
       }, error => {
         reject(error);
       })

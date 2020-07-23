@@ -208,10 +208,11 @@ export class InsertService {
     });
   }
   //insert prestation
-  Prestation(idSocieteDesinfection:String,prix:number,descritpion:String){
+  Prestation(idSocieteDesinfection:String,nom:String,prix:number,descritpion:String){
     return new Promise((resolve, reject) => {
       let data = {
           "societe":idSocieteDesinfection,
+          "nom":nom,
           "prix":prix,
           "description": descritpion
       }
@@ -226,6 +227,23 @@ export class InsertService {
     return new Promise((resolve, reject) => {
       this.http.delete(this.authService.getBASE_URL() + 'societe?id='+id).subscribe(res => {
         this.getService.getAllSociete();
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //update prestation
+  UpdatePrestation(id:String,nom:String,prix:number,idSocieteDesinfection:String,description:String){
+    return new Promise((resolve, reject) => {
+      let data = {
+          "id":id,
+          "nom":nom,
+          "prix":prix,
+          "idSocieteDesinfection":idSocieteDesinfection,
+          "description": description
+      }
+      this.http.put(this.authService.getBASE_URL() + 'prestation',data).subscribe(res => {
         resolve(res);
       }, error => {
         reject(error);
