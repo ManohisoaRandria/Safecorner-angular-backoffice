@@ -232,7 +232,7 @@
               <h3 class="mb-0">List de sociétés</h3>
             </div>
             <div class="col text-right">
-              <i class="ni ni-spaceship icon_load"></i>
+              <i class="ni ni-spaceship icon_load" (click)="refreshSociete()"></i>
             </div>
           </div>
         </div>
@@ -277,6 +277,7 @@
                     >
                     <a style="color: white;"
                       class="btn btn-sm btn-danger"
+                      (click)="onDeleteSociete(societe.id)"
                       >Delete</a
                     >
                   </div>

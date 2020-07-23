@@ -222,4 +222,14 @@ export class InsertService {
       })
     });
   }
+  deleteSociete(id:String){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.authService.getBASE_URL() + 'societe?id='+id).subscribe(res => {
+        this.getService.getAllSociete();
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
 }

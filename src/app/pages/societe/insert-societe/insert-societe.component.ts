@@ -77,7 +77,9 @@ export class InsertSocieteComponent implements OnInit {
     }
 
   }
-
+refreshSociete(){
+  this.getService.getAllSociete();
+}
 
   onAnimeBlocInsertSociete() {
     if (this.classBlocSociete == "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial" ||
@@ -126,5 +128,15 @@ export class InsertSocieteComponent implements OnInit {
         this.erreur = error['error']['message'];
       }
       );
+  }
+  //delete societe
+  onDeleteSociete(id:String){
+    this.erreur = "";
+    this.success = "";
+    this.insertService.deleteSociete(id).then(res=>{
+      this.success = "societe deleted";
+    }).catch(err=>{
+      this.erreur = err;
+    });
   }
 }
