@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAfficheComponent } from './components/dialog-affiche/dialog-affiche.component';
 import { DialogConfirmUpdateComponent } from './components/dialog-confirm-update/dialog-confirm-update.component';
 import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
+import { LoginGuardService } from './services/login-guard.service';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -54,7 +55,7 @@ import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete
     UpdateSocieteDesinfectionComponent,
     InsertPrestationComponent,
     ModifyPrestationComponent,
-    DialogAfficheComponent,// le dialog pour afficher 
+    DialogAfficheComponent,// le dialog pour afficher
     DialogConfirmDeleteComponent,// le dialog pour confirner le delete
     DialogConfirmUpdateComponent,// le dialog pour confirner l'update
   ],
@@ -66,7 +67,8 @@ import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete
   providers: [
     AuthService,
     {provide:HTTP_INTERCEPTORS,useClass:WebRequestInterceptorService,multi:true},
-    AuthGuardService
+    AuthGuardService,
+    LoginGuardService
   ],
   bootstrap: [AppComponent]
 })

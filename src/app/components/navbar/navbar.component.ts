@@ -1,3 +1,5 @@
+import { GetService } from './../../services/get.service';
+import { NgForm } from '@angular/forms';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -14,8 +16,15 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
+  recherche:boolean=false;
   userName:string='';
-  constructor(private auth: AuthService,location: Location,  private element: ElementRef, private router: Router,private api:ApiService) {
+  constructor(
+    private auth: AuthService,
+    location: Location,
+    private element: ElementRef,
+    private router: Router,
+    private api:ApiService,
+    private get:GetService) {
     this.location = location;
   }
 
@@ -28,6 +37,14 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.auth.logout();
   }
+  onSearch(form:NgForm){
+    this.get.rechercheSociete(form.value.querySearch).then(res=>{
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+  submit(form:NgForm){form.ngSubmit.emit();}
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if(titlee.charAt(0) === '#'){

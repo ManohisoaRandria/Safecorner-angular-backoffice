@@ -170,4 +170,21 @@ export class GetService {
       })
     });
   }
+  rechercheSociete(q:string){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'search?cat=all&q='+q).subscribe(res => {
+        let societes = res['data'].map((element) => {
+          return new Societe(element.id,
+            element.nom, element.idCategorieSociete,
+            element.description, element.lieux,
+            element.dateCreation, element.email,
+            element.tel,element.coordonne,element.points);
+        });
+        this.api.setAllSociete(societes);
+        resolve();
+      }, error => {
+        reject(error);
+      })
+    });
+  }
 }
