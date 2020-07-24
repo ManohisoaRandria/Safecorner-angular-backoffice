@@ -11,6 +11,6 @@ export class LoginGuardService implements CanActivate{
   constructor(private auth:AuthService,private router:Router) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     if(this.auth.isAuth())this.router.navigate(['/dashboard'])
-    else return this.auth.isAuth();
+    else return true;
   }
 }
