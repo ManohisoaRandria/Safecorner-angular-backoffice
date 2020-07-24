@@ -14,6 +14,13 @@
                 <div class="col">
                   <h2 class="text-back mb-0">Modifiez la préstation</h2>
                 </div>
+                <div class="col-lg-2">
+                  <div class="col text-center">
+                    <a [routerLink]="['/prestation',prestation.idSocieteDesinfection]"
+                        class="btn btn-primary form-control"
+                    >Back</a>
+                  </div>
+                </div>
               </div>
             </div>
             <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>

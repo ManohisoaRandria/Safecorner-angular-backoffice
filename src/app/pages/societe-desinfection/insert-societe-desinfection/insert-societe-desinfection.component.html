@@ -4,9 +4,67 @@
     </div>
   </div>
   <div class="container-fluid mt--7">
+   <!-- List des societe desinfection -->
     <div class="row">
-      <div class="col-xl-2 mb-1 mb-xl-0"></div>
-      <div class="col-xl-8 mb-1 mb-xl-0">
+      <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="mb-0">Les sociétés de désinfection</h2>
+              </div>
+              <div class="col text-right">
+                <i class="ni ni-spaceship icon_load" (click)="refreshSocieteDesinfection()"></i>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Projects table -->
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">NOM</th>
+                  <th scope="col">EMAIL</th>
+                  <th scope="col" class="text-center">OPTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let elem of societesDesinfection">
+                  <th>
+                    {{ elem.nom }}
+                  </th>
+                  <td>
+                    {{ elem.email }}
+                  </td>
+                  <td>
+                    <div class="col text-center">
+                      <a
+                        [routerLink]="['/prestation',elem.id]"
+                        class="btn btn-sm btn-primary"
+                        >Pestation</a
+                      >
+                      <a
+                        [routerLink]="['/update-societe-desinfection',elem.id]"
+                        class="btn btn-sm btn-warning"
+                        >Update</a
+                      >
+                      <a style="color: white;"
+                        class="btn btn-sm btn-danger"
+                        (click)="onDelete(elem.id)"
+                        >Delete</a
+                      >
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- insert societe desinfection -->
+    <div class="row mt-3">
+      <div class="col-xl-12 mb-1 mb-xl-0">
         <div class="card shadow">
           <div class="card-header bg-transparent">
             <div class="row align-items-center">
@@ -23,6 +81,7 @@
               </div>
             </div>
           </div>
+          <mat-progress-bar *ngIf="loadingInsertSocieteDesinfection" mode="query" color="primary"></mat-progress-bar>
           <div class="card-body" [ngClass]="classBlocSociete">
             <p class="text-erreur" *ngIf="erreur != ''">{{ erreur }}</p>
             <p class="text-success" *ngIf="success != ''">{{ success }}</p>
@@ -201,64 +260,6 @@
                 </div>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-xl-2 mb-3 mb-xl-0"></div>
-      <div class="col-xl-8 mb-5 mb-xl-0">
-        <div class="card shadow">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">Les sociétés de désinfection</h3>
-              </div>
-              <div class="col text-right">
-                <i class="ni ni-spaceship icon_load" (click)="refreshSocieteDesinfection()"></i>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">NOM</th>
-                  <th scope="col">EMAIL</th>
-                  <th scope="col">OPTIONS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let elem of societesDesinfection">
-                  <th>
-                    {{ elem.nom }}
-                  </th>
-                  <td>
-                    {{ elem.email }}
-                  </td>
-                  <td>
-                    <div class="col text-center">
-                      <a
-                        [routerLink]="['/prestation',elem.id]"
-                        class="btn btn-sm btn-primary"
-                        >Pestation</a
-                      >
-                      <a
-                        [routerLink]="['/update-societe-desinfection',elem.id]"
-                        class="btn btn-sm btn-warning"
-                        >Update</a
-                      >
-                      <a style="color: white;"
-                        class="btn btn-sm btn-danger"
-                        (click)="onDelete(elem.id)"
-                        >Delete</a
-                      >
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>

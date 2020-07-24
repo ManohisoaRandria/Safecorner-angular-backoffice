@@ -23,7 +23,7 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
   success: string = "";
   private map: any;
   private marker: any = null;
-
+  loading:boolean = false;
   societeDesinfection:SocieteDesinfection;
   nom:string = "";
   lieu:string = "";
@@ -99,6 +99,7 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
 
     dialogConfirmUpdate.afterClosed().subscribe(result=>{
       if(result){
+        this.loading = true;
         this.insertService.UpdateSocieteDesinfection(this.id,form.value.nom,
           form.value.description,
           form.value.lieu,
@@ -108,6 +109,7 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
           form.value.lng).then((res: any) => {
             this.erreur = "";
             this.success = res['message'];
+            this.loading = false;
           }).catch((error) => {
             this.success = "";
             console.log(error);

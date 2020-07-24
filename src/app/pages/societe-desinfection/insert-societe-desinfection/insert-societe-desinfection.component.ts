@@ -26,7 +26,7 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   success: string = "";
   private map: any;
   private marker: any = null;
-
+  loadingInsertSocieteDesinfection:boolean = false;
   societesDesinfection: SocieteDesinfection[] = [];
   societeDesinfectionSubscription: Subscription;
   lat: number;

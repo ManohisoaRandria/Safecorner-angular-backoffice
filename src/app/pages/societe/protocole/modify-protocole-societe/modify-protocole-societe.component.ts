@@ -8,6 +8,8 @@ import { InsertService } from 'src/app/services/insert.service';
 import { Protocole } from 'src/app/modele/protocole';
 import { CategorieProtocole } from 'src/app/modele/categorie-protocole';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmUpdateComponent } from '../../../../components/dialog-confirm-update/dialog-confirm-update.component';
 
 @Component({
   selector: 'app-modify-protocole-societe',
@@ -33,7 +35,8 @@ success = "";
     private api: ApiService,
     private insertService: InsertService,
     private getService: GetService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -92,53 +95,74 @@ success = "";
   onModifPerso(fperso: NgForm) {
     this.resetError();
     if (this.updatePerso) {
-      console.log("update");
-      this.resetUpdateDelete();
-      let protoChoisi = [];
-      if (this.protocolePersoChoisi.length >= 1) {
-        this.protocolePersoChoisi.forEach(element => {
-          protoChoisi.push({
-            "idProtocole": element.id,
-            "duree": +fperso.value[element.id]
-          });
-        });
-        this.loading = true;
-        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie.split(' ')[0]).then((res: any) => {
-          fperso.reset();
-          this.loading = false;
-          this.protocolePersoChoisi = [];
-          this.protocolesPerso = [];
-          this.success=" update successfull";
-        }).catch((error) => {
-          this.erreur=error;
-          this.loading = false;
+      var dialogConfUpdate = this.dialog.open(DialogConfirmUpdateComponent,{
+        width:"300px",
+        data:{
+          titre:"Confirm UPDATE",
+          contenu:"Are you sure you want to modify these protocols?"
         }
-        );
-      }
+      });
+
+      dialogConfUpdate.afterClosed().subscribe(result=>{
+        if(result){
+          this.resetUpdateDelete();
+          let protoChoisi = [];
+          if (this.protocolePersoChoisi.length >= 1) {
+            this.protocolePersoChoisi.forEach(element => {
+              protoChoisi.push({
+                "idProtocole": element.id,
+                "duree": +fperso.value[element.id]
+              });
+            });
+            this.loading = true;
+            this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie.split(' ')[0]).then((res: any) => {
+              fperso.reset();
+              this.loading = false;
+              this.protocolePersoChoisi = [];
+              this.protocolesPerso = [];
+              this.success=" update successfull";
+            }).catch((error) => {
+              this.erreur=error;
+              this.loading = false;
+            });
+          }
+        }
+      });
     } else if (this.deletePerso) {
-      console.log("delete");
-      this.resetUpdateDelete();
-      let protoChoisi = [];
-      if (this.protocolePersoChoisi.length >= 1) {
-        this.protocolePersoChoisi.forEach(element => {
-          protoChoisi.push({
-            "idProtocole": element.id,
-            "duree": +fperso.value[element.id]
-          });
-        });
-        this.loading = true;
-        this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie.split(' ')[0],"true").then((res: any) => {
-          fperso.reset();
-          this.loading = false;
-          this.protocolePersoChoisi = [];
-          this.protocolesPerso = [];
-          this.success=" delete successfull";
-        }).catch((error) => {
-          this.erreur=error;
-          this.loading = false;
+      var dialogConfDelete = this.dialog.open(DialogConfirmUpdateComponent,{
+        width:"300px",
+        data:{
+          titre:"Confirm DELETE",
+          contenu:"Are you sure you want to delete these protocols?"
         }
-        );
-      }
+      });
+
+      dialogConfDelete.afterClosed().subscribe(result=>{
+        if(result){
+          this.resetUpdateDelete();
+          let protoChoisi = [];
+          if (this.protocolePersoChoisi.length >= 1) {
+            this.protocolePersoChoisi.forEach(element => {
+              protoChoisi.push({
+                "idProtocole": element.id,
+                "duree": +fperso.value[element.id]
+              });
+            });
+            this.loading = true;
+            this.insertService.ModifProtocoleSociete(this.societe.id, protoChoisi,fperso.value.categorie.split(' ')[0],"true").then((res: any) => {
+              fperso.reset();
+              this.loading = false;
+              this.protocolePersoChoisi = [];
+              this.protocolesPerso = [];
+              this.success=" delete successfull";
+            }).catch((error) => {
+              this.erreur=error;
+              this.loading = false;
+            }
+            );
+          }
+        }
+      });
     }
 
   }

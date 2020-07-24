@@ -3,12 +3,12 @@ import { InsertProtocoleSocieteComponent } from './../../pages/societe/protocole
 import { InsertSocieteComponent } from './../../pages/societe/insert-societe/insert-societe.component';
 import { UpdateSocieteComponent } from '../../pages/societe/update-societe/update-societe.component';
 import { DescenteComponent } from './../../pages/societe/descente/descente.component';
-import { InsertComponent } from './../../pages/insert/insert.component';
 import { ProtocoleComponent } from '../../pages/societe/protocole/protocole.component';
 import { InsertSocieteDesinfectionComponent } from '../../pages/societe-desinfection/insert-societe-desinfection/insert-societe-desinfection.component';
 import { UpdateSocieteDesinfectionComponent } from '../../pages/societe-desinfection/update-societe-desinfection/update-societe-desinfection.component';
 import { ModifyPrestationComponent } from '../../pages/societe-desinfection/prestation/modify-prestation/modify-prestation.component';
 import { PrestationComponent } from '../../pages/societe-desinfection/prestation/prestation.component';
+import { AllProtocoleComponent } from '../../pages/all-protocole/all-protocole.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -34,5 +34,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'prestation/:id',           component: PrestationComponent },
     { path: 'modify-prestation',           component: ModifyPrestationComponent },
     { path: 'update-societe-desinfection/:id',           component: UpdateSocieteDesinfectionComponent },
-    { path: 'insert',           component: InsertComponent },
+    { path: 'all-protocole',           component: AllProtocoleComponent },
 ];

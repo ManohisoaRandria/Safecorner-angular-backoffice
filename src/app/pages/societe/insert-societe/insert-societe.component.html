@@ -4,7 +4,80 @@
   </div>
 </div>
 <div class="container-fluid mt--7">
+  <!-- list des societe -->
   <div class="row">
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h2 class="text-back mb-0">List de sociétés</h2>
+            </div>
+            <div class="col text-right">
+              <i class="ni ni-spaceship icon_load" (click)="refreshSociete()"></i>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">ETOILES</th>
+                <th scope="col">NOM</th>
+                <th scope="col">POINT</th>
+                <th scope="col" class="text-center" >OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let societe of societes">
+                <th>
+                <svg *ngFor="let haha of societe.etoile" width="1em" height="1em" style="color: rgb(250, 152, 4);" viewBox="0 0 16 16" class="{{haha=='F'?'bi bi-star-fill':haha=='H'?'bi bi-star-half':'bi bi-star'}}" fill="currentColor">
+                  <path  *ngIf="haha=='F'" d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  <path *ngIf="haha=='H'" fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z"/>
+                  <path *ngIf="haha=='E'" fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                </svg>
+
+                </th>
+                <td>
+                  {{ societe.nom }}
+                </td>
+                <td>
+                  {{ societe.points }}
+                </td>
+                <td>
+                  <div class="col text-center">
+                    <a
+                      [routerLink]="['/protocole', societe.id]"
+                      class="btn btn-sm btn-primary"
+                      >Protocoles</a
+                    >
+                    <a
+                      [routerLink]="['/descente-societe', societe.id]"
+                      class="btn btn-sm btn-success"
+                      >Descente</a
+                    >
+                    <a
+                      [routerLink]="['/update-societe', societe.id]"
+                      class="btn btn-sm btn-warning"
+                      >Update</a
+                    >
+                    <a style="color: white;"
+                      class="btn btn-sm btn-danger"
+                      (click)="onDeleteSociete(societe.id)"
+                      >Delete</a
+                    >
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- insert societe -->
+  <div class="row mt-3">
     <div class="col-xl-12 mb-1 mb-xl-0">
       <div class="card shadow">
         <div class="card-header bg-transparent">
@@ -22,6 +95,7 @@
             </div>
           </div>
         </div>
+        <mat-progress-bar *ngIf="loadingInsertSociete" mode="query" color="primary"></mat-progress-bar>
         <div class="card-body" [ngClass]="classBlocSociete">
           <p class="text-erreur" *ngIf="erreur != ''">{{ erreur }}</p>
           <p class="text-success" *ngIf="success != ''">{{ success }}</p>
@@ -221,16 +295,14 @@
       </div>
     </div>
   </div>
+  <!-- list des categorie societe -->
   <div class="row mt-3">
     <div class="col-xl-12 mb-5 mb-xl-0">
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">List de sociétés</h3>
-            </div>
-            <div class="col text-right">
-              <i class="ni ni-spaceship icon_load" (click)="refreshSociete()"></i>
+              <h2 class="text-back mb-0">List de categorie societe.</h2>
             </div>
           </div>
         </div>
@@ -239,48 +311,25 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
-                <th scope="col">ETOILES</th>
-                <th scope="col">NOM</th>
-                <th scope="col">POINT</th>
-                <th scope="col">OPTIONS</th>
+                <th scope="col">DESCRITPION</th>
+                <th scope="col" class="text-center">OPTIONS</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let societe of societes">
-                <th>
-                <svg *ngFor="let haha of societe.etoile" width="1em" height="1em" style="color: rgb(250, 152, 4);" viewBox="0 0 16 16" class="{{haha=='F'?'bi bi-star-fill':haha=='H'?'bi bi-star-half':'bi bi-star'}}" fill="currentColor">
-                  <path  *ngIf="haha=='F'" d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                  <path *ngIf="haha=='H'" fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z"/>
-                  <path *ngIf="haha=='E'" fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                </svg>
-
-                </th>
+              <tr *ngFor="let elem of categSociete">
                 <td>
-                  {{ societe.nom }}
-                </td>
-                <td>
-                  {{ societe.points }}
+                  {{elem.description}}
                 </td>
                 <td>
                   <div class="col text-center">
                     <a
-                      [routerLink]="['/protocole', societe.id]"
-                      class="btn btn-sm btn-primary"
-                      >Protocoles</a
-                    >
-                    <a
-                      [routerLink]="['/descente-societe', societe.id]"
-                      class="btn btn-sm btn-success"
-                      >Descente</a
-                    >
-                    <a
-                      [routerLink]="['/update-societe', societe.id]"
+                      [routerLink]="['/',elem.id]"
                       class="btn btn-sm btn-warning"
                       >Update</a
                     >
                     <a style="color: white;"
                       class="btn btn-sm btn-danger"
-                      (click)="onDeleteSociete(societe.id)"
+                      (click)="onDeleteCategorie(elem.id)"
                       >Delete</a
                     >
                   </div>
@@ -288,6 +337,62 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- insert categorie societe -->
+  <div class="row mt-3">
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <div class="row align-items-center">
+            <div class="col">
+              <h2 class="text-back mb-0">Ajout Categorie société</h2>
+            </div>
+            <div class="col">
+              <ul class="nav nav-pills justify-content-end">
+                <li class="nav-item" >
+                  <i [ngClass]="classIconActiveCategorie" id="categorieSociete"  (click)="onAnimeBlocInsertCategorie($event)" ></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <mat-progress-bar *ngIf="loadingInsertCategorieSociete" mode="query" color="primary"></mat-progress-bar>
+        <div class="card-body" [ngClass]="classBlocSocieteCategorie" >
+          <form>
+            <p class="text-erreur" *ngIf="messageErreurInsertCategorieSociete != ''" >{{messageErreurInsertCategorieSociete}}</p>
+            <p class="text-success" *ngIf="messageSuccessInsertCategorieSociete != ''" >{{messageSuccessInsertCategorieSociete}}</p>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username"
+                      >Descritpion</label
+                    >
+                    <input
+                      type="text"
+                      name="nom"
+                      [(ngModel)]="descriptionInsertCategorieSociete"
+                      class="form-control form-control-alternative"
+                      placeholder="la decsritpion du categorie"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country"
+                      >Validation</label
+                    >
+                    <button class="btn btn-primary form-control " (click)="onInsertCategorieSociete()">
+                      VALIDER
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

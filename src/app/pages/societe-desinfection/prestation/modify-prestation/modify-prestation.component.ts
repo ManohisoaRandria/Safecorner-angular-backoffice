@@ -13,7 +13,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./modify-prestation.component.css']
 })
 export class ModifyPrestationComponent implements OnInit {
-  private prestation:Prestation;
+  prestation:Prestation;
   erreur: string = "";
   success: string = "";
   loading:boolean = false;

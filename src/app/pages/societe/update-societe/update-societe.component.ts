@@ -25,7 +25,7 @@ export class UpdateSocieteComponent implements OnInit {
   success: string = "";
   private map: any;
   private marker: any = null;
-
+  loadingUpdateSociete:boolean = false;
   societe:Societe;
   categSocieteSubscription: Subscription;
   categSociete: CategorieSociete[] = [];
@@ -110,6 +110,7 @@ export class UpdateSocieteComponent implements OnInit {
 
     dialogConfirmUpdate.afterClosed().subscribe(result=>{
       if(result){
+        this.loadingUpdateSociete = true;
         this.insertService.UpdateSociete(this.id,form.value.nom,
           form.value.categorie,
           form.value.description,
@@ -120,6 +121,7 @@ export class UpdateSocieteComponent implements OnInit {
           form.value.lng).then((res: any) => {
             this.erreur = "";
             this.success = res['message'];
+            this.loadingUpdateSociete = false;
           }).catch((error) => {
             this.success = "";
             console.log(error);

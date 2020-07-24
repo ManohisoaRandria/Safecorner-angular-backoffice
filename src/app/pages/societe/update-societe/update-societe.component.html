@@ -16,6 +16,7 @@
               </div>
             </div>
           </div>
+          <mat-progress-bar *ngIf="loadingUpdateSociete" mode="query" color="primary"></mat-progress-bar>
           <div class="card-body">
             <p class="text-erreur" *ngIf="erreur != ''">{{ erreur }}</p>
             <p class="text-success" *ngIf="success != ''">{{ success }}</p>

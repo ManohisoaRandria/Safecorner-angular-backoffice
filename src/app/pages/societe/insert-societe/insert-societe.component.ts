@@ -32,9 +32,19 @@ export class InsertSocieteComponent implements OnInit {
   categSociete: CategorieSociete[] = [];
   lat: number;
   lng: number;
+  //loading
+  loadingInsertSociete:boolean = false;
+  loadingInsertCategorieSociete:boolean = false;
+  //element Insert Categorie Societe
+  messageErreurInsertCategorieSociete:string = "";
+  messageSuccessInsertCategorieSociete:string = "";
+  descriptionInsertCategorieSociete:string = "";
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBlocSociete: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
+  //animation bloc insert categorie
+  classIconActiveCategorie: string = "ni ni-bold-down icon_activation_insert_societe";
+  classBlocSocieteCategorie: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
   constructor(private insertService: InsertService,
      private api: ApiService, 
      private getService: GetService,
@@ -124,6 +134,18 @@ export class InsertSocieteComponent implements OnInit {
     }
   }
 
+  //fomction animation des bloc
+  onAnimeBlocInsertCategorie(){
+    if (this.classBlocSocieteCategorie == "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial" ||
+      this.classBlocSocieteCategorie == "bloc_form_insert_societe bloc_form_insert_societe_non_active") {
+      this.classBlocSocieteCategorie = "bloc_form_insert_societe bloc_form_insert_societe_active";
+      this.classIconActiveCategorie = "ni ni-bold-up icon_activation_insert_societe";
+    } else {
+      this.classBlocSocieteCategorie = "bloc_form_insert_societe bloc_form_insert_societe_non_active";
+      this.classIconActiveCategorie = "ni ni-bold-down icon_activation_insert_societe";
+    }
+  }
+
   //FONCTON POUR LA MAP
   //affciher map
   showMap() {
@@ -143,6 +165,7 @@ export class InsertSocieteComponent implements OnInit {
 
   //INSERTION SOCIETE
   onInsertSociete(form: NgForm) {
+    this.loadingInsertSociete = true;
     this.insertService.Societe(form.value.nom,
       form.value.categorie,
       form.value.description,
@@ -154,6 +177,7 @@ export class InsertSocieteComponent implements OnInit {
         this.erreur = "";
         this.success = res['message'];
         form.reset();
+        this.loadingInsertSociete = false;
       }).catch((error) => {
         this.success = "";
         console.log(error);
@@ -198,4 +222,24 @@ export class InsertSocieteComponent implements OnInit {
       }
     });
   }
+
+  //insertion categorie societe
+  onInsertCategorieSociete(){
+    this.loadingInsertCategorieSociete = true;
+    this.insertService.CategorieSociete(this.descriptionInsertCategorieSociete).then((res:any)=>{
+        this.messageErreurInsertCategorieSociete = "";
+        this.messageSuccessInsertCategorieSociete = res['message'];
+        this.loadingInsertCategorieSociete = false;
+      }).catch((error)=>{
+        this.messageSuccessInsertCategorieSociete = "";
+        this.messageErreurInsertCategorieSociete = error['error']['message'];
+        this.loadingInsertCategorieSociete = false;
+      }
+    );
+  }
+
+  // delete categorie
+  onDeleteCategorie(id:String){
+    console.log('delete categorie'+id);
+  } 
 }

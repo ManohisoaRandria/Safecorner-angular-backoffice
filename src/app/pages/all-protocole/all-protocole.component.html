@@ -1,0 +1,136 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body"></div>
+    </div>
+</div>
+<div class="container-fluid mt--7">
+    <!-- list des protocoles -->
+  <div class="row">
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h2 class="text-back mb-0">List de protocoles</h2>
+            </div>
+            <div class="col text-right">
+              <i class="ni ni-spaceship icon_load"></i>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">NOM</th>
+                <th scope="col">DESCRITPION</th>
+                <th scope="col">DATE DE CREATION</th>
+                <th scope="col" class="text-center" >OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                 sdfsf
+                </td>
+                <td>
+                    <button style="color: white;"
+                    class="btn btn-sm btn-info"
+                    >Detail</button>
+                </td>
+                <td>
+                    fdfsdfsdf
+                </td>
+                <td>
+                  <div class="col text-center">
+                    <a
+                      [routerLink]="['/', 2]"
+                      class="btn btn-sm btn-warning"
+                      >Update</a
+                    >
+                    <a style="color: white;"
+                      class="btn btn-sm btn-danger"
+                      >Delete</a
+                    >
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Insert protocole -->
+    <div class="row mt-3">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="card shadow">
+            <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                    <div class="col">
+                    <h2 class="text-back mb-0">Ajout protocole</h2>
+                    </div>
+                    <div class="col">
+                    <ul class="nav nav-pills justify-content-end">
+                        <li class="nav-item" >
+                        <i [ngClass]="classIconActiveProto" id="Protocole"  (click)="onAnimeBlocInsertProto()" ></i>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
+            <div class="card-body" [ngClass]="classBlocProto" >
+            <form>
+                <p class="text-erreur" *ngIf="messageErreurInsertProtocole != ''" >{{messageErreurInsertProtocole}}</p>
+                <p class="text-success" *ngIf="messageSuccessInsertProtocole != ''" >{{messageSuccessInsertProtocole}}</p>
+                <div class="pl-lg-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                        >Nom</label
+                        >
+                        <input
+                        type="text"
+                        name="nom"
+                        [(ngModel)]="nomProtocole"
+                        class="form-control form-control-alternative"
+                        placeholder="le nom du protocole"
+                        />
+                    </div>
+                    </div>
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-country"
+                        >Validation</label
+                        >
+                        <button class="btn btn-primary form-control " (click)="onInsertProtocole()">
+                        VALIDER
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Description -->
+                    <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea
+                        rows="4"
+                        name="descritpion"
+                        [(ngModel)]="descriptionInsertProtocole"
+                        class="form-control form-control-alternative"
+                        placeholder="..."
+                        ></textarea>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>    
+    </div>
+</div>

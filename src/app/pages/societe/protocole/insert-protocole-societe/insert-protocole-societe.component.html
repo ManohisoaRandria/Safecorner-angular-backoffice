@@ -60,6 +60,13 @@
               <h6 class="text-uppercase text-light ls-1 mb-1">Nouveau</h6>
               <h2 class="text-back mb-0">Ajout Protocole pour la société {{this.societe.nom}}</h2>
             </div>
+            <div class="col-lg-2">
+              <div class="col text-center">
+                <a [routerLink]="['/protocole',societe.id]"
+                    class="btn btn-primary form-control"
+                >Back</a>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-body">

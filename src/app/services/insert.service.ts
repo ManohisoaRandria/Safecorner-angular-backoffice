@@ -23,27 +23,13 @@ export class InsertService {
               "description": descritpion,
             }
             this.http.post(this.authService.getBASE_URL() + 'categorieSociete', data).subscribe(res => {
+              this.getService.getCategorieSociete();
               resolve(res);
             }, error => {
               reject(error);
             })
         });
     }
-
-    //insert categorie protocole
-    CategorieProtocole(descritpion:String){
-        return new Promise((resolve, reject) => {
-            let data = {
-              "description": descritpion,
-            }
-            this.http.post(this.authService.getBASE_URL() + 'categorieProtocole', data).subscribe(res => {
-              resolve(res);
-            }, error => {
-              reject(error);
-            })
-        });
-    }
-
     //insert protocole
     Protocole(nom:String,descritpion:String){
         return new Promise((resolve, reject) => {

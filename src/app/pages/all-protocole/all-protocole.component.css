@@ -1,0 +1,58 @@
+.note_NB{
+    color: rgb(3, 192, 18);
+}
+
+.text-erreur{
+    color: rgb(241, 28, 28);
+}
+
+.text-success{
+    color: rgb(18, 136, 14);
+}
+
+/* animation bloc */
+.bloc_form_insert_societe{
+    background: rgb(247, 251, 252);
+    width: auto;
+    height: auto;
+}
+
+.bloc_form_insert_societe_active{
+    height: auto;
+    transition: transform .2s linear;
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.bloc_form_insert_societe_non_active{
+    transition: transform .2s ease-in-out;
+    transition: height .6s ease-in-out;
+    transform: scaleY(0);
+    transform-origin: top;
+    height: 0px;
+}
+.bloc_form_insert_societe_non_active_initial{/*hi evitena anle animation am volou vo miditra amle page*/
+  transform: scaleY(0);
+  transform-origin: top;
+  height: 0px;
+}
+
+/* proproete icon */
+/* animation icone */
+.icon_activation_insert_societe:hover {
+    color: rgb(85, 139, 240);
+    transform: scale(1.3);
+    transition: transform .3s;
+}
+
+.icon_add_coord_societe:hover {
+    color: rgb(85, 139, 240);
+    transform: scale(1.3);
+    transition: transform .3s;
+}
+
+.icon_load:hover {
+    color: rgb(85, 139, 240);
+    transform: scale(1.3);
+    transition: transform .3s;
+}

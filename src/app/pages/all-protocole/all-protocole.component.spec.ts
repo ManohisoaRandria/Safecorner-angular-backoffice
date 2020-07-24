@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InsertPrestationComponent } from './insert-prestation.component';
+import { AllProtocoleComponent } from './all-protocole.component';
 
-describe('InsertPrestationComponent', () => {
-  let component: InsertPrestationComponent;
-  let fixture: ComponentFixture<InsertPrestationComponent>;
+describe('AllProtocoleComponent', () => {
+  let component: AllProtocoleComponent;
+  let fixture: ComponentFixture<AllProtocoleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InsertPrestationComponent ]
+      declarations: [ AllProtocoleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InsertPrestationComponent);
+    fixture = TestBed.createComponent(AllProtocoleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
