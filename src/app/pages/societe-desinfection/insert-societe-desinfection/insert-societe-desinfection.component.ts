@@ -12,6 +12,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
 import { GetService } from 'src/app/services/get.service';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
+import { DialogConfirmDeleteComponent } from '../../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 
 @Component({
   selector: 'app-insert-societe-desinfection',
@@ -31,7 +34,10 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBlocSociete: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
-  constructor(private insertService: InsertService, private api: ApiService, private getService: GetService) { }
+  constructor(private insertService: InsertService, 
+    private api: ApiService, 
+    private getService: GetService,
+    private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.societeDesinfectionSubscription = this.api.societeDesinfectionSubject.subscribe(
@@ -112,12 +118,39 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   }
   //delete
   onDelete(id){
-    this.insertService.deleteSocieteDesinfection(id).then(res=>{
-      this.erreur = "";
-      this.success = "deleted";
-    }).catch(err=>{
-      this.success = "";
-      this.erreur = err['error']['message'];
-    })
+    var societe = this.societesDesinfection.find(element => element.id == id);
+    //confirmation par dialog
+    var dialogConfirmDelete = this.dialog.open(DialogConfirmDeleteComponent,{
+      width:"500px",
+      data:{
+        titre:"Confrim DELETE",
+        contenu:'Are you sure to delete the disinfection company '+societe.nom,
+        valeurIn:societe.nom
+      }
+    });
+    //rehefa mclose le dialog
+    dialogConfirmDelete.afterClosed().subscribe(result => {
+      if(result != ''){
+        if(societe.nom == result){
+          this.insertService.deleteSocieteDesinfection(id).then(res=>{
+            this.erreur = "";
+            this.success = "deleted";
+          }).catch(err=>{
+            this.success = "";
+            this.erreur = err['error']['message'];
+          })
+        }else{
+          // ra diso le nsoranany
+          this.dialog.open(DialogAfficheComponent,{
+            width:"200px",
+            data:{
+              titre:"Error",
+              contenu:"you must write the code indicated"
+            }
+          }
+          );
+        }
+      }
+    });
   }
 }

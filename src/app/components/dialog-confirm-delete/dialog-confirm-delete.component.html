@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{data.titre}}</h1>
+<div mat-dialog-content>
+    <p>{{data.contenu}}</p><br>
+    <p>To prevent accidental actions we ask you to confirm your intention.
+    Please type <kbd>{{data.valeurIn}}</kbd> to proceed or close this modal to cancel.</p>
+    <input
+        type="text"
+        name="valeur"
+        class="form-control form-control-alternative"
+        placeholder="..."
+        autocomplete="off"
+        [(ngModel)]="valuerOut"
+    /><br>
+</div>
+<div mat-dialog-actions>
+  <button [disabled]="valuerOut === ''" mat-button (click)="onConfirm()" class="btn btn-sm btn-primary" >Confirm</button>
+  <button mat-button mat-dialog-close class="btn btn-sm btn-danger" >Close</button>
+</div>

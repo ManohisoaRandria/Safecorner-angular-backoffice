@@ -9,6 +9,8 @@ import "leaflet/dist/images/marker-icon-2x.png";
 import { SocieteDesinfection } from '../../../modele/societe'; 
 import { ApiService } from 'src/app/services/api.service';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmUpdateComponent } from '../../../components/dialog-confirm-update/dialog-confirm-update.component';
 
 @Component({
   selector: 'app-update-societe-desinfection',
@@ -33,7 +35,8 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
   constructor(private insertService: InsertService,
               private api:ApiService,
               private route:ActivatedRoute,
-              private router:Router) { }
+              private router:Router,
+              private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -85,20 +88,32 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
 
   //INSERTION SOCIETE DESINFECTION
   onUpdateSociete(form: NgForm) {
-    this.insertService.UpdateSocieteDesinfection(this.id,form.value.nom,
-      form.value.description,
-      form.value.lieu,
-      form.value.email,
-      form.value.tel,
-      form.value.lat,
-      form.value.lng).then((res: any) => {
-        this.erreur = "";
-        this.success = res['message'];
-      }).catch((error) => {
-        this.success = "";
-        console.log(error);
-        this.erreur = error['error']['message'];
+    // dialog pour confirmer l'update
+    var dialogConfirmUpdate = this.dialog.open(DialogConfirmUpdateComponent,{
+      width:"300px",
+      data:{
+        titre:"Confirm UPDATE",
+        contenu:"Are you sure you want to change the disinfection company "+this.societeDesinfection.nom
       }
-      );
+    });
+
+    dialogConfirmUpdate.afterClosed().subscribe(result=>{
+      if(result){
+        this.insertService.UpdateSocieteDesinfection(this.id,form.value.nom,
+          form.value.description,
+          form.value.lieu,
+          form.value.email,
+          form.value.tel,
+          form.value.lat,
+          form.value.lng).then((res: any) => {
+            this.erreur = "";
+            this.success = res['message'];
+          }).catch((error) => {
+            this.success = "";
+            console.log(error);
+            this.erreur = error['error']['message'];
+          });
+      }
+    });
   }
 }

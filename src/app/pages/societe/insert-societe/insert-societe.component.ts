@@ -7,11 +7,13 @@ import * as L from "node_modules/leaflet";
 import "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/images/marker-icon-2x.png";
 import { CategorieSociete } from 'src/app/modele/categorie-societe';
-import { Protocole } from '../../../modele/protocole';
 import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
 import { GetService } from 'src/app/services/get.service';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
+import { DialogConfirmDeleteComponent } from '../../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 
 @Component({
   selector: 'app-insert-societe',
@@ -33,7 +35,10 @@ export class InsertSocieteComponent implements OnInit {
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBlocSociete: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
-  constructor(private insertService: InsertService, private api: ApiService, private getService: GetService) { }
+  constructor(private insertService: InsertService,
+     private api: ApiService, 
+     private getService: GetService,
+     private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.societeSubscription = this.api.societeSubject.subscribe(
@@ -158,12 +163,39 @@ export class InsertSocieteComponent implements OnInit {
   }
   //delete societe
   onDeleteSociete(id: String) {
-    this.erreur = "";
-    this.success = "";
-    this.insertService.deleteSociete(id).then(res => {
-      this.success = "societe deleted";
-    }).catch(err => {
-      this.erreur = err;
+    var societe = this.societes.find(element => element.id == id);
+    //confirmation par dialog
+    var dialogConfirmDelete = this.dialog.open(DialogConfirmDeleteComponent,{
+      width:"500px",
+      data:{
+        titre:"Confrim DELETE",
+        contenu:'Are you sure to delete the company '+societe.nom,
+        valeurIn:societe.nom
+      }
+    });
+    //rehefa mclose le dialog
+    dialogConfirmDelete.afterClosed().subscribe(result => {
+      if(result != ''){
+        if(societe.nom == result){
+          this.erreur = "";
+          this.success = "";
+          this.insertService.deleteSociete(id).then(res => {
+            this.success = "societe deleted";
+          }).catch(err => {
+            this.erreur = err;
+          });
+        }else{
+          // ra diso le nsoranany
+          this.dialog.open(DialogAfficheComponent,{
+            width:"200px",
+            data:{
+              titre:"Error",
+              contenu:"you must write the code indicated"
+            }
+          }
+          );
+        }
+      }
     });
   }
 }

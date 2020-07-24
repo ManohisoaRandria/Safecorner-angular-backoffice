@@ -6,6 +6,9 @@ import { Prestation } from '../../../modele/prestation';
 import { ApiService } from 'src/app/services/api.service';
 import { GetService } from '../../../services/get.service';
 import { TransferDataService } from '../../../services/transferData.service';
+import { MatDialog} from '@angular/material/dialog';
+import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
+import { DialogConfirmDeleteComponent } from '../../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 
 import { NgForm } from '@angular/forms';
 import { from } from 'rxjs';
@@ -31,7 +34,8 @@ export class PrestationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private getService: GetService,
-    private transData: TransferDataService) { }
+    private transData: TransferDataService,
+    private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -96,20 +100,60 @@ export class PrestationComponent implements OnInit {
   }
   //delete
   onDelete(id) {
-    this.loadingGetPrestation = true;
-    this.insertService.deletePrestation(id).then(res => {
-      this.getService.getPrestations(this.id).then((res2: Prestation[]) => {
-        this.prestations = res2;
-        this.loadingGetPrestation = false;
-        this.erreur = "";
-        this.success = "deleted";
-      }).catch((err) => {
-        console.log(err);
-      });
-    }).catch(err => {
-      this.success = "";
-      this.erreur = err['error']['message'];
-    })
+    var prestation = this.prestations.find(element => element.id == id);
+    //confirmation par dialog
+    var dialogConfirmDelete = this.dialog.open(DialogConfirmDeleteComponent,{
+      width:"500px",
+      data:{
+        titre:"Confrim DELETE",
+        contenu:'Are you sure to delete the service '+prestation.nom,
+        valeurIn:prestation.nom
+      }
+    });
+    //rehefa mclose le dialog
+    dialogConfirmDelete.afterClosed().subscribe(result => {
+      if(result != ''){
+        if(prestation.nom == result){
+          this.loadingGetPrestation = true;
+          this.insertService.deletePrestation(id).then(res => {
+            this.getService.getPrestations(this.id).then((res2: Prestation[]) => {
+              this.prestations = res2;
+              this.loadingGetPrestation = false;
+              this.erreur = "";
+              this.success = "deleted";
+            }).catch((err) => {
+              console.log(err);
+            });
+          }).catch(err => {
+            this.success = "";
+            this.erreur = err['error']['message'];
+          })
+        }else{
+          // ra diso le nsoranany
+          this.dialog.open(DialogAfficheComponent,{
+            width:"200px",
+            data:{
+              titre:"Error",
+              contenu:"you must write the code indicated"
+            }
+          }
+          );
+        }
+      }
+    });
+  }
+
+  // affciher la desription de la prestation
+  onAfficheDescription(event){
+    const target = event.target as HTMLInputElement;
+    var prestation = this.prestations.find(element => element.id == target.id);
+    this.dialog.open(DialogAfficheComponent, {
+      width: '500px',
+      data:{
+        titre:"Descritpion:",
+        contenu:prestation.description
+      }
+    });
   }
 
 }

@@ -25,6 +25,10 @@ import { PrestationComponent } from './pages/societe-desinfection/prestation/pre
 import { UpdateSocieteDesinfectionComponent } from './pages/societe-desinfection/update-societe-desinfection/update-societe-desinfection.component';
 import { InsertPrestationComponent } from './pages/societe-desinfection/prestation/insert-prestation/insert-prestation.component';
 import { ModifyPrestationComponent } from './pages/societe-desinfection/prestation/modify-prestation/modify-prestation.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogAfficheComponent } from './components/dialog-affiche/dialog-affiche.component';
+import { DialogConfirmUpdateComponent } from './components/dialog-confirm-update/dialog-confirm-update.component';
+import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -34,7 +38,8 @@ import { ModifyPrestationComponent } from './pages/societe-desinfection/prestati
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ],
   declarations: [
     AppComponent,
@@ -48,7 +53,15 @@ import { ModifyPrestationComponent } from './pages/societe-desinfection/prestati
     PrestationComponent,
     UpdateSocieteDesinfectionComponent,
     InsertPrestationComponent,
-    ModifyPrestationComponent
+    ModifyPrestationComponent,
+    DialogAfficheComponent,// le dialog pour afficher 
+    DialogConfirmDeleteComponent,// le dialog pour confirner le delete
+    DialogConfirmUpdateComponent,// le dialog pour confirner l'update
+  ],
+  entryComponents: [
+    DialogAfficheComponent,// mila apetraka ato mba aafan le angular maka ni info rehetra momba an le dialog
+    DialogConfirmUpdateComponent,
+    DialogConfirmDeleteComponent
   ],
   providers: [
     AuthService,

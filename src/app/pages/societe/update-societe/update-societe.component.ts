@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
 import { Router, ActivatedRoute } from '@angular/router'; 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmUpdateComponent } from '../../../components/dialog-confirm-update/dialog-confirm-update.component';
 
 import * as L from "node_modules/leaflet";
 
@@ -38,7 +40,8 @@ export class UpdateSocieteComponent implements OnInit {
   constructor(private insertService: InsertService,
               private api:ApiService,
               private route:ActivatedRoute,
-              private router:Router) { }
+              private router:Router,
+              private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -96,22 +99,34 @@ export class UpdateSocieteComponent implements OnInit {
 
   //INSERTION SOCIETE
   onUpdateSociete(form: NgForm) {
-    this.insertService.UpdateSociete(this.id,form.value.nom,
-      form.value.categorie,
-      form.value.description,
-      form.value.lieu,
-      form.value.email,
-      form.value.tel,
-      form.value.lat,
-      form.value.lng).then((res: any) => {
-        this.erreur = "";
-        this.success = res['message'];
-      }).catch((error) => {
-        this.success = "";
-        console.log(error);
-        this.erreur = error['error']['message'];
+    // dialog pour confirmer l'update
+    var dialogConfirmUpdate = this.dialog.open(DialogConfirmUpdateComponent,{
+      width:"300px",
+      data:{
+        titre:"Confirm UPDATE",
+        contenu:"Are you sure you want to change the company "+this.societe.nom
       }
-      );
+    });
+
+    dialogConfirmUpdate.afterClosed().subscribe(result=>{
+      if(result){
+        this.insertService.UpdateSociete(this.id,form.value.nom,
+          form.value.categorie,
+          form.value.description,
+          form.value.lieu,
+          form.value.email,
+          form.value.tel,
+          form.value.lat,
+          form.value.lng).then((res: any) => {
+            this.erreur = "";
+            this.success = res['message'];
+          }).catch((error) => {
+            this.success = "";
+            console.log(error);
+            this.erreur = error['error']['message'];
+          });
+      }
+    });
   }
 
 }
