@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 
 import { ApiService } from '../../../services/api.service';
 import { GetService } from '../../../services/get.service';
@@ -48,7 +49,8 @@ export class DescenteComponent implements OnInit {
     private router: Router,
     private api: ApiService,
     private getService: GetService,
-    private insertService: InsertService) { }
+    private insertService: InsertService,
+    private scrollElem:ViewportScroller) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -100,6 +102,7 @@ export class DescenteComponent implements OnInit {
   onInsertHistoDescente(form: NgForm) {
     if (form.value.description != "") {
       this.loading = true;
+      this.onScrollElement("insertDescente");
       this.insertService.historiqueDescente(this.societe.id, form.value.description, this.nombreApplique).then((res: any) => {
         this.erreur = "";
         this.success = res['message'];
@@ -135,5 +138,10 @@ export class DescenteComponent implements OnInit {
     }).catch(err => {
       console.log(err);
     });
+  }
+
+  //scroll element
+  onScrollElement(idelem:string){
+    this.scrollElem.scrollToAnchor(idelem);
   }
 }

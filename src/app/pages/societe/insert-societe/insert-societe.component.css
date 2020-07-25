@@ -17,6 +17,19 @@
     background-color: rgb(255, 123, 0);
 }
 
+/* racourcie */
+.btn-racourcie{
+    margin: 1px 2px;
+    padding: 2px 5px;
+}
+.bar-racourcie{
+    position: fixed;
+    bottom: 0;
+    left: 10;
+    margin: 5px;
+    z-index: 1;
+}
+
 /* animation bloc */
 .bloc_form_insert_societe{
     background: rgb(247, 251, 252);

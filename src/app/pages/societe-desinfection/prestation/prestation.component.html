@@ -3,7 +3,15 @@
       <div class="header-body"></div>
     </div>
   </div>
-  <div class="container-fluid mt--7">
+  <!-- bar racourcie -->
+  <div class="row bar-racourcie">
+    <div class="col">
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('infoSocieteD')">Info societe desinfection</button>
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('listPrestation')">List prestation</button>
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('insertPrestation')">Insert prestation</button>
+    </div>
+  </div>
+  <div id="infoSocieteD" class="container-fluid mt--7">
     <div class="row">
       <div class="col-xl-2 mb-3 mb-xl-0"></div>
       <div class="col-xl-8 mb-3 mb-xl-0">
@@ -11,7 +19,7 @@
           <div class="card-header bg-transparent">
             <div class="row align-items-center">
               <div class="col">
-                <h6 class="text-uppercase text-light ls-1 mb-1">List de protocoles</h6>
+                <h6 class="text-uppercase text-light ls-1 mb-1">Info</h6>
                 <h2 class="text-back mb-0">La société de désinfection</h2>
               </div>
             </div>
@@ -70,7 +78,7 @@
       </div>
     </div>
      <!-- list prestation -->
-     <div class="row mt-3">
+     <div id="listPrestation" class="row mt-3">
       <div class="col-xl-2 mb-3 mb-xl-0"></div>
       <div class="col-xl-8 mb-5 mb-xl-0">
         <div class="card shadow">
@@ -130,7 +138,7 @@
       </div>
     </div>
     <!-- insert prestation -->
-    <div class="row mt-3">
+    <div id="insertPrestation" class="row mt-3">
         <div class="col-xl-2 mb-1 mb-xl-0"></div>
         <div class="col-xl-8 mb-1 mb-xl-0">
           <div class="card shadow">

@@ -7,6 +7,8 @@ import { GetService } from '../../services/get.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAfficheComponent }  from '../../components/dialog-affiche/dialog-affiche.component';
 import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
+import { ViewportScroller } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-all-protocole',
@@ -19,8 +21,6 @@ export class AllProtocoleComponent implements OnInit {
   // element Insert Protocole
   messageErreurInsertProtocole:string = "";
   messageSuccessInsertProtocole:string = "";
-  nomProtocole:string = "";
-  descriptionInsertProtocole:string = "";
   loading:boolean = false;
   //animation bloc insert societe
   classIconActiveProto: string = "ni ni-bold-down icon_activation_insert_societe";
@@ -28,7 +28,8 @@ export class AllProtocoleComponent implements OnInit {
   constructor(private insertService:InsertService,
               private api:ApiService,
               private getService:GetService,
-              private dialog:MatDialog) { }
+              private dialog:MatDialog,
+              private scrollElem:ViewportScroller) { }
 
   ngOnInit(): void {
     this.protocoleSubscription = this.api.protocoleSubject  .subscribe(
@@ -60,9 +61,9 @@ export class AllProtocoleComponent implements OnInit {
   }
 
   //insertion protocole
-  onInsertProtocole(){
+  onInsertProtocole(form:NgForm){
     this.loading = true;
-    this.insertService.Protocole(this.nomProtocole,this.descriptionInsertProtocole).then((res:any)=>{
+    this.insertService.Protocole(form.value.nom,form.value.description).then((res:any)=>{
         this.messageErreurInsertProtocole = "";
         this.messageSuccessInsertProtocole = res['message'];
         this.loading = false;
@@ -130,5 +131,10 @@ export class AllProtocoleComponent implements OnInit {
         }
       }
     });
+  }
+
+  //scroll element
+  onScrollElement(idelem:string){
+    this.scrollElem.scrollToAnchor(idelem);
   }
 }

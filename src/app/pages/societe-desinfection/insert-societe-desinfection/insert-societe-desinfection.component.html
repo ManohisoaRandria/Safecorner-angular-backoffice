@@ -3,9 +3,16 @@
       <div class="header-body"></div>
     </div>
   </div>
+  <!-- bar racourcie -->
+  <div class="row bar-racourcie">
+    <div class="col">
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('listSocieteD')">List societe desinfection</button>
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('insertSocieteD')">Insert societe desinfection</button>
+    </div>
+  </div>
   <div class="container-fluid mt--7">
    <!-- List des societe desinfection -->
-    <div class="row">
+    <div id="listSocieteD" class="row">
       <div class="col-xl-12 mb-5 mb-xl-0">
         <div class="card shadow">
           <div class="card-header border-0">
@@ -63,7 +70,7 @@
       </div>
     </div>
     <!-- insert societe desinfection -->
-    <div class="row mt-3">
+    <div id="insertSocieteD" class="row mt-3">
       <div class="col-xl-12 mb-1 mb-xl-0">
         <div class="card shadow">
           <div class="card-header bg-transparent">

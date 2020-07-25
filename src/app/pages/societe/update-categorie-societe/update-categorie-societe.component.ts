@@ -57,15 +57,12 @@ export class UpdateCategorieSocieteComponent implements OnInit {
           form.value.description
           ).then((res: any) => {
             this.success = res['message'];
+            this.erreur ="";
             this.loading = false;
           }).catch((error) => {
-            this.dialog.open(DialogAfficheComponent,{
-              width:"300px",
-              data:{
-                titre:"Error",
-                contenu:error['error']['message']
-              }
-            });
+            this.loading = true;
+            this.success = "";
+            this.erreur = error['error']['message'];
             this.loading = false;
           });
       }
