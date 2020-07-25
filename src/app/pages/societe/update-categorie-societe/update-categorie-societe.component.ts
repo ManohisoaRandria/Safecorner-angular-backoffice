@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategorieSociete } from '../../../modele/categorie-societe';
 import { InsertService } from '../../../services/insert.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,23 +15,26 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './update-categorie-societe.component.html',
   styleUrls: ['./update-categorie-societe.component.css']
 })
-export class UpdateCategorieSocieteComponent implements OnInit {
+export class UpdateCategorieSocieteComponent implements OnInit,OnDestroy {
   private id:string;
   categorieSociete:CategorieSociete;
   erreur: string = "";
   success: string = "";
   loading:boolean = false;
   description:string = "";
-
+subs:Subscription;
   constructor(private insertService:InsertService,
               private dialog:MatDialog,
               private route:ActivatedRoute,
               private api:ApiService,
               private router:Router) { }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
-    this.api.categorieSocieteSubject.subscribe((CS: CategorieSociete[])=>{
+    this.subs=this.api.categorieSocieteSubject.subscribe((CS: CategorieSociete[])=>{
       this.categorieSociete = CS.find(element => element.id == this.id);
       if(this.categorieSociete == undefined){
         this.router.navigate(['/societe']);

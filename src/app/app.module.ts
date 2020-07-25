@@ -14,23 +14,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-import { DescenteComponent } from './pages/societe/descente/descente.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { ProtocoleComponent } from './pages/societe/protocole/protocole.component';
-import { UpdateSocieteComponent } from './pages/societe/update-societe/update-societe.component';
-import { InsertSocieteDesinfectionComponent } from './pages/societe-desinfection/insert-societe-desinfection/insert-societe-desinfection.component';
-import { PrestationComponent } from './pages/societe-desinfection/prestation/prestation.component';
-import { UpdateSocieteDesinfectionComponent } from './pages/societe-desinfection/update-societe-desinfection/update-societe-desinfection.component';
-import { ModifyPrestationComponent } from './pages/societe-desinfection/prestation/modify-prestation/modify-prestation.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAfficheComponent } from './components/dialog-affiche/dialog-affiche.component';
 import { DialogConfirmUpdateComponent } from './components/dialog-confirm-update/dialog-confirm-update.component';
 import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
-import { AllProtocoleComponent } from './pages/all-protocole/all-protocole.component';
 import { LoginGuardService } from './services/login-guard.service';
-import { UpdateCategorieSocieteComponent } from './pages/societe/update-categorie-societe/update-categorie-societe.component';
-import { UpdateProtocoleComponent } from './pages/all-protocole/update-protocole/update-protocole.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -47,17 +37,9 @@ import { UpdateProtocoleComponent } from './pages/all-protocole/update-protocole
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    DescenteComponent,
-    ProtocoleComponent,
-    UpdateSocieteComponent,
-    InsertSocieteDesinfectionComponent,
-    PrestationComponent,
-    UpdateSocieteDesinfectionComponent,
-    ModifyPrestationComponent,
     DialogAfficheComponent,// le dialog pour afficher
     DialogConfirmDeleteComponent,// le dialog pour confirner le delete
-    DialogConfirmUpdateComponent, // le dialog pour confirner l'update
-    AllProtocoleComponent, UpdateCategorieSocieteComponent, UpdateProtocoleComponent
+    DialogConfirmUpdateComponent // le dialog pour confirner l'update
   ],
   entryComponents: [
     DialogAfficheComponent,// mila apetraka ato mba aafan le angular maka ni info rehetra momba an le dialog

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Protocole } from '../../../modele/protocole';
 import { InsertService } from '../../../services/insert.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +15,7 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './update-protocole.component.html',
   styleUrls: ['./update-protocole.component.css']
 })
-export class UpdateProtocoleComponent implements OnInit {
+export class UpdateProtocoleComponent implements OnInit,OnDestroy {
   private id:string;
   protocole:Protocole;
   erreur: string = "";
@@ -22,16 +23,19 @@ export class UpdateProtocoleComponent implements OnInit {
   loading:boolean = false;
   nom:string = "";
   description:string = "";
-
+subs:Subscription;
   constructor(private insertService:InsertService,
               private dialog:MatDialog,
               private route:ActivatedRoute,
               private api:ApiService,
               private router:Router) { }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
-    this.api.protocoleSubject.subscribe((proto: Protocole[])=>{
+    this.subs=this.api.protocoleSubject.subscribe((proto: Protocole[])=>{
       this.protocole = proto.find(element => element.id == this.id);
       if(this.protocole == undefined){
         this.router.navigate(['/all-protocole']);

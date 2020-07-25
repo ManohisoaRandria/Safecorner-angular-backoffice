@@ -23,24 +23,7 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  constructor(private auth: AuthService) { }
-  login() {
-    this.auth.login('Tahiana', '1234').then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-  logout(){
-    this.auth.logout();
-  }
-  recherche() {
-    this.auth.recherche().then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+  constructor() { }
   ngOnInit() {
 
     this.datasets = [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertService } from '../../services/insert.service';
 import { Protocole } from '../../modele/protocole';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './all-protocole.component.html',
   styleUrls: ['./all-protocole.component.css']
 })
-export class AllProtocoleComponent implements OnInit {
+export class AllProtocoleComponent implements OnInit,OnDestroy {
   protocoles: Protocole[] = [];
   protocoleSubscription: Subscription;
   // element Insert Protocole
@@ -31,6 +31,9 @@ export class AllProtocoleComponent implements OnInit {
               private getService:GetService,
               private dialog:MatDialog,
               private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.protocoleSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.protocoleSubscription = this.api.protocoleSubject  .subscribe(
@@ -46,7 +49,7 @@ export class AllProtocoleComponent implements OnInit {
         this.api.initProtocole = true;
         this.loadingAllProtocole=false;
       }).catch(err => {
-        console.log(err);
+        this.loadingAllProtocole=false;
       });
 
     }
@@ -108,10 +111,13 @@ export class AllProtocoleComponent implements OnInit {
     dialogConfirmDelete.afterClosed().subscribe(result => {
       if(result != ''){
         if(protocole.nom == result){
+          this.loadingAllProtocole=true;
           // this.erreur = "";
           // this.success = "";
           this.insertService.deleteProtocole(id).then(res => {
+            this.loadingAllProtocole=false;
           }).catch(err => {
+            this.loadingAllProtocole=false;
             // this.erreur = err;
             this.dialog.open(DialogAfficheComponent,{
               width:"300px",

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
-import { Router, ActivatedRoute } from '@angular/router'; 
+import { Router, ActivatedRoute } from '@angular/router';
 
 import * as L from "node_modules/leaflet";
 
 import "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/images/marker-icon-2x.png";
-import { SocieteDesinfection } from '../../../modele/societe'; 
+import { SocieteDesinfection } from '../../../modele/societe';
 import { ApiService } from 'src/app/services/api.service';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +19,7 @@ import { ViewportScroller } from '@angular/common';
   templateUrl: './update-societe-desinfection.component.html',
   styleUrls: ['./update-societe-desinfection.component.css']
 })
-export class UpdateSocieteDesinfectionComponent implements OnInit {
+export class UpdateSocieteDesinfectionComponent implements OnInit ,OnDestroy{
   private id:string="";
   erreur: string = "";
   success: string = "";
@@ -33,16 +34,20 @@ export class UpdateSocieteDesinfectionComponent implements OnInit {
   tel:string = "";
   lat: number;
   lng: number;
+  subs:Subscription;
   constructor(private insertService: InsertService,
               private api:ApiService,
               private route:ActivatedRoute,
               private router:Router,
               private dialog:MatDialog,
               private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
-    this.api.societeDesinfectionSubject.subscribe((societe: SocieteDesinfection[])=>{
+    this.subs=this.api.societeDesinfectionSubject.subscribe((societe: SocieteDesinfection[])=>{
       this.societeDesinfection = societe.find(element => element.id == this.id);
       if(this.societeDesinfection == undefined){
         this.router.navigate(['societe-desinfection']);

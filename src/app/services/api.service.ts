@@ -16,6 +16,8 @@ export class ApiService {
   private categorieSociete:CategorieSociete[]=[];
   private categorieProtocole:CategorieProtocole[]=[];
   private protocoles:Protocole[]=[];
+  private loadingSociete:boolean=false;
+  loadingSocieteSubject=new BehaviorSubject(false);
   societeSubject=new BehaviorSubject([]);
   protocoleSubject=new BehaviorSubject([]);
   userNameSubject=new BehaviorSubject("");
@@ -25,6 +27,9 @@ export class ApiService {
   initSociete: boolean = false;
   initSocieteDesinfection: boolean = false;
   initProtocole: boolean = false;
+  emitloadingSociete(){
+    this.loadingSocieteSubject.next(this.loadingSociete);
+  }
   emitSociete(){
     this.societeSubject.next(this.societes);
   }
@@ -62,6 +67,10 @@ addProtocole(proto:Protocole){
 setAllSociete(socs:Societe[]){
   this.societes=socs;
   this.emitSociete();
+}
+setLoadingAllSociete(socsload:boolean){
+  this.loadingSociete=socsload;
+  this.emitloadingSociete();
 }
 setAllSocieteDesinfection(socs:SocieteDesinfection[]){
   this.societesDesinfection=socs;

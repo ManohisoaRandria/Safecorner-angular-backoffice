@@ -1,5 +1,5 @@
 import { Societe,SocieteDesinfection } from './../../../modele/societe';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
 import { ViewportScroller } from '@angular/common';
 
@@ -22,7 +22,7 @@ import { DialogConfirmDeleteComponent } from '../../../components/dialog-confirm
   templateUrl: './insert-societe-desinfection.component.html',
   styleUrls: ['./insert-societe-desinfection.component.css']
 })
-export class InsertSocieteDesinfectionComponent implements OnInit {
+export class InsertSocieteDesinfectionComponent implements OnInit ,OnDestroy{
   erreur: string = "";
   success: string = "";
   private map: any;
@@ -41,6 +41,9 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
     private getService: GetService,
     private dialog:MatDialog,
     private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.societeDesinfectionSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.societeDesinfectionSubscription = this.api.societeDesinfectionSubject.subscribe(

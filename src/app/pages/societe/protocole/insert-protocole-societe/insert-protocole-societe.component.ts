@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Protocole } from 'src/app/modele/protocole';
 import { Subscription, empty } from 'rxjs';
@@ -16,7 +16,7 @@ import { resolve } from 'path';
   templateUrl: './insert-protocole-societe.component.html',
   styleUrls: ['./insert-protocole-societe.component.css']
 })
-export class InsertProtocoleSocieteComponent implements OnInit {
+export class InsertProtocoleSocieteComponent implements OnInit,OnDestroy {
 id:string="";
 erreur = "";
 success = "";
@@ -27,16 +27,21 @@ protocoles: Protocole[] = [];
 protocoleSubscription: Subscription;
 CategorieProtocole: CategorieProtocole[] = [];
 CategorieProtocoleSubscription: Subscription;
+subs: Subscription;
 loading:boolean=false;
   constructor(private router:Router,
               private route:ActivatedRoute,
               private api:ApiService,
               private insertService:InsertService,
               private getService:GetService) { }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+    this.CategorieProtocoleSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
-    this.api.societeSubject.subscribe((societe: Societe[])=>{
+    this.subs=this.api.societeSubject.subscribe((societe: Societe[])=>{
       this.societe = societe.find(element => element.id == this.id);
       if(this.societe == undefined){
         this.router.navigate(['societe']);

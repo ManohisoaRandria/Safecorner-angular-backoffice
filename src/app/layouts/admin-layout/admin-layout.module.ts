@@ -10,12 +10,18 @@ import { ClipboardModule } from 'ngx-clipboard';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { IconsComponent } from '../../pages/icons/icons.component';
-import { MapsComponent } from '../../pages/maps/maps.component';
-import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
-import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { DescenteComponent } from 'src/app/pages/societe/descente/descente.component';
+import { ProtocoleComponent } from 'src/app/pages/societe/protocole/protocole.component';
+import { UpdateSocieteComponent } from 'src/app/pages/societe/update-societe/update-societe.component';
+import { InsertSocieteDesinfectionComponent } from 'src/app/pages/societe-desinfection/insert-societe-desinfection/insert-societe-desinfection.component';
+import { PrestationComponent } from 'src/app/pages/societe-desinfection/prestation/prestation.component';
+import { UpdateSocieteDesinfectionComponent } from 'src/app/pages/societe-desinfection/update-societe-desinfection/update-societe-desinfection.component';
+import { ModifyPrestationComponent } from 'src/app/pages/societe-desinfection/prestation/modify-prestation/modify-prestation.component';
+import { AllProtocoleComponent } from 'src/app/pages/all-protocole/all-protocole.component';
+import { UpdateCategorieSocieteComponent } from 'src/app/pages/societe/update-categorie-societe/update-categorie-societe.component';
+import { UpdateProtocoleComponent } from 'src/app/pages/all-protocole/update-protocole/update-protocole.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -30,13 +36,19 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   ],
   declarations: [
     DashboardComponent,
-    UserProfileComponent,
-    TablesComponent,
-    IconsComponent,
-    MapsComponent,
     InsertSocieteComponent,
     InsertProtocoleSocieteComponent,
-    ModifyProtocoleSocieteComponent
+    ModifyProtocoleSocieteComponent,
+    DescenteComponent,
+    ProtocoleComponent,
+    UpdateSocieteComponent,
+    InsertSocieteDesinfectionComponent,
+    PrestationComponent,
+    UpdateSocieteDesinfectionComponent,
+    ModifyPrestationComponent,
+    AllProtocoleComponent,
+    UpdateCategorieSocieteComponent,
+    UpdateProtocoleComponent
   ]
 })
 

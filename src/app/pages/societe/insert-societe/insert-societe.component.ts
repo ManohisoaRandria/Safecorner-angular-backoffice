@@ -1,5 +1,5 @@
 import { Societe } from './../../../modele/societe';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
 import { ViewportScroller } from '@angular/common';
 
@@ -21,7 +21,7 @@ import { DialogConfirmDeleteComponent } from '../../../components/dialog-confirm
   templateUrl: './insert-societe.component.html',
   styleUrls: ['./insert-societe.component.css']
 })
-export class InsertSocieteComponent implements OnInit {
+export class InsertSocieteComponent implements OnInit ,OnDestroy{
   erreur: string = "";
   success: string = "";
   private map: any;
@@ -31,12 +31,14 @@ export class InsertSocieteComponent implements OnInit {
   societeSubscription: Subscription;
   categSocieteSubscription: Subscription;
   categSociete: CategorieSociete[] = [];
+  subs:Subscription;
   lat: number;
   lng: number;
   //loading
   loadingInsertSociete:boolean = false;
   loadingAllSociete:boolean = false;
   loadingInsertCategorieSociete:boolean = false;
+  loadingDeleteCategorieSociete:boolean = false;
   //element Insert Categorie Societe
   messageErreurInsertCategorieSociete:string = "";
   messageSuccessInsertCategorieSociete:string = "";
@@ -51,6 +53,11 @@ export class InsertSocieteComponent implements OnInit {
      private getService: GetService,
      private dialog:MatDialog,
      private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.societeSubscription.unsubscribe();
+    this.categSocieteSubscription.unsubscribe();
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.societeSubscription = this.api.societeSubject.subscribe(
@@ -64,6 +71,9 @@ export class InsertSocieteComponent implements OnInit {
         this.categSociete = categSocietes;
       }
     );
+    this.subs=this.api.loadingSocieteSubject.subscribe((res:boolean)=>{
+      this.loadingAllSociete=res;
+    })
     this.showMap();
     //MOUS EVENT
     this.map.on('click', (e) => { //ajouter des marker sur la map
@@ -75,7 +85,7 @@ export class InsertSocieteComponent implements OnInit {
       this.marker.addTo(this.map);
     });
     if (!this.api.initSociete) {
-      this.loadingAllSociete=true;
+      this.api.setLoadingAllSociete(true);
       //maka anle societe rehetra am volou
       this.getService.getAllSociete().then((res) => {
         //refa azo le societe de alaina ndray le categorie societe
@@ -84,15 +94,18 @@ export class InsertSocieteComponent implements OnInit {
           this.getService.getCategorieProtocole().then((res) => {
             console.log("categorie,societe,cate protocole ok");
             this.api.initSociete = true;
-            this.loadingAllSociete=false;
+            this.api.setLoadingAllSociete(false);
           }).catch((err) => {
             console.log(err);
+            this.api.setLoadingAllSociete(false);
           });
         }).catch(err => {
           console.log(err);
+          this.api.setLoadingAllSociete(false);
         });
       }).catch(err => {
         console.log(err);
+        this.api.setLoadingAllSociete(false);
       });
 
     }
@@ -121,9 +134,9 @@ export class InsertSocieteComponent implements OnInit {
     return tab;
   }
   refreshSociete() {
-    this.loadingAllSociete=true;
+    this.api.setLoadingAllSociete(true);
     this.getService.getAllSociete().then(res=>{
-      this.loadingAllSociete=false;
+      this.api.setLoadingAllSociete(false);
     });
   }
 
@@ -261,8 +274,11 @@ export class InsertSocieteComponent implements OnInit {
         if(categSociete.description == result){
           // this.erreur = "";
           // this.success = "";
+          this.loadingDeleteCategorieSociete=true;
           this.insertService.deleteCategorieSociete(id).then(res => {
+            this.loadingDeleteCategorieSociete=false;
           }).catch(err => {
+            this.loadingDeleteCategorieSociete=false;
             // this.erreur = err;
             this.dialog.open(DialogAfficheComponent,{
               width:"300px",

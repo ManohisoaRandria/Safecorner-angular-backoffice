@@ -1,6 +1,6 @@
 import { NgForm, Validators } from '@angular/forms';
 import { GetService } from 'src/app/services/get.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Societe } from '../../../../modele/societe';
 import { ApiService } from 'src/app/services/api.service';
@@ -16,7 +16,7 @@ import { DialogConfirmUpdateComponent } from '../../../../components/dialog-conf
   templateUrl: './modify-protocole-societe.component.html',
   styleUrls: ['./modify-protocole-societe.component.css']
 })
-export class ModifyProtocoleSocieteComponent implements OnInit {
+export class ModifyProtocoleSocieteComponent implements OnInit,OnDestroy {
 
   id: string = "";
   categProt:string="";
@@ -30,6 +30,7 @@ success = "";
   protocolePersoChoisi: Protocole[] = [];
   CategorieProtocole: CategorieProtocole[] = [];
   CategorieProtocoleSubscription: Subscription;
+  subs: Subscription;
 
   constructor(private router: Router,
     private api: ApiService,
@@ -37,10 +38,14 @@ success = "";
     private getService: GetService,
     private route: ActivatedRoute,
     private dialog:MatDialog) { }
+  ngOnDestroy(): void {
+    this.CategorieProtocoleSubscription.unsubscribe();
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.api.societeSubject.subscribe((societe: Societe[]) => {
+    this.subs=this.api.societeSubject.subscribe((societe: Societe[]) => {
       this.societe = societe.find(element => element.id == this.id);
       if (this.societe == undefined) {
         this.router.navigate(['societe']);

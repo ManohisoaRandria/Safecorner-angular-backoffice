@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 
@@ -8,7 +8,7 @@ import { InsertService } from '../../../services/insert.service';
 import { Societe } from '../../../modele/societe';
 import { Protocole } from '../../../modele/protocole';
 import { NgForm, Validators } from '@angular/forms';
-import { from } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HistoriqueDescente } from 'src/app/modele/historique-descente';
 
 @Component({
@@ -16,7 +16,7 @@ import { HistoriqueDescente } from 'src/app/modele/historique-descente';
   templateUrl: './descente.component.html',
   styleUrls: ['./descente.component.css']
 })
-export class DescenteComponent implements OnInit {
+export class DescenteComponent implements OnInit,OnDestroy {
   private id: string = "";
   erreur = "";
   success = "";
@@ -26,7 +26,7 @@ export class DescenteComponent implements OnInit {
   nombreApplique: number = 0;
   protocoleClient: Protocole[];
   protocolePerso: Protocole[];
-
+subs:Subscription;
   mois: number;
   annee: number;
   lesMois = [
@@ -51,10 +51,13 @@ export class DescenteComponent implements OnInit {
     private getService: GetService,
     private insertService: InsertService,
     private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.api.societeSubject.subscribe((societe: Societe[]) => {
+    this.subs=this.api.societeSubject.subscribe((societe: Societe[]) => {
       this.societe = societe.find(element => element.id == this.id);
       if (this.societe == undefined) {
         this.router.navigate(['societe']);
@@ -73,8 +76,10 @@ export class DescenteComponent implements OnInit {
         this.loadingHistoDescente = false;
       }).catch(err => {
         console.log(err);
+        this.loadingHistoDescente = false;
       });
     }).catch(err => {
+      this.loading = false;
       console.log(err);
     })
     var date = new Date();// date angalana an le historique amty mois sy annee ty

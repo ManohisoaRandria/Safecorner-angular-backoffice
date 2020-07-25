@@ -6,7 +6,6 @@ import { AuthLayoutRoutes } from './auth-layout.routing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginComponent } from '../../pages/login/login.component';
-import { RegisterComponent } from '../../pages/register/register.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 @NgModule({
   imports: [
@@ -17,8 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     // NgbModule
   ],
   declarations: [
-    LoginComponent,
-    RegisterComponent
+    LoginComponent
   ]
 })
 export class AuthLayoutModule { }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'; 
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 
 import { Societe } from '../../../modele/societe';
 import { Protocole } from '../../../modele/protocole';
-import { ApiService } from '../../../services/api.service'; 
-import { GetService } from '../../../services/get.service'; 
+import { ApiService } from '../../../services/api.service';
+import { GetService } from '../../../services/get.service';
 import { MatDialog} from '@angular/material/dialog';
 import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
 
@@ -14,22 +15,26 @@ import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialo
   templateUrl: './protocole.component.html',
   styleUrls: ['./protocole.component.css']
 })
-export class ProtocoleComponent implements OnInit {
+export class ProtocoleComponent implements OnInit ,OnDestroy{
   private id:string = "";
   societe:Societe;
   loading:boolean = false;
   protocoleClient:Protocole[];
   protocolePerso:Protocole[];
+  subs:Subscription;
   constructor(private route:ActivatedRoute,
               private router:Router,
               private api:ApiService,
               private getService:GetService,
               private dialog:MatDialog,
               private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.api.societeSubject.subscribe((societe: Societe[]) => {
+    this.subs=this.api.societeSubject.subscribe((societe: Societe[]) => {
       this.societe = societe.find(element => element.id == this.id);
       if (this.societe == undefined) {
         this.router.navigate(['societe']);

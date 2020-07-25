@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocieteDesinfection } from '../../../modele/societe';
@@ -12,13 +12,13 @@ import { DialogConfirmDeleteComponent } from '../../../components/dialog-confirm
 import { ViewportScroller } from '@angular/common';
 
 import { NgForm } from '@angular/forms';
-import { from } from 'rxjs';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-prestation',
   templateUrl: './prestation.component.html',
   styleUrls: ['./prestation.component.css']
 })
-export class PrestationComponent implements OnInit {
+export class PrestationComponent implements OnInit,OnDestroy {
   private id: string = "";
   erreur: string = "";
   success: string = "";
@@ -27,6 +27,7 @@ export class PrestationComponent implements OnInit {
 
   societeDesinfection: SocieteDesinfection;
   prestations: Prestation[];
+  subsD:Subscription;
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBloc: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
@@ -38,10 +39,13 @@ export class PrestationComponent implements OnInit {
     private transData: TransferDataService,
     private dialog:MatDialog,
     private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.subsD.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.api.societeDesinfectionSubject.subscribe((societe: SocieteDesinfection[]) => {
+    this.subsD=this.api.societeDesinfectionSubject.subscribe((societe: SocieteDesinfection[]) => {
       this.societeDesinfection = societe.find(element => element.id == this.id);
       if (this.societeDesinfection == undefined) {
         this.router.navigate(['societe-desinfection']);

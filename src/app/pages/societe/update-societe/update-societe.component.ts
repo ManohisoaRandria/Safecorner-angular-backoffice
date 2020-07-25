@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
-import { Router, ActivatedRoute } from '@angular/router'; 
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmUpdateComponent } from '../../../components/dialog-confirm-update/dialog-confirm-update.component';
 import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
@@ -11,7 +11,7 @@ import * as L from "node_modules/leaflet";
 import "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/images/marker-icon-2x.png";
 import { CategorieSociete } from 'src/app/modele/categorie-societe';
-import { Societe } from '../../../modele/societe'; 
+import { Societe } from '../../../modele/societe';
 import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -21,7 +21,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './update-societe.component.html',
   styleUrls: ['./update-societe.component.css']
 })
-export class UpdateSocieteComponent implements OnInit {
+export class UpdateSocieteComponent implements OnInit,OnDestroy {
   private id:string="";
   erreur: string = "";
   success: string = "";
@@ -30,6 +30,7 @@ export class UpdateSocieteComponent implements OnInit {
   loadingUpdateSociete:boolean = false;
   societe:Societe;
   categSocieteSubscription: Subscription;
+  subs:Subscription;
   categSociete: CategorieSociete[] = [];
   nom:string = "";
   lieu:string = "";
@@ -45,10 +46,14 @@ export class UpdateSocieteComponent implements OnInit {
               private router:Router,
               private dialog:MatDialog,
               private scrollElem:ViewportScroller) { }
+  ngOnDestroy(): void {
+    this.categSocieteSubscription.unsubscribe();
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
-    this.api.societeSubject.subscribe((societe: Societe[])=>{
+    this.subs=this.api.societeSubject.subscribe((societe: Societe[])=>{
       this.societe = societe.find(element => element.id == this.id);
       if(this.societe == undefined){
         this.router.navigate(['societe']);
