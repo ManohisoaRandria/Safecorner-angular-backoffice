@@ -1,13 +1,14 @@
 {
-  "name": "argon-dashboard-angular",
+  "name": "safe-corner-dashboard",
   "version": "1.1.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "postinstall": "ng build --aot --prod",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
   },
   "private": true,
@@ -30,19 +31,22 @@
     "clipboard": "2.0.4",
     "core-js": "3.6.4",
     "crypto-js": "^4.0.0",
+    "express": "^4.17.1",
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.6.0",
     "ngx-clipboard": "13.0.0",
     "ngx-page-scroll": "^7.0.2",
     "ngx-toastr": "12.0.0",
     "nouislider": "13.1.1",
+    "path": "^0.12.7",
     "rxjs": "6.5.4",
-    "zone.js": "0.10.2"
+    "@angular/cli": "9.0.5",
+    "@angular/compiler-cli": "9.0.5",
+    "zone.js": "0.10.2",
+    "typescript": "3.7.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.900.5",
-    "@angular/cli": "9.0.5",
-    "@angular/compiler-cli": "9.0.5",
     "@angular/language-service": "9.0.5",
     "@types/jasmine": "3.5.8",
     "@types/jasminewd2": "2.0.8",
@@ -57,7 +61,10 @@
     "karma-jasmine-html-reporter": "1.5.2",
     "protractor": "5.4.3",
     "ts-node": "8.6.2",
-    "tslint": "6.0.0",
-    "typescript": "3.7.5"
+    "tslint": "6.0.0"
+  },
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.13.7"
   }
 }
