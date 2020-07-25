@@ -27,6 +27,7 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   private map: any;
   private marker: any = null;
   loadingInsertSocieteDesinfection:boolean = false;
+  loadingAllSocieteDesinf:boolean = false;
   societesDesinfection: SocieteDesinfection[] = [];
   societeDesinfectionSubscription: Subscription;
   lat: number;
@@ -34,8 +35,8 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBlocSociete: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
-  constructor(private insertService: InsertService, 
-    private api: ApiService, 
+  constructor(private insertService: InsertService,
+    private api: ApiService,
     private getService: GetService,
     private dialog:MatDialog) { }
 
@@ -57,16 +58,21 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
     });
     if (!this.api.initSocieteDesinfection) {
       //maka anle societe desinfection rehetra am volou
+      this.loadingAllSocieteDesinf=true;
       this.getService.getAllSocieteDesinfection().then((res) => {
         console.log("societeDesinfection Ok");
         this.api.initSocieteDesinfection = true;
+        this.loadingAllSocieteDesinf=false;
       }).catch(err => {
         console.log(err);
       });
     }
   }
   refreshSocieteDesinfection(){
-    this.getService.getAllSocieteDesinfection();
+    this.loadingAllSocieteDesinf=true;
+    this.getService.getAllSocieteDesinfection().then(res=>{
+      this.loadingAllSocieteDesinf=false;
+    });
   }
 
   onAnimeBlocInsertSociete() {

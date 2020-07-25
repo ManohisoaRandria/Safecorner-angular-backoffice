@@ -22,6 +22,7 @@ export class AllProtocoleComponent implements OnInit {
   nomProtocole:string = "";
   descriptionInsertProtocole:string = "";
   loading:boolean = false;
+  loadingAllProtocole:boolean = false;
   //animation bloc insert societe
   classIconActiveProto: string = "ni ni-bold-down icon_activation_insert_societe";
   classBlocProto: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
@@ -38,9 +39,11 @@ export class AllProtocoleComponent implements OnInit {
     );
     if (!this.api.initProtocole) {
       //maka anle protocole rehetra am volou
+      this.loadingAllProtocole=true;
       this.getService.getAllProtocole().then((res) => {
         console.log("protocole ok");
         this.api.initProtocole = true;
+        this.loadingAllProtocole=false;
       }).catch(err => {
         console.log(err);
       });

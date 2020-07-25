@@ -34,6 +34,7 @@ export class InsertSocieteComponent implements OnInit {
   lng: number;
   //loading
   loadingInsertSociete:boolean = false;
+  loadingAllSociete:boolean = false;
   loadingInsertCategorieSociete:boolean = false;
   //element Insert Categorie Societe
   messageErreurInsertCategorieSociete:string = "";
@@ -46,7 +47,7 @@ export class InsertSocieteComponent implements OnInit {
   classIconActiveCategorie: string = "ni ni-bold-down icon_activation_insert_societe";
   classBlocSocieteCategorie: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
   constructor(private insertService: InsertService,
-     private api: ApiService, 
+     private api: ApiService,
      private getService: GetService,
      private dialog:MatDialog) { }
 
@@ -73,6 +74,7 @@ export class InsertSocieteComponent implements OnInit {
       this.marker.addTo(this.map);
     });
     if (!this.api.initSociete) {
+      this.loadingAllSociete=true;
       //maka anle societe rehetra am volou
       this.getService.getAllSociete().then((res) => {
         //refa azo le societe de alaina ndray le categorie societe
@@ -81,6 +83,7 @@ export class InsertSocieteComponent implements OnInit {
           this.getService.getCategorieProtocole().then((res) => {
             console.log("categorie,societe,cate protocole ok");
             this.api.initSociete = true;
+            this.loadingAllSociete=false;
           }).catch((err) => {
             console.log(err);
           });
@@ -96,7 +99,7 @@ export class InsertSocieteComponent implements OnInit {
   }
   setEtoiles(){
     this.societes.forEach(ele=>{
-      ele.etoile=this. getEtoilesSequence(ele.points);
+      ele.etoile=this.getEtoilesSequence(ele.points);
     })
   }
   getEtoilesSequence(num){
@@ -104,12 +107,9 @@ export class InsertSocieteComponent implements OnInit {
     let tab=[];
     while (true) {
       if(numExact<=0)break;
-
       if(numExact>=2)tab.push('F');
       else if(numExact==1)tab.push('H');
-
       numExact-=2;
-
     }
     if(tab.length<5){
       let ambony=5-tab.length;
@@ -120,7 +120,10 @@ export class InsertSocieteComponent implements OnInit {
     return tab;
   }
   refreshSociete() {
-    this.getService.getAllSociete();
+    this.loadingAllSociete=true;
+    this.getService.getAllSociete().then(res=>{
+      this.loadingAllSociete=false;
+    });
   }
 
   onAnimeBlocInsertSociete() {
@@ -280,5 +283,5 @@ export class InsertSocieteComponent implements OnInit {
         }
       }
     });
-  } 
+  }
 }
