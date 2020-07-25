@@ -9,6 +9,7 @@ import { TransferDataService } from '../../../services/transferData.service';
 import { MatDialog} from '@angular/material/dialog';
 import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
 import { DialogConfirmDeleteComponent } from '../../../components/dialog-confirm-delete/dialog-confirm-delete.component';
+import { ViewportScroller } from '@angular/common';
 
 import { NgForm } from '@angular/forms';
 import { from } from 'rxjs';
@@ -35,7 +36,8 @@ export class PrestationComponent implements OnInit {
     private router: Router,
     private getService: GetService,
     private transData: TransferDataService,
-    private dialog:MatDialog) { }
+    private dialog:MatDialog,
+    private scrollElem:ViewportScroller) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -154,6 +156,11 @@ export class PrestationComponent implements OnInit {
         contenu:prestation.description
       }
     });
+  }
+
+  //scroll element
+  onScrollElement(idelem:string){
+    this.scrollElem.scrollToAnchor(idelem);
   }
 
 }

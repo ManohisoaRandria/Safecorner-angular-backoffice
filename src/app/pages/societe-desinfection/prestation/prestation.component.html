@@ -3,7 +3,15 @@
       <div class="header-body"></div>
     </div>
   </div>
-  <div class="container-fluid mt--7">
+  <!-- bar racourcie -->
+  <div class="row bar-racourcie">
+    <div class="col">
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('infoSocieteD')">Info societe desinfection</button>
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('listPrestation')">List prestation</button>
+      <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('insertPrestation')">Insert prestation</button>
+    </div>
+  </div>
+  <div id="infoSocieteD" class="container-fluid mt--7">
     <div class="row">
       <div class="col-xl-2 mb-3 mb-xl-0"></div>
       <div class="col-xl-8 mb-3 mb-xl-0">
@@ -11,7 +19,7 @@
           <div class="card-header bg-transparent">
             <div class="row align-items-center">
               <div class="col">
-                <h6 class="text-uppercase text-light ls-1 mb-1">List de protocoles</h6>
+                <h6 class="text-uppercase text-light ls-1 mb-1">Info</h6>
                 <h2 class="text-back mb-0">La société de désinfection</h2>
               </div>
             </div>
@@ -69,8 +77,68 @@
         </div>
       </div>
     </div>
+     <!-- list prestation -->
+     <div id="listPrestation" class="row mt-3">
+      <div class="col-xl-2 mb-3 mb-xl-0"></div>
+      <div class="col-xl-8 mb-5 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="mb-0">List de prestations</h2>
+              </div>
+              <div class="col text-right">
+            </div>
+            </div>
+          </div>
+            <div class="table-responsive">
+                <!-- Projects table -->
+                <mat-progress-bar *ngIf="loadingGetPrestation" mode="query" color="primary"></mat-progress-bar>
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">NOM</th>
+                            <th scope="col">PRIX</th>
+                            <th scope="col">DESCRIPTION</th>
+                            <th scope="col" class="text-center">OPTIONS</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    <tr *ngFor="let elem of prestations">
+                        <td>
+                          {{elem.nom}}
+                        </td>
+                        <td>
+                          {{elem.prix}} Ar
+                        </td>
+                        <td>
+                          <a id="{{elem.id}}"
+                          style="color: rgb(255, 255, 255);"
+                          class="btn btn-sm btn-info"
+                          (click)="onAfficheDescription($event)" >Detail</a
+                        >
+                        </td>
+                        <td>
+                          <a id="{{elem.id}}"
+                            style="color: white;"
+                            class="btn btn-sm btn-warning"
+                            (click)="onGoUpdatePrestation($event)" >Edit</a
+                          >
+                          <a style="color: white;"
+                            class="btn btn-sm btn-danger"
+                            (click)="onDelete(elem.id)"
+                            >Delete</a
+                          >
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
     <!-- insert prestation -->
-    <div class="row mt-3">
+    <div id="insertPrestation" class="row mt-3">
         <div class="col-xl-2 mb-1 mb-xl-0"></div>
         <div class="col-xl-8 mb-1 mb-xl-0">
           <div class="card shadow">
@@ -160,64 +228,4 @@
           </div>
         </div>
       </div>
-    <!-- list prestation -->
-    <div class="row mt-3">
-      <div class="col-xl-2 mb-3 mb-xl-0"></div>
-      <div class="col-xl-8 mb-5 mb-xl-0">
-        <div class="card shadow">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">List de prestations</h3>
-              </div>
-              <div class="col text-right">
-            </div>
-            </div>
-          </div>
-            <div class="table-responsive">
-                <!-- Projects table -->
-                <mat-progress-bar *ngIf="loadingGetPrestation" mode="query" color="primary"></mat-progress-bar>
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">NOM</th>
-                            <th scope="col">PRIX</th>
-                            <th scope="col">DESCRIPTION</th>
-                            <th scope="col" class="text-center">OPTIONS</th>
-                        </tr>
-                    </thead>
-                <tbody>
-                    <tr *ngFor="let elem of prestations">
-                        <td>
-                          {{elem.nom}}
-                        </td>
-                        <td>
-                          {{elem.prix}}
-                        </td>
-                        <td>
-                          <a id="{{elem.id}}"
-                          style="color: rgb(255, 255, 255);"
-                          class="btn btn-sm btn-info"
-                          (click)="onAfficheDescription($event)" >Detail</a
-                        >
-                        </td>
-                        <td>
-                          <a id="{{elem.id}}"
-                            style="color: white;"
-                            class="btn btn-sm btn-warning"
-                            (click)="onGoUpdatePrestation($event)" >Edit</a
-                          >
-                          <a style="color: white;"
-                            class="btn btn-sm btn-danger"
-                            (click)="onDelete(elem.id)"
-                            >Delete</a
-                          >
-                        </td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-        </div>
-      </div>
-    </div>
   </div>

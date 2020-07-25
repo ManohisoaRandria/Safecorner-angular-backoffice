@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmUpdateComponent } from '../../../components/dialog-confirm-update/dialog-confirm-update.component';
 import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
+import { ViewportScroller } from '@angular/common';
 
 import * as L from "node_modules/leaflet";
 
@@ -42,7 +43,8 @@ export class UpdateSocieteComponent implements OnInit {
               private api:ApiService,
               private route:ActivatedRoute,
               private router:Router,
-              private dialog:MatDialog) { }
+              private dialog:MatDialog,
+              private scrollElem:ViewportScroller) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -83,7 +85,7 @@ export class UpdateSocieteComponent implements OnInit {
   //affciher map
   showMap() {
     this.map = L.map("map-canvas-update").setView([-18.916193244957622, 47.52146212491431], 14);
-    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
       attribution: "SafeCorner",
       minZoom: 5
     }).addTo(this.map);
@@ -112,6 +114,7 @@ export class UpdateSocieteComponent implements OnInit {
     dialogConfirmUpdate.afterClosed().subscribe(result=>{
       if(result){
         this.loadingUpdateSociete = true;
+        this.onScrollElement("updateSociete");
         this.insertService.UpdateSociete(this.id,form.value.nom,
           form.value.categorie,
           form.value.description,
@@ -121,17 +124,20 @@ export class UpdateSocieteComponent implements OnInit {
           form.value.lat,
           form.value.lng).then((res: any) => {
             this.loadingUpdateSociete = false;
+            this.erreur = "";
+            this.success = res['message'];
           }).catch((error) => {
-            this.dialog.open(DialogAfficheComponent,{
-              width:"300px",
-              data:{
-                titre:"Error",
-                contenu:error['error']['message']
-              }
-            });
+            this.loadingUpdateSociete = false;
+            this.erreur = error['error']['message'];
+            this.success = "";
           });
       }
     });
+  }
+
+   //scroll element
+   onScrollElement(idelem:string){
+    this.scrollElem.scrollToAnchor(idelem);
   }
 
 }

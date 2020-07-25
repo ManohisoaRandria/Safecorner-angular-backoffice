@@ -1,6 +1,7 @@
 import { Societe,SocieteDesinfection } from './../../../modele/societe';
 import { Component, OnInit } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
+import { ViewportScroller } from '@angular/common';
 
 import * as L from "node_modules/leaflet";
 
@@ -38,7 +39,8 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   constructor(private insertService: InsertService,
     private api: ApiService,
     private getService: GetService,
-    private dialog:MatDialog) { }
+    private dialog:MatDialog,
+    private scrollElem:ViewportScroller) { }
 
   ngOnInit(): void {
     this.societeDesinfectionSubscription = this.api.societeDesinfectionSubject.subscribe(
@@ -90,7 +92,7 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   //affciher map
   showMap() {
     this.map = L.map("map-canvas2").setView([-18.916193244957622, 47.52146212491431], 14);
-    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
       attribution: "SafeCorner",
       minZoom: 5
     }).addTo(this.map);
@@ -103,8 +105,10 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
   }
 
 
-  //INSERTION SOCIETE
+  //INSERTION SOCIETE DESINFECRION
   onInsertSocieteDesinfection(form: NgForm) {
+    this.loadingInsertSocieteDesinfection = true;
+    this.onScrollElement("insertSocieteD");
     this.insertService.SocieteDesinfection(form.value.nom,
       form.value.description,
       form.value.lieu,
@@ -115,10 +119,11 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
         this.erreur = "";
         this.success = res['message'];
         form.reset();
+        this.loadingInsertSocieteDesinfection = false;
       }).catch((error) => {
         this.success = "";
-        console.log(error);
         this.erreur = error['error']['message'];
+        this.loadingInsertSocieteDesinfection = false;
       }
       );
   }
@@ -159,4 +164,10 @@ export class InsertSocieteDesinfectionComponent implements OnInit {
       }
     });
   }
+
+   //scroll element
+   onScrollElement(idelem:string){
+    this.scrollElem.scrollToAnchor(idelem);
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Societe } from './../../../modele/societe';
 import { Component, OnInit } from '@angular/core';
 import { InsertService } from '../../../services/insert.service';
+import { ViewportScroller } from '@angular/common';
 
 import * as L from "node_modules/leaflet";
 
@@ -39,7 +40,6 @@ export class InsertSocieteComponent implements OnInit {
   //element Insert Categorie Societe
   messageErreurInsertCategorieSociete:string = "";
   messageSuccessInsertCategorieSociete:string = "";
-  descriptionInsertCategorieSociete:string = "";
   //animation bloc insert societe
   classIconActive: string = "ni ni-bold-down icon_activation_insert_societe";
   classBlocSociete: string = "bloc_form_insert_societe bloc_form_insert_societe_non_active_initial";
@@ -49,7 +49,8 @@ export class InsertSocieteComponent implements OnInit {
   constructor(private insertService: InsertService,
      private api: ApiService,
      private getService: GetService,
-     private dialog:MatDialog) { }
+     private dialog:MatDialog,
+     private scrollElem:ViewportScroller) { }
 
   ngOnInit(): void {
     this.societeSubscription = this.api.societeSubject.subscribe(
@@ -153,7 +154,7 @@ export class InsertSocieteComponent implements OnInit {
   //affciher map
   showMap() {
     this.map = L.map("map-canvas").setView([-18.916193244957622, 47.52146212491431], 14);
-    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
       attribution: "SafeCorner",
       minZoom: 5
     }).addTo(this.map);
@@ -169,6 +170,7 @@ export class InsertSocieteComponent implements OnInit {
   //INSERTION SOCIETE
   onInsertSociete(form: NgForm) {
     this.loadingInsertSociete = true;
+    this.onScrollElement("insertSociete");
     this.insertService.Societe(form.value.nom,
       form.value.categorie,
       form.value.description,
@@ -227,9 +229,9 @@ export class InsertSocieteComponent implements OnInit {
   }
 
   //insertion categorie societe
-  onInsertCategorieSociete(){
+  onInsertCategorieSociete(form:NgForm){
     this.loadingInsertCategorieSociete = true;
-    this.insertService.CategorieSociete(this.descriptionInsertCategorieSociete).then((res:any)=>{
+    this.insertService.CategorieSociete(form.value.description).then((res:any)=>{
         this.messageErreurInsertCategorieSociete = "";
         this.messageSuccessInsertCategorieSociete = res['message'];
         this.loadingInsertCategorieSociete = false;
@@ -283,5 +285,10 @@ export class InsertSocieteComponent implements OnInit {
         }
       }
     });
+  }
+
+  //scroll element
+  onScrollElement(idelem:string){
+    this.scrollElem.scrollToAnchor(idelem);
   }
 }

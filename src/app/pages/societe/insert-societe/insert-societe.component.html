@@ -3,9 +3,18 @@
     <div class="header-body"></div>
   </div>
 </div>
+ <!-- bar racourcie -->
+ <div class="row bar-racourcie">
+  <div class="col">
+    <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('listSociete')">List societe</button>
+    <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('insertSociete')">Insert societe</button>
+    <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('listCateSociete')">List categorie societe</button>
+    <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('insertCate')">Insert categorie</button>
+  </div>
+</div>
 <div class="container-fluid mt--7">
   <!-- list des societe -->
-  <div class="row">
+  <div id="listSociete" class="row">
     <div class="col-xl-12 mb-5 mb-xl-0">
       <div class="card shadow">
         <div class="card-header border-0">
@@ -78,7 +87,7 @@
     </div>
   </div>
   <!-- insert societe -->
-  <div class="row mt-3">
+  <div id="insertSociete" class="row mt-3">
     <div class="col-xl-12 mb-1 mb-xl-0">
       <div class="card shadow">
         <div class="card-header bg-transparent">
@@ -297,7 +306,7 @@
     </div>
   </div>
   <!-- list des categorie societe -->
-  <div class="row mt-3">
+  <div id="listCateSociete" class="row mt-3">
     <div class="col-xl-12 mb-5 mb-xl-0">
       <div class="card shadow">
         <div class="card-header border-0">
@@ -343,7 +352,7 @@
     </div>
   </div>
   <!-- insert categorie societe -->
-  <div class="row mt-3">
+  <div id="insertCate" class="row mt-3">
     <div class="col-xl-12 mb-5 mb-xl-0">
       <div class="card shadow">
         <div class="card-header bg-transparent">
@@ -362,7 +371,7 @@
         </div>
         <mat-progress-bar *ngIf="loadingInsertCategorieSociete" mode="query" color="primary"></mat-progress-bar>
         <div class="card-body" [ngClass]="classBlocSocieteCategorie" >
-          <form>
+          <form (ngSubmit)="onInsertCategorieSociete(fCS)" #fCS="ngForm" >
             <p class="text-erreur" *ngIf="messageErreurInsertCategorieSociete != ''" >{{messageErreurInsertCategorieSociete}}</p>
             <p class="text-success" *ngIf="messageSuccessInsertCategorieSociete != ''" >{{messageSuccessInsertCategorieSociete}}</p>
             <div class="pl-lg-4">
@@ -374,8 +383,9 @@
                     >
                     <input
                       type="text"
-                      name="nom"
-                      [(ngModel)]="descriptionInsertCategorieSociete"
+                      name="description"
+                      required
+                      ngModel
                       class="form-control form-control-alternative"
                       placeholder="la decsritpion du categorie"
                     />
@@ -386,9 +396,7 @@
                     <label class="form-control-label" for="input-country"
                       >Validation</label
                     >
-                    <button class="btn btn-primary form-control " (click)="onInsertCategorieSociete()">
-                      VALIDER
-                    </button>
+                    <input type="submit" [disabled]="fCS.invalid" class="btn btn-primary form-control" value="Insert" />
                   </div>
                 </div>
               </div>

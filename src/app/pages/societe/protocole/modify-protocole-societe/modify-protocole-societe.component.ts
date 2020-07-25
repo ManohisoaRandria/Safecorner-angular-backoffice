@@ -155,9 +155,11 @@ success = "";
               this.protocolePersoChoisi = [];
               this.protocolesPerso = [];
               this.success=" delete successfull";
+              this.erreur = "";
             }).catch((error) => {
               this.erreur=error;
               this.loading = false;
+              this.success = "";
             }
             );
           }

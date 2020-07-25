@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'; 
+import { ViewportScroller } from '@angular/common';
 
 import { Societe } from '../../../modele/societe';
 import { Protocole } from '../../../modele/protocole';
@@ -23,7 +24,8 @@ export class ProtocoleComponent implements OnInit {
               private router:Router,
               private api:ApiService,
               private getService:GetService,
-              private dialog:MatDialog) { }
+              private dialog:MatDialog,
+              private scrollElem:ViewportScroller) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -62,6 +64,11 @@ export class ProtocoleComponent implements OnInit {
         }
       });
     }
+  }
+
+  //scroll element
+  onScrollElement(idelem:string){
+    this.scrollElem.scrollToAnchor(idelem);
   }
 
 }

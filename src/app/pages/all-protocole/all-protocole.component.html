@@ -3,9 +3,16 @@
       <div class="header-body"></div>
     </div>
 </div>
+<!-- bar racourcie -->
+<div class="row bar-racourcie">
+  <div class="col">
+    <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('listProtocole')">List protocole</button>
+    <button class="btn btn-primary btn-racourcie" (click)="onScrollElement('insertProtocole')">Insert protocole</button>
+  </div>
+</div>
 <div class="container-fluid mt--7">
     <!-- list des protocoles -->
-  <div class="row">
+  <div id="listProtocole" class="row">
     <div class="col-xl-12 mb-5 mb-xl-0">
       <div class="card shadow">
         <div class="card-header border-0">
@@ -66,7 +73,7 @@
     </div>
   </div>
     <!-- Insert protocole -->
-    <div class="row mt-3">
+    <div id="insertProtocole" class="row mt-3">
         <div class="col-xl-12 mb-5 mb-xl-0">
         <div class="card shadow">
             <div class="card-header bg-transparent">
@@ -85,7 +92,7 @@
             </div>
             <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
             <div class="card-body" [ngClass]="classBlocProto" >
-            <form>
+            <form (ngSubmit)="onInsertProtocole(f)" #f="ngForm" >
                 <p class="text-erreur" *ngIf="messageErreurInsertProtocole != ''" >{{messageErreurInsertProtocole}}</p>
                 <p class="text-success" *ngIf="messageSuccessInsertProtocole != ''" >{{messageSuccessInsertProtocole}}</p>
                 <div class="pl-lg-4">
@@ -98,7 +105,8 @@
                         <input
                         type="text"
                         name="nom"
-                        [(ngModel)]="nomProtocole"
+                        required
+                        ngModel
                         class="form-control form-control-alternative"
                         placeholder="le nom du protocole"
                         />
@@ -109,9 +117,7 @@
                         <label class="form-control-label" for="input-country"
                         >Validation</label
                         >
-                        <button class="btn btn-primary form-control " (click)="onInsertProtocole()">
-                        VALIDER
-                        </button>
+                        <input type="submit" [disabled]="f.invalid" class="btn btn-primary form-control " value="Insert" />
                     </div>
                     </div>
                 </div>
@@ -122,8 +128,9 @@
                         <label>Description</label>
                         <textarea
                         rows="4"
-                        name="descritpion"
-                        [(ngModel)]="descriptionInsertProtocole"
+                        name="description"
+                        required
+                        ngModel
                         class="form-control form-control-alternative"
                         placeholder="..."
                         ></textarea>
