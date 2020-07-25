@@ -28,6 +28,9 @@ import { DialogAfficheComponent } from './components/dialog-affiche/dialog-affic
 import { DialogConfirmUpdateComponent } from './components/dialog-confirm-update/dialog-confirm-update.component';
 import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
 import { AllProtocoleComponent } from './pages/all-protocole/all-protocole.component';
+import { LoginGuardService } from './services/login-guard.service';
+import { UpdateCategorieSocieteComponent } from './pages/societe/update-categorie-societe/update-categorie-societe.component';
+import { UpdateProtocoleComponent } from './pages/all-protocole/update-protocole/update-protocole.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -51,9 +54,10 @@ import { AllProtocoleComponent } from './pages/all-protocole/all-protocole.compo
     PrestationComponent,
     UpdateSocieteDesinfectionComponent,
     ModifyPrestationComponent,
-    DialogAfficheComponent,// le dialog pour afficher 
+    DialogAfficheComponent,// le dialog pour afficher
     DialogConfirmDeleteComponent,// le dialog pour confirner le delete
-    DialogConfirmUpdateComponent, AllProtocoleComponent,// le dialog pour confirner l'update
+    DialogConfirmUpdateComponent, // le dialog pour confirner l'update
+    AllProtocoleComponent, UpdateCategorieSocieteComponent, UpdateProtocoleComponent
   ],
   entryComponents: [
     DialogAfficheComponent,// mila apetraka ato mba aafan le angular maka ni info rehetra momba an le dialog
@@ -63,7 +67,8 @@ import { AllProtocoleComponent } from './pages/all-protocole/all-protocole.compo
   providers: [
     AuthService,
     {provide:HTTP_INTERCEPTORS,useClass:WebRequestInterceptorService,multi:true},
-    AuthGuardService
+    AuthGuardService,
+    LoginGuardService
   ],
   bootstrap: [AppComponent]
 })

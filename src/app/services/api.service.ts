@@ -15,15 +15,21 @@ export class ApiService {
   private societesDesinfection:SocieteDesinfection[]=[];
   private categorieSociete:CategorieSociete[]=[];
   private categorieProtocole:CategorieProtocole[]=[];
+  private protocoles:Protocole[]=[];
   societeSubject=new BehaviorSubject([]);
+  protocoleSubject=new BehaviorSubject([]);
   userNameSubject=new BehaviorSubject("");
   societeDesinfectionSubject=new BehaviorSubject([]);
   categorieSocieteSubject=new BehaviorSubject([]);
   CategorieProtocoleSubject=new BehaviorSubject([]);
   initSociete: boolean = false;
   initSocieteDesinfection: boolean = false;
+  initProtocole: boolean = false;
   emitSociete(){
     this.societeSubject.next(this.societes);
+  }
+  emitProtocole(){
+    this.protocoleSubject.next(this.protocoles);
   }
   emitUserName(){
     this.userNameSubject.next(this.userName);
@@ -49,6 +55,10 @@ addSocieteDesinfection(societe:SocieteDesinfection){
   this.societesDesinfection.push(societe);
   this.emitSociete();
 }
+addProtocole(proto:Protocole){
+  this.protocoles.push(proto);
+  this.emitSociete();
+}
 setAllSociete(socs:Societe[]){
   this.societes=socs;
   this.emitSociete();
@@ -56,6 +66,10 @@ setAllSociete(socs:Societe[]){
 setAllSocieteDesinfection(socs:SocieteDesinfection[]){
   this.societesDesinfection=socs;
   this.emitSocieteDesinfection();
+}
+setAllProtocole(proto:Protocole[]){
+  this.protocoles=proto;
+  this.emitProtocole();
 }
 addCategorieSociete(categorieSociete:Societe){
   this.categorieSociete.push(categorieSociete);
@@ -65,7 +79,6 @@ setAllCategorieSociete(categs:Societe[]){
   this.categorieSociete=categs;
   this.emitCategorieSociete();
 }
-
 setAllCategorieProtocole(catep:CategorieProtocole[]){
   this.categorieProtocole=catep;
   this.emitCategorieProtocole();

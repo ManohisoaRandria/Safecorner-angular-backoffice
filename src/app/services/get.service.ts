@@ -170,4 +170,38 @@ export class GetService {
       })
     });
   }
+  rechercheSociete(q:string){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'search?cat=all&q='+q).subscribe(res => {
+        let societes = res['data'].map((element) => {
+          return new Societe(element.id,
+            element.nom, element.idCategorieSociete,
+            element.description, element.lieux,
+            element.dateCreation, element.email,
+            element.tel,element.coordonne,element.points);
+        });
+        this.api.setAllSociete(societes);
+        resolve();
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //get all protocole
+  getAllProtocole() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'allProtocole?all=true&page=0&limit=0').subscribe(res => {
+        let protocole = res['data'].map((element) => {
+          return new Protocole(element.id,
+            element.nom,
+            element.description,
+            element.dateCreation);
+        });
+        this.api.setAllProtocole(protocole);
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
 }

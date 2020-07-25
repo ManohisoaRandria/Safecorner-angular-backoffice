@@ -3,6 +3,7 @@ import { InsertService } from '../../../services/insert.service';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmUpdateComponent } from '../../../components/dialog-confirm-update/dialog-confirm-update.component';
+import { DialogAfficheComponent } from '../../../components/dialog-affiche/dialog-affiche.component';
 
 import * as L from "node_modules/leaflet";
 
@@ -119,13 +120,15 @@ export class UpdateSocieteComponent implements OnInit {
           form.value.tel,
           form.value.lat,
           form.value.lng).then((res: any) => {
-            this.erreur = "";
-            this.success = res['message'];
             this.loadingUpdateSociete = false;
           }).catch((error) => {
-            this.success = "";
-            console.log(error);
-            this.erreur = error['error']['message'];
+            this.dialog.open(DialogAfficheComponent,{
+              width:"300px",
+              data:{
+                titre:"Error",
+                contenu:error['error']['message']
+              }
+            });
           });
       }
     });

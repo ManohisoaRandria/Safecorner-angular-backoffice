@@ -1,0 +1,55 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body"></div>
+    </div>
+  </div>
+  <div class="container-fluid mt--7">
+      <!-- insert categorie societe -->
+    <div class="row mt-3">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="card shadow">
+            <div class="card-header bg-transparent">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2 class="text-back mb-0">Modifiez categorie société</h2>
+                </div>
+            </div>
+            </div>
+            <mat-progress-bar *ngIf="loading" mode="query" color="primary"></mat-progress-bar>
+            <div class="card-body" >
+            <form (ngSubmit)="onUpdateCategorieSociete(f)" #f="ngForm" > 
+                <p class="text-erreur" *ngIf="erreur != ''" >{{erreur}}</p>
+                <p class="text-success" *ngIf="success != ''" >{{success}}</p>
+                <div class="pl-lg-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                        >Descritpion</label
+                        >
+                        <input
+                        type="text"
+                        name="description"
+                        required
+                        [ngModel]="description"
+                        class="form-control form-control-alternative"
+                        placeholder="la decsritpion du categorie"
+                        />
+                    </div>
+                    </div>
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-country"
+                        >Validation</label
+                        >
+                        <input class="btn btn-primary form-control " value="Update" type="submit"/>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

@@ -30,27 +30,29 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let elem of protocoles">
                 <td>
-                 sdfsf
+                    {{elem.nom}}
                 </td>
                 <td>
-                    <button style="color: white;"
+                    <button id="{{elem.id}}" style="color: white;"
                     class="btn btn-sm btn-info"
+                    (click)="onAfficheDescription($event)"
                     >Detail</button>
                 </td>
                 <td>
-                    fdfsdfsdf
+                    {{elem.dateCreation | date:"d MMM y | h:mm:ss a"}}
                 </td>
                 <td>
                   <div class="col text-center">
                     <a
-                      [routerLink]="['/', 2]"
+                      [routerLink]="['/update-protocole',elem.id]"
                       class="btn btn-sm btn-warning"
                       >Update</a
                     >
                     <a style="color: white;"
                       class="btn btn-sm btn-danger"
+                      (click)="onDeleteSociete(elem.id)"
                       >Delete</a
                     >
                   </div>

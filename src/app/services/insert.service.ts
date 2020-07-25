@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Societe,SocieteDesinfection } from '../modele/societe';
 import { ApiService } from './api.service';
 import { GetService } from '../services/get.service';
+import { triggerAsyncId } from 'async_hooks';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,7 @@ export class InsertService {
                 "description": descritpion,
             }
             this.http.post(this.authService.getBASE_URL() + 'protocoles', data).subscribe(res => {
+              this.getService.getAllProtocole();  
               resolve(res);
             }, error => {
               reject(error);
@@ -250,6 +252,60 @@ export class InsertService {
   deletePrestation(id:String){
     return new Promise((resolve, reject) => {
       this.http.delete(this.authService.getBASE_URL() + 'prestation?id='+id).subscribe(res => {
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //delete categorieSociete
+  deleteCategorieSociete(id:String){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.authService.getBASE_URL() + 'categorieSociete?id='+id).subscribe(res => {
+        this.getService.getCategorieSociete();
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //delete protocole
+  deleteProtocole(id:String){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.authService.getBASE_URL() + 'protocole?id='+id).subscribe(res => {
+        this.getService.getAllProtocole();
+        resolve(res);
+      }, error => {
+        console.log(error);
+        reject(error);
+      })
+    });
+  }
+  //update protocole
+  UpdateProtocole(id:String,nom:String,description:String){
+    return new Promise((resolve, reject) => {
+      let data = {
+          "id":id,
+          "nom":nom,
+          "description": description
+      }
+      this.http.put(this.authService.getBASE_URL() + 'protocole',data).subscribe(res => {
+        this.getService.getAllProtocole();
+        resolve(res);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  //update Categorie societe
+  UpdateCategorieSociete(id:String,description:String){
+    return new Promise((resolve, reject) => {
+      let data = {
+          "id":id,
+          "description": description
+      }
+      this.http.put(this.authService.getBASE_URL() + 'categorieSociete',data).subscribe(res => {
+        this.getService.getCategorieSociete();
         resolve(res);
       }, error => {
         reject(error);

@@ -240,6 +240,45 @@ export class InsertSocieteComponent implements OnInit {
 
   // delete categorie
   onDeleteCategorie(id:String){
-    console.log('delete categorie'+id);
+    var categSociete = this.categSociete.find(element => element.id == id);
+    //confirmation par dialog
+    var dialogConfirmDelete = this.dialog.open(DialogConfirmDeleteComponent,{
+      width:"500px",
+      data:{
+        titre:"Confrim DELETE",
+        contenu:'Are you sure to delete the categorie societe '+categSociete.description,
+        valeurIn:categSociete.description
+      }
+    });
+    //rehefa mclose le dialog
+    dialogConfirmDelete.afterClosed().subscribe(result => {
+      if(result != ''){
+        if(categSociete.description == result){
+          // this.erreur = "";
+          // this.success = "";
+          this.insertService.deleteCategorieSociete(id).then(res => {
+          }).catch(err => {
+            // this.erreur = err;
+            this.dialog.open(DialogAfficheComponent,{
+              width:"300px",
+              data:{
+                titre:"Error",
+                contenu:err['error']['message']
+              }
+            });
+          });
+        }else{
+          // ra diso le nsoranany
+          this.dialog.open(DialogAfficheComponent,{
+            width:"200px",
+            data:{
+              titre:"Error",
+              contenu:"you must write the code indicated"
+            }
+          }
+          );
+        }
+      }
+    });
   } 
 }

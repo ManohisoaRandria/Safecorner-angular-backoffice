@@ -9,6 +9,8 @@ import { UpdateSocieteDesinfectionComponent } from '../../pages/societe-desinfec
 import { ModifyPrestationComponent } from '../../pages/societe-desinfection/prestation/modify-prestation/modify-prestation.component';
 import { PrestationComponent } from '../../pages/societe-desinfection/prestation/prestation.component';
 import { AllProtocoleComponent } from '../../pages/all-protocole/all-protocole.component';
+import { UpdateProtocoleComponent } from '../../pages/all-protocole/update-protocole/update-protocole.component';
+import { UpdateCategorieSocieteComponent } from '../../pages/societe/update-categorie-societe/update-categorie-societe.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -32,7 +34,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'protocole/:id',           component: ProtocoleComponent },
     { path: 'update-societe/:id',           component: UpdateSocieteComponent },
     { path: 'prestation/:id',           component: PrestationComponent },
+    { path: 'update-categorie-societe/:id',           component: UpdateCategorieSocieteComponent },
     { path: 'modify-prestation',           component: ModifyPrestationComponent },
     { path: 'update-societe-desinfection/:id',           component: UpdateSocieteDesinfectionComponent },
     { path: 'all-protocole',           component: AllProtocoleComponent },
+    { path: 'update-protocole/:id',           component: UpdateProtocoleComponent }
 ];
