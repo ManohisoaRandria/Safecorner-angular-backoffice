@@ -36,12 +36,13 @@ export class AuthService {
     }
     return true;
   }
-  logout() {
+  logout(test:boolean) {
     return new Promise((resolve, reject) => {
       this.http.post(this.BASE_URL + 'user/logout', {}).subscribe(res => {
         localStorage.removeItem('ngam');
         localStorage.removeItem('ngamAt');
         //redirection makany am login
+        if(test)this.router.navigate(['/login']);
        resolve("logged out");
       },
         err => {

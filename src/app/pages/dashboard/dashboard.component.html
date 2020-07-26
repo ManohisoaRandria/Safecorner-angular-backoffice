@@ -15,13 +15,14 @@
                 </div>
                 <div class="col-auto">
                   <div
-                    class="icon icon-shape bg-danger text-white rounded-circle shadow"
+                    class="icon icon-shape bg-success text-white rounded-circle shadow"
                   >
-                    <i class="fas fa-chart-bar"></i>
+                    <i class="ni ni-shop"></i>
                   </div>
                 </div>
               </div>
             </div>
+            <mat-progress-bar *ngIf="loadingStat" mode="query" style="padding-top: 1px;" color="primary"></mat-progress-bar>
           </div>
         </div>
         <div class="col-xl-4">
@@ -36,13 +37,14 @@
                 </div>
                 <div class="col-auto">
                   <div
-                    class="icon icon-shape bg-warning text-white rounded-circle shadow"
+                    class="icon icon-shape bg-primary text-white rounded-circle shadow"
                   >
-                    <i class="fas fa-chart-pie"></i>
+                    <i class="ni ni-delivery-fast"></i>
                   </div>
                 </div>
               </div>
             </div>
+            <mat-progress-bar *ngIf="loadingStat" mode="query" style="padding-top: 1px;" color="primary"></mat-progress-bar>
           </div>
         </div>
         <div class="col-xl-4">
@@ -59,11 +61,12 @@
                   <div
                     class="icon icon-shape bg-yellow text-white rounded-circle shadow"
                   >
-                    <i class="fas fa-users"></i>
+                    <i class="ni ni-bullet-list-67"></i>
                   </div>
                 </div>
               </div>
             </div>
+            <mat-progress-bar *ngIf="loadingStat" mode="query" style="padding-top: 1px;" color="primary"></mat-progress-bar>
           </div>
         </div>
       </div>

@@ -32,14 +32,15 @@ export class WebRequestInterceptorService implements HttpInterceptor {
                     return next.handle(req);
                   }),
                   catchError(()=>{
-                    this.auth.logout();
-                    this.router.navigate(['/login']);
+                    this.test=false;
+                    this.auth.logout(true);
                     return empty();
                   })
                 )
+              }else{
+                this.test=false;
+                return throwError(err);
               }
-              this.test=false;
-              return throwError(err);
             })
           );
         } else {

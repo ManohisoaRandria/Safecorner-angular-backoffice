@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit,OnDestroy{
     dialogConfirmUpdate.afterClosed().subscribe(result=>{
       if(result){
         this.spinner.show();
-        this.auth.logout().then(res=>{
+        this.auth.logout(false).then(res=>{
           this.spinner.hide();
           this.router.navigate(['/login']);
         }).catch(err=>{

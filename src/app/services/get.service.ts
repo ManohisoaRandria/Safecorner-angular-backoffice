@@ -36,8 +36,8 @@ export class GetService {
   }
   getStats() {
     return new Promise((resolve, reject) => {
-      this.http.get(this.auth.getBASE_URL() + 'search?cat=all').subscribe(res => {
-        let stats=new Stats(0,0,0);
+      this.http.get(this.auth.getBASE_URL() + 'numberData').subscribe(res => {
+        let stats=new Stats(res['data']['societe'],res['data']['societeDesinfection'],res['data']['protocole']);
         this.api.setStats(stats);
         resolve(stats);
       }, error => {

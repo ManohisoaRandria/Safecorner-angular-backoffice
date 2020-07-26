@@ -1,3 +1,4 @@
+import { GetService } from 'src/app/services/get.service';
 import { Subscription } from 'rxjs';
 import { Stats } from './../../modele/stats';
 import { ApiService } from 'src/app/services/api.service';
@@ -27,7 +28,8 @@ export class DashboardComponent implements OnInit ,OnDestroy{
   public clicked1: boolean = false;
   stats: Stats;
   statsSubs:Subscription;
-  constructor(private api: ApiService) { }
+  loadingStat:boolean=false;
+  constructor(private api: ApiService,private get:GetService) { }
   ngOnDestroy(): void {
     this.statsSubs.unsubscribe();
   }
@@ -37,6 +39,12 @@ export class DashboardComponent implements OnInit ,OnDestroy{
     })
     if(!this.api.initStats){
       //get stats
+      this.loadingStat=true;
+      this.get.getStats().then(res=>{
+        this.loadingStat=false;
+      }).catch(err=>{
+        this.loadingStat=false;
+      });
     }
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
