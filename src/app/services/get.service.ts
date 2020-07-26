@@ -90,7 +90,7 @@ export class GetService {
       this.http.get(this.auth.getBASE_URL() + 'protocoles?societe='+id+'&type=all').subscribe(res => {
         let protocolePerso=[];
         let protocoleClient=[];
-        if(res['data']['protocoles']['Perso']){
+        if(res['data']['protocoles']['Personnel']){
           protocolePerso = res['data']['protocoles']['Personnel'].map((element) => {
             return new Protocole(element.protocole.id,
               element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.dureeLimiteDeChangement);
