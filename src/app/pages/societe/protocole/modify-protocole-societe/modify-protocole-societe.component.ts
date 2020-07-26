@@ -54,7 +54,7 @@ success = "";
     this.CategorieProtocoleSubscription = this.api.CategorieProtocoleSubject.subscribe(
       (catep: CategorieProtocole[]) => {
         this.CategorieProtocole = catep;
-        console.log(this.CategorieProtocole);
+        // console.log(this.CategorieProtocole);
       }
     );
 
@@ -86,7 +86,7 @@ success = "";
       fperso.controls[target.value].setValidators(Validators.required);
       //tsmaints apina anty raha tsy zany tsy miova le izy refa en execution
       fperso.controls[target.value].updateValueAndValidity();
-      console.log(this.protocolePersoChoisi);
+      // console.log(this.protocolePersoChoisi);
     } else {
       var index = this.protocolePersoChoisi.indexOf(this.protocolePersoChoisi.find(element => element.id == target.value));
       this.protocolePersoChoisi.splice(index, 1);

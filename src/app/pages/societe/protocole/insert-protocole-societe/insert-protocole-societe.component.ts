@@ -51,7 +51,7 @@ loading:boolean=false;
     this.CategorieProtocoleSubscription = this.api.CategorieProtocoleSubject.subscribe(
       (catep: CategorieProtocole[]) => {
         this.CategorieProtocole = catep;
-        console.log(this.CategorieProtocole);
+        // console.log(this.CategorieProtocole);
       }
     );
   }
@@ -68,7 +68,7 @@ loading:boolean=false;
       form.controls[target.value].setValidators(Validators.required);
       //tsmaints apina anty raha tsy zany tsy miova le izy refa en execution
       form.controls[target.value].updateValueAndValidity();
-      console.log(this.protocoleChoisi);
+      // console.log(this.protocoleChoisi);
     }else{
       var index = this.protocoleChoisi.indexOf(this.protocoleChoisi.find(element=> element.id == target.value));
         this.protocoleChoisi.splice(index, 1);
@@ -85,11 +85,11 @@ loading:boolean=false;
     this.erreur = "";
     this.getService.getOutProtocoleSociete(idSociete,idCategorieSociete).then((res:Protocole[])=>{
       this.protocoles = res;
-      console.log(this.protocoles);
+      // console.log(this.protocoles);
       this.loading=false;
     }).catch(err=>{
       this.loading=false;
-      console.log(err);
+      // console.log(err);
       this.router.navigate(['societe']);
     });
   }
