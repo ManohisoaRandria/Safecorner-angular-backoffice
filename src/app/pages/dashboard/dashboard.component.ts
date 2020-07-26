@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit ,OnDestroy{
       this.loadingStat=true;
       this.get.getStats().then(res=>{
         this.loadingStat=false;
+        this.api.initStats=false;
       }).catch(err=>{
         this.loadingStat=false;
       });
