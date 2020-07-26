@@ -51,6 +51,11 @@ export class AuthService {
       )
     });
   }
+  logoutForcer(){
+    localStorage.removeItem('ngam');
+    localStorage.removeItem('ngamAt');
+    this.router.navigate(['/login']);
+  }
   getNewAccessToken() {
     let reft = this.decRefTok(this.getRefTok());
     let tab = reft.split('LngamRL');

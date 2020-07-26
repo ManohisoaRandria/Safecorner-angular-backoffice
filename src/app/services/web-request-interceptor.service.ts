@@ -48,7 +48,17 @@ export class WebRequestInterceptorService implements HttpInterceptor {
           //ary tsy apina access-token tsony
           this.test=false;
           req = this.setRefreshHeader(req);
-          return next.handle(req);
+          return next.handle(req).pipe(
+            catchError((err: HttpErrorResponse) => {
+              if (err.status === 403) {
+                //efa nlogout
+                this.auth.logoutForcer();
+                return empty();
+              }else{
+                return throwError(err);
+              }
+            })
+          );
         }
       } else {
         //refa login de tokoiny tsy mandefa anle header misy token
