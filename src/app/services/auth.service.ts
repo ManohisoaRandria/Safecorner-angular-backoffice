@@ -33,7 +33,6 @@ export class AuthService {
   //test
   recherche() {
     return new Promise((resolve, reject) => {
-
       this.http.get(this.BASE_URL + 'search?cat=CS0001').subscribe(res => {
         resolve(res);
       }, error => {
@@ -41,34 +40,35 @@ export class AuthService {
       })
     });
   }
-  isAuth(){
-    if(!localStorage.getItem('ngam') && !localStorage.getItem('ngam')){
+  isAuth() {
+    if (!localStorage.getItem('ngam') && !localStorage.getItem('ngam')) {
       return false;
     }
     return true;
   }
   logout() {
-    this.http.post(this.BASE_URL + 'user/logout', {}).subscribe(res => {
-      localStorage.removeItem('ngam');
-      localStorage.removeItem('ngamAt');
-      //redirection makany am login
-      console.log("logged out");
-      this.router.navigate(['/login']);
-    },
-      err => {
-        console.log(err);
-      }
-    )
+    return new Promise((resolve, reject) => {
+      this.http.post(this.BASE_URL + 'user/logout', {}).subscribe(res => {
+        localStorage.removeItem('ngam');
+        localStorage.removeItem('ngamAt');
+        //redirection makany am login
+       resolve("logged out");
+      },
+        err => {
+          reject(err);
+        }
+      )
+    });
   }
-  getNewAccessToken(){
+  getNewAccessToken() {
     let reft = this.decRefTok(this.getRefTok());
     let tab = reft.split('LngamRL');
-    return this.http.get(this.BASE_URL + 'user/acces-token',{
-      headers:{
-        'sc-refresh-token':tab[1],
+    return this.http.get(this.BASE_URL + 'user/acces-token', {
+      headers: {
+        'sc-refresh-token': tab[1],
       }
     }).pipe(
-      tap((res)=>{
+      tap((res) => {
         this.setAccTok(res['data']['token']);
       })
     );
@@ -93,11 +93,11 @@ export class AuthService {
   }
 
   //get set Base_URL
-  public getBASE_URL(){
+  public getBASE_URL() {
     return this.BASE_URL;
   }
 
-  public setBASE_URL(valeur:String){
+  public setBASE_URL(valeur: String) {
     this.BASE_URL = valeur;
   }
 }

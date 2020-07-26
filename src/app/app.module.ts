@@ -11,7 +11,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+// Import library module
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -21,6 +21,7 @@ import { DialogAfficheComponent } from './components/dialog-affiche/dialog-affic
 import { DialogConfirmUpdateComponent } from './components/dialog-confirm-update/dialog-confirm-update.component';
 import { DialogConfirmDeleteComponent } from './components/dialog-confirm-delete/dialog-confirm-delete.component';
 import { LoginGuardService } from './services/login-guard.service';
+import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout/dialog-confirm-logout.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -32,19 +33,22 @@ import { LoginGuardService } from './services/login-guard.service';
     AppRoutingModule,
     MatProgressBarModule,
     MatDialogModule
-  ],
+  ]
+  ,
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
     DialogAfficheComponent,// le dialog pour afficher
     DialogConfirmDeleteComponent,// le dialog pour confirner le delete
-    DialogConfirmUpdateComponent // le dialog pour confirner l'update
+    DialogConfirmUpdateComponent, // le dialog pour confirner l'update
+    DialogConfirmLogoutComponent
   ],
   entryComponents: [
     DialogAfficheComponent,// mila apetraka ato mba aafan le angular maka ni info rehetra momba an le dialog
     DialogConfirmUpdateComponent,
-    DialogConfirmDeleteComponent
+    DialogConfirmDeleteComponent,
+    DialogConfirmLogoutComponent
   ],
   providers: [
     AuthService,

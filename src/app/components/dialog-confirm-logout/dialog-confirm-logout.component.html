@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.titre}}</h1>
+<div mat-dialog-content>
+    <p>{{data.contenu}}</p><br>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onConfirm()" class="btn btn-sm btn-primary" >Confirm</button>
+  <button mat-button [mat-dialog-close]=false class="btn btn-sm btn-danger" >Close</button>
+</div>

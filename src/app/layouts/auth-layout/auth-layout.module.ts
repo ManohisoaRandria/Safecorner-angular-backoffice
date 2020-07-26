@@ -7,12 +7,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginComponent } from '../../pages/login/login.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AuthLayoutRoutes),
     FormsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxSpinnerModule
     // NgbModule
   ],
   declarations: [

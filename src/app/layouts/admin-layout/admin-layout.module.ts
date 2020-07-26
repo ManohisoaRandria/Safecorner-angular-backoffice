@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ClipboardModule } from 'ngx-clipboard';
-
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,6 +33,7 @@ import { UpdateProtocoleComponent } from 'src/app/pages/all-protocole/update-pro
     ClipboardModule,
     MatProgressBarModule
   ],
+
   declarations: [
     DashboardComponent,
     InsertSocieteComponent,

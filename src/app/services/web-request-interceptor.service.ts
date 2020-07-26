@@ -4,13 +4,14 @@ import { Observable, throwError, empty } from 'rxjs';
 import { catchError, tap, switchMap } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebRequestInterceptorService implements HttpInterceptor {
   private HAH = 'keyBackOfficeRFTenc-api';
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService,private router: Router) { }
   test:Boolean=false;
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -34,6 +35,7 @@ export class WebRequestInterceptorService implements HttpInterceptor {
                   }),
                   catchError(()=>{
                     this.auth.logout();
+                    this.router.navigate(['/login']);
                     return empty();
                   })
                 )
