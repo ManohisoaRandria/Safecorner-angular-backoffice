@@ -39,8 +39,10 @@ export class InsertService {
                 "description": descritpion,
             }
             this.http.post(this.authService.getBASE_URL() + 'protocoles', data).subscribe(res => {
-              this.getService.getAllProtocole();
-              resolve(res);
+              this.getService.getAllProtocole().then(res=>{
+                this.getService.getStats();
+                resolve(res);
+              });
             }, error => {
               reject(error);
             })
@@ -67,6 +69,7 @@ export class InsertService {
                 res['data'].dateCreation, res['data'].email,
                 res['data'].tel, res['data'].coordonnee,0);
                 this.api.addSociete(societe);
+                this.getService.getStats();
               resolve(res);
             }, error => {
               reject(error);
@@ -146,6 +149,7 @@ export class InsertService {
             res['data'].tel, res['data'].coordonnee);
             //mila manao saddSocieteDesinfection
             this.api.addSocieteDesinfection(societeD);
+            this.getService.getStats();
           resolve(res);
         }, error => {
           reject(error);
