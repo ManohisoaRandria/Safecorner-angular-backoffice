@@ -47,7 +47,8 @@ export class ProtocoleComponent implements OnInit ,OnDestroy{
       this.protocoleClient = res.client;
       this.loading = false;
     }).catch(err=>{
-      console.log(err);
+      this.loading = false;
+      // console.log(err);
     })
   }
 

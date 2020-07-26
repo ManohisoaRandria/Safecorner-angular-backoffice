@@ -75,12 +75,12 @@ subs:Subscription;
         this.historiqueDescentes = res;
         this.loadingHistoDescente = false;
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
         this.loadingHistoDescente = false;
       });
     }).catch(err => {
       this.loading = false;
-      console.log(err);
+      // console.log(err);
     })
     var date = new Date();// date angalana an le historique amty mois sy annee ty
     this.mois = date.getMonth() + 1;
@@ -118,14 +118,16 @@ subs:Subscription;
           this.historiqueDescentes = res;
           this.loadingHistoDescente = false;
         }).catch(err => {
-          console.log(err);
+          this.loadingHistoDescente = false;
+          // console.log(err);
         });
         //mamerina ny form
         form.reset();
         this.loading = false;
       }).catch((error) => {
+        this.loading = false;
         this.success = "";
-        console.log(error);
+        // console.log(error);
         this.erreur = error['error']['message'];
       }
       );
@@ -141,7 +143,8 @@ subs:Subscription;
       this.historiqueDescentes = res;
       this.loadingHistoDescente = false;
     }).catch(err => {
-      console.log(err);
+      this.loadingHistoDescente = false;
+      // console.log(err);
     });
   }
 

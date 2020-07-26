@@ -92,19 +92,19 @@ export class InsertSocieteComponent implements OnInit ,OnDestroy{
         this.getService.getCategorieSociete().then((res) => {
           //avieo maka an le categorie protocole
           this.getService.getCategorieProtocole().then((res) => {
-            console.log("categorie,societe,cate protocole ok");
+            // console.log("categorie,societe,cate protocole ok");
             this.api.initSociete = true;
             this.api.setLoadingAllSociete(false);
           }).catch((err) => {
-            console.log(err);
+            // console.log(err);
             this.api.setLoadingAllSociete(false);
           });
         }).catch(err => {
-          console.log(err);
+          // console.log(err);
           this.api.setLoadingAllSociete(false);
         });
       }).catch(err => {
-        console.log(err);
+        // console.log(err);
         this.api.setLoadingAllSociete(false);
       });
 
@@ -197,8 +197,9 @@ export class InsertSocieteComponent implements OnInit ,OnDestroy{
         form.reset();
         this.loadingInsertSociete = false;
       }).catch((error) => {
+        this.loadingInsertSociete = false;
         this.success = "";
-        console.log(error);
+        // console.log(error);
         this.erreur = error['error']['message'];
       }
       );
