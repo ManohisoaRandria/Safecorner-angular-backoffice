@@ -56,8 +56,8 @@ export class NavbarComponent implements OnInit,OnDestroy{
       if(result){
         this.spinner.show();
         this.auth.logout(false).then(res=>{
-          this.spinner.hide();
           this.router.navigate(['/login']);
+          this.spinner.hide();
         }).catch(err=>{
           this.spinner.hide();
         });

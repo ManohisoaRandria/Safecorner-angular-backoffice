@@ -79,12 +79,14 @@ export class AuthService {
     localStorage.setItem('ngam', reftok);
   }
   getRefTok(): string {
+    if(!localStorage.getItem('ngam'))return '';
     return localStorage.getItem('ngam');
   }
   setAccTok(acctok: string) {
     localStorage.setItem('ngamAt', acctok);
   }
   getAccTok(): string {
+    if(!localStorage.getItem('ngamAt'))return '';
     return localStorage.getItem('ngamAt');
   }
 
