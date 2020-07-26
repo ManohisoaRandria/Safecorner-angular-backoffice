@@ -27,7 +27,11 @@ loading:boolean=false;
       this.router.navigate(['/dashboard']);
     }).catch(err => {
       this.loading=false;
-      this.messageErreur='Invalid Login or Password.';
+      if(err.error.message=="not allowed to connect, please logout on another sessions"){
+        this.messageErreur=err.error.message;
+      } else{
+        this.messageErreur="Invalid Username or Password."
+      }
     });
   }
 
