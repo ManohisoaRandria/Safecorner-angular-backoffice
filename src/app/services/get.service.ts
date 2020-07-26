@@ -91,7 +91,7 @@ export class GetService {
         let protocolePerso=[];
         let protocoleClient=[];
         if(res['data']['protocoles']['Perso']){
-          protocolePerso = res['data']['protocoles']['Perso'].map((element) => {
+          protocolePerso = res['data']['protocoles']['Personnel'].map((element) => {
             return new Protocole(element.protocole.id,
               element.protocole.nom,element.protocole.description,element.protocole.dateCreation,element.dureeLimiteDeChangement);
           });
