@@ -18,8 +18,6 @@ export class WebRequestInterceptorService implements HttpInterceptor {
 
     let tabTest = req.url.split('' + this.auth.getBASE_URL());
     if (tabTest.length == 2) {
-      console.log(req.url.split('' + this.auth.getBASE_URL()));
-
       if (tabTest[1] != 'user/login') {
         //refa requette tsotra de tokony tsisy refreshtoken fa access token ihany
         if (tabTest[1] != 'user/logout') {
@@ -69,7 +67,6 @@ export class WebRequestInterceptorService implements HttpInterceptor {
     return this.auth.getNewAccessToken().pipe(
       tap(()=>{
         this.test=false;
-        console.log('token refreshed');
       })
     )
   }
@@ -83,7 +80,6 @@ export class WebRequestInterceptorService implements HttpInterceptor {
   setRefreshHeader(req: HttpRequest<any>) {
     let reft = this.auth.decRefTok(this.auth.getRefTok());
     let tab = reft.split('LngamRL');
-    console.log(tab);
     req = req.clone({
       headers: req.headers.set('Content-Type', 'application/json')
         .set(tab[0], tab[1])

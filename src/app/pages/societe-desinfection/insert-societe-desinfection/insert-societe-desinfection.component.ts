@@ -65,11 +65,9 @@ export class InsertSocieteDesinfectionComponent implements OnInit ,OnDestroy{
       //maka anle societe desinfection rehetra am volou
       this.loadingAllSocieteDesinf=true;
       this.getService.getAllSocieteDesinfection().then((res) => {
-        console.log("societeDesinfection Ok");
         this.api.initSocieteDesinfection = true;
         this.loadingAllSocieteDesinf=false;
       }).catch(err => {
-        console.log(err);
       });
     }
   }

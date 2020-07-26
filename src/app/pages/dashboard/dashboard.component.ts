@@ -1,5 +1,8 @@
+import { Subscription } from 'rxjs';
+import { Stats } from './../../modele/stats';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import Chart from 'chart.js';
 
 // core components
@@ -15,17 +18,26 @@ import {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit ,OnDestroy{
 
   public datasets: any;
   public data: any;
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
-
-  constructor() { }
+  stats: Stats;
+  statsSubs:Subscription;
+  constructor(private api: ApiService) { }
+  ngOnDestroy(): void {
+    this.statsSubs.unsubscribe();
+  }
   ngOnInit() {
-
+    this.statsSubs=this.api.statsSubject.subscribe((stat:Stats)=>{
+      this.stats=stat;
+    })
+    if(!this.api.initStats){
+      //get stats
+    }
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
       [0, 20, 5, 25, 10, 30, 15, 40, 40]

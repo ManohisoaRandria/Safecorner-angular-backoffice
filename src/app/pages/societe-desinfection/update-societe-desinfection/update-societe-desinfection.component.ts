@@ -120,7 +120,6 @@ export class UpdateSocieteDesinfectionComponent implements OnInit ,OnDestroy{
             this.loading = false;
           }).catch((error) => {
             this.success = "";
-            console.log(error);
             this.erreur = error['error']['message'];
             this.loading = false;
           });

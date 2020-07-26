@@ -1,3 +1,4 @@
+import { Stats } from './../modele/stats';
 import { Societe,SocieteDesinfection } from './../modele/societe';
 import { Injectable } from '@angular/core';
 
@@ -17,6 +18,8 @@ export class ApiService {
   private categorieProtocole:CategorieProtocole[]=[];
   private protocoles:Protocole[]=[];
   private loadingSociete:boolean=false;
+  private stats:Stats=new Stats(0,0,0);
+  statsSubject=new BehaviorSubject(new Stats(0,0,0));
   loadingSocieteSubject=new BehaviorSubject(false);
   societeSubject=new BehaviorSubject([]);
   protocoleSubject=new BehaviorSubject([]);
@@ -25,6 +28,7 @@ export class ApiService {
   categorieSocieteSubject=new BehaviorSubject([]);
   CategorieProtocoleSubject=new BehaviorSubject([]);
   initSociete: boolean = false;
+  initStats: boolean = false;
   initSocieteDesinfection: boolean = false;
   initProtocole: boolean = false;
   emitloadingSociete(){
@@ -32,6 +36,9 @@ export class ApiService {
   }
   emitSociete(){
     this.societeSubject.next(this.societes);
+  }
+  emitStats(){
+    this.statsSubject.next(this.stats);
   }
   emitProtocole(){
     this.protocoleSubject.next(this.protocoles);
@@ -79,6 +86,10 @@ setAllSocieteDesinfection(socs:SocieteDesinfection[]){
 setAllProtocole(proto:Protocole[]){
   this.protocoles=proto;
   this.emitProtocole();
+}
+setStats(stat:Stats){
+  this.stats=stat;
+  this.emitStats();
 }
 addCategorieSociete(categorieSociete:Societe){
   this.categorieSociete.push(categorieSociete);

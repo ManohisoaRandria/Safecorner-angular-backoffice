@@ -30,16 +30,6 @@ export class AuthService {
       })
     });
   }
-  //test
-  recherche() {
-    return new Promise((resolve, reject) => {
-      this.http.get(this.BASE_URL + 'search?cat=CS0001').subscribe(res => {
-        resolve(res);
-      }, error => {
-        reject(error);
-      })
-    });
-  }
   isAuth() {
     if (!localStorage.getItem('ngam') && !localStorage.getItem('ngam')) {
       return false;

@@ -8,6 +8,7 @@ import { Societe,SocieteDesinfection } from '../modele/societe';
 import { CategorieProtocole } from '../modele/categorie-protocole';
 import { HistoriqueDescente } from '../modele/historique-descente';
 import { Prestation } from '../modele/prestation';
+import { Stats } from '../modele/stats';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,17 @@ export class GetService {
         });
         this.api.setAllSociete(societes);
         resolve(societes);
+      }, error => {
+        reject(error);
+      })
+    });
+  }
+  getStats() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.auth.getBASE_URL() + 'search?cat=all').subscribe(res => {
+        let stats=new Stats(0,0,0);
+        this.api.setStats(stats);
+        resolve(stats);
       }, error => {
         reject(error);
       })
@@ -145,7 +157,6 @@ export class GetService {
             element.tel,element.coordonne);
         });
         this.api.setAllSocieteDesinfection(societesD);
-        console.log(res);
         resolve(res);
       }, error => {
         reject(error);
@@ -163,7 +174,6 @@ export class GetService {
             element.idSocieteDesinfection,
             element.prix);
         });
-        console.log(res);
         resolve(prestation);
       }, error => {
         reject(error);

@@ -34,10 +34,9 @@ export class ModifyPrestationComponent implements OnInit {
       this.description = this.prestation.description;
       this.prix = this.prestation.prix;
     }
-    console.log(this.prestation);
   }
 
- 
+
   //INSERTION PRESTATION
   onUpdatePrestation(form:NgForm) {
     // dialog pour confirmer l'update
@@ -60,11 +59,10 @@ export class ModifyPrestationComponent implements OnInit {
             this.loading = false;
           }).catch((error) => {
             this.success = "";
-            console.log(error);
             this.erreur = error['error']['message'];
             this.loading = false;
           });
-    } 
+    }
     });
   }
 }

@@ -56,7 +56,6 @@ export class PrestationComponent implements OnInit,OnDestroy {
       this.prestations = res;
       this.loadingGetPrestation = false;
     }).catch((err) => {
-      console.log(err);
     });
   }
 
@@ -86,12 +85,10 @@ export class PrestationComponent implements OnInit,OnDestroy {
           this.prestations = res;
           this.loadingInsertPrestation = false;
         }).catch((err) => {
-          console.log(err);
         });
         this.loadingInsertPrestation = false;
       }).catch((error) => {
         this.success = "";
-        console.log(error);
         this.erreur = error['error']['message'];
       }
       );
@@ -128,7 +125,6 @@ export class PrestationComponent implements OnInit,OnDestroy {
               this.erreur = "";
               this.success = "deleted";
             }).catch((err) => {
-              console.log(err);
             });
           }).catch(err => {
             this.success = "";

@@ -39,7 +39,7 @@ export class InsertService {
                 "description": descritpion,
             }
             this.http.post(this.authService.getBASE_URL() + 'protocoles', data).subscribe(res => {
-              this.getService.getAllProtocole();  
+              this.getService.getAllProtocole();
               resolve(res);
             }, error => {
               reject(error);
@@ -118,7 +118,6 @@ export class InsertService {
               "description": description,
               "nombreProtocole":nombreProtocole
           }
-          console.log(data);
           this.http.post(this.authService.getBASE_URL() + 'historiqueDescente', data).subscribe(res => {
             this.getService.getAllSociete();
             resolve(res);
@@ -276,7 +275,6 @@ export class InsertService {
         this.getService.getAllProtocole();
         resolve(res);
       }, error => {
-        console.log(error);
         reject(error);
       })
     });
