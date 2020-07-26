@@ -28,7 +28,7 @@ loading:boolean=false;
     }).catch(err => {
       this.loading=false;
       if(err.error.message=="not allowed to connect, please logout on another sessions"){
-        this.messageErreur=err.error.message;
+        this.messageErreur="Connection à 5 device atteint, veuillez vous connecter des autres sessions pour continuer";
       } else{
         this.messageErreur="Invalid Username or Password."
       }
