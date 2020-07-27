@@ -46,7 +46,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": { "scripts": false, "styles": true, "hidden": false, "vendor": true },
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
