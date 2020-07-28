@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { InsertService } from '../../services/insert.service';
 import { Protocole } from '../../modele/protocole';
 import { Subscription } from 'rxjs';
@@ -9,6 +10,7 @@ import { DialogAfficheComponent } from '../../components/dialog-affiche/dialog-a
 import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 import { ViewportScroller } from '@angular/common';
 import { NgForm } from '@angular/forms';
+import { Societe } from '../../modele/societe';
 
 @Component({
   selector: 'app-all-protocole',
@@ -30,7 +32,8 @@ export class AllProtocoleComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private getService: GetService,
     private dialog: MatDialog,
-    private scrollElem: ViewportScroller) { }
+    private scrollElem: ViewportScroller,
+    private router:Router) { }
   ngOnDestroy(): void {
     this.protocoleSubscription.unsubscribe();
   }
@@ -127,6 +130,7 @@ export class AllProtocoleComponent implements OnInit, OnDestroy {
           }).catch(err => {
             this.loadingAllProtocole = false;
             // this.erreur = err;
+             // assingation badge
             this.dialog.open(DialogAfficheComponent, {
               width: "300px",
               data: {
@@ -134,6 +138,7 @@ export class AllProtocoleComponent implements OnInit, OnDestroy {
                 contenu: err['error']['message']
               }
             });
+            this.AssingBadge(err['error']['data']);
           });
         } else {
           // ra diso le nsoranany
@@ -153,5 +158,25 @@ export class AllProtocoleComponent implements OnInit, OnDestroy {
   //scroll element
   onScrollElement(idelem: string) {
     this.scrollElem.scrollToAnchor(idelem);
+  }
+
+  //assingation badge
+  AssingBadge(Tab2:any[]){
+    let societe:Societe[];
+    this.api.societeSubject.subscribe(
+      (societes: Societe[]) => {
+        societe = societes;
+        Tab2.forEach(elemT1 => {
+          societe.map((elemT2) => {
+            if(elemT2.id == elemT1.id){
+              elemT2.badge = false;
+            }else{
+              elemT2.badge = true;
+            }
+          });
+        });
+        this.router.navigate(['/societe']);
+      }
+    );
   }
 }

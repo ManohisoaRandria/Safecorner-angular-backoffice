@@ -1,4 +1,5 @@
 export class Societe {
+  public badge:boolean = true;
 
   constructor(public id,
     public nom,

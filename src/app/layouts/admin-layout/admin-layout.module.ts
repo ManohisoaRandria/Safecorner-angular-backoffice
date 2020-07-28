@@ -11,6 +11,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 import { DescenteComponent } from 'src/app/pages/societe/descente/descente.component';
 import { ProtocoleComponent } from 'src/app/pages/societe/protocole/protocole.component';
 import { UpdateSocieteComponent } from 'src/app/pages/societe/update-societe/update-societe.component';
@@ -31,7 +32,8 @@ import { UpdateProtocoleComponent } from 'src/app/pages/all-protocole/update-pro
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBadgeModule
   ],
 
   declarations: [

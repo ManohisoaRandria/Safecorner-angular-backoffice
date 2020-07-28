@@ -49,6 +49,8 @@ export class InsertSocieteComponent implements OnInit ,OnDestroy{
   subs:Subscription;
   lat: number;
   lng: number;
+  // l'avertissement
+  messageAvertissement = "";
   //loading
   loadingInsertSociete:boolean = false;
   loadingAllSociete:boolean = false;
@@ -151,6 +153,9 @@ export class InsertSocieteComponent implements OnInit ,OnDestroy{
   refreshSociete() {
     this.api.setLoadingAllSociete(true);
     this.getService.getAllSociete().then(res=>{
+      this.societes.map((elem)=>{
+        elem.badge = true;
+      });
       this.api.setLoadingAllSociete(false);
     });
   }
@@ -306,6 +311,9 @@ export class InsertSocieteComponent implements OnInit ,OnDestroy{
           }).catch(err => {
             this.loadingDeleteCategorieSociete=false;
             // this.erreur = err;
+            // assingation badge
+            this.AssingBadge(err['error']['data']);
+            this.onScrollElement("listSociete");
             this.dialog.open(DialogAfficheComponent,{
               width:"300px",
               data:{
@@ -332,5 +340,18 @@ export class InsertSocieteComponent implements OnInit ,OnDestroy{
   //scroll element
   onScrollElement(idelem:string){
     this.scrollElem.scrollToAnchor(idelem);
+  }
+
+  //assingation badge
+  AssingBadge(Tab2:any[]){
+    Tab2.forEach(elemT1 => {
+      this.societes.map((elemT2) => {
+        if(elemT2.id == elemT1.id){
+          elemT2.badge = false;
+        }else{
+          elemT2.badge = true;
+        }
+      });
+    });
   }
 }

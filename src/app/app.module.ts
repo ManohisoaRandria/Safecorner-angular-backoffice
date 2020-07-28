@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatBadgeModule} from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAfficheComponent } from './components/dialog-affiche/dialog-affiche.component';
 import { DialogConfirmUpdateComponent } from './components/dialog-confirm-update/dialog-confirm-update.component';
@@ -32,7 +33,8 @@ import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout
     RouterModule,
     AppRoutingModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBadgeModule
   ]
   ,
   declarations: [
