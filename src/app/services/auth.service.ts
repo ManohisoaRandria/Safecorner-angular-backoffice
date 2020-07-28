@@ -31,12 +31,8 @@ export class AuthService {
       })
     });
   }
- async isAuth() {
-    if (!localStorage.getItem('ngam') && !localStorage.getItem('ngam')) {
-      throw new Error("Whoops!");
-    }else {
-      return await this.verifyGuard();
-    }
+  isAuth() {
+    return this.verifyGuard();
   }
   logout(test:boolean) {
     return new Promise((resolve, reject) => {
@@ -72,9 +68,10 @@ export class AuthService {
     );
   }
   verifyGuard():Promise<boolean>{
-    let reft = this.decRefTok(this.getRefTok());
-    let tab = reft.split('LngamRL');
       return new Promise((resolve, reject) => {
+        if (!localStorage.getItem('ngam') && !localStorage.getItem('ngam')) reject(false);
+        let reft = this.decRefTok(this.getRefTok());
+        let tab = reft.split('LngamRL');
         if(tab.length==0 || !tab)reject(false);
         else{
           this.http.get(this.BASE_URL + 'user/acces-token', {
@@ -84,7 +81,7 @@ export class AuthService {
           }).subscribe(res => {
             resolve(true);
           }, error => {
-            throw new Error("Whoops!");;
+            reject(false);
           })
         }
       });
