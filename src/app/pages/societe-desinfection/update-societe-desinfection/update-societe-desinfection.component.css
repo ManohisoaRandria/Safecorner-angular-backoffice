@@ -1,3 +1,22 @@
 .card-body {
     background: rgb(247, 251, 252);
 }
+
+/* animation icone */
+.icon_activation_insert_societe:hover {
+    color: rgb(85, 139, 240);
+    transform: scale(1.3);
+    transition: transform .3s;
+}
+
+.icon_add_coord_societe:hover {
+    color: rgb(85, 139, 240);
+    transform: scale(1.3);
+    transition: transform .3s;
+}
+
+.icon_load:hover {
+    color: rgb(85, 139, 240);
+    transform: scale(1.3);
+    transition: transform .3s;
+}

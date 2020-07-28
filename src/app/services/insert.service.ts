@@ -69,6 +69,7 @@ export class InsertService {
                 res['data'].dateCreation, res['data'].email,
                 res['data'].tel, res['data'].coordonnee,0);
                 this.api.addSociete(societe);
+                console.log(res);
                 this.getService.getStats();
               resolve(res);
             }, error => {

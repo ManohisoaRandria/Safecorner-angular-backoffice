@@ -10,7 +10,13 @@ export class LoginGuardService implements CanActivate{
 
   constructor(private auth:AuthService,private router:Router) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    if(this.auth.isAuth())this.router.navigate(['/dashboard'])
-    else return true;
+    return new Promise((resolve, reject) => {
+      this.auth.verifyGuard().then(res=>{
+        this.router.navigate(['/dashboard']);
+        reject(false);
+      }).catch(err=>{
+         resolve(true);
+      })
+    });
   }
 }

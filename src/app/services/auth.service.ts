@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import * as CryptoJS from 'crypto-js';
 import * as jwt_decode from "jwt-decode";
 import { tap } from 'rxjs/operators';
+import { exception } from 'console';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,10 +32,7 @@ export class AuthService {
     });
   }
   isAuth() {
-    if (!localStorage.getItem('ngam') && !localStorage.getItem('ngam')) {
-      return false;
-    }
-    return true;
+    return this.verifyGuard();
   }
   logout(test:boolean) {
     return new Promise((resolve, reject) => {
@@ -68,6 +66,25 @@ export class AuthService {
         this.setAccTok(res['data']['token']);
       })
     );
+  }
+  verifyGuard():Promise<boolean>{
+      return new Promise((resolve, reject) => {
+        if (!localStorage.getItem('ngam') && !localStorage.getItem('ngam')) reject(false);
+        let reft = this.decRefTok(this.getRefTok());
+        let tab = reft.split('LngamRL');
+        if(tab.length==0 || !tab)reject(false);
+        else{
+          this.http.get(this.BASE_URL + 'user/acces-token', {
+            headers: {
+              'sc-refresh-token': tab[1],
+            }
+          }).subscribe(res => {
+            resolve(true);
+          }, error => {
+            reject(false);
+          })
+        }
+      });
   }
   encRefTok(reftok: string): string {
     return CryptoJS.AES.encrypt(this.RF + 'LngamRL' + reftok, this.HAH).toString();

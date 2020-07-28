@@ -27,6 +27,22 @@ export class UpdateSocieteComponent implements OnInit,OnDestroy {
   success: string = "";
   private map: any;
   private marker: any = null;
+  private markerInit:any = null;
+  private iconMarker:any[] = [
+    L.icon({
+      iconUrl: '../../../../assets/img/marker/Marker.png',
+      // shadowUrl: 'leaf-shadow.png',
+      iconSize:     [40,40], // size of the icon
+      iconAnchor:   [22,45]
+    }),
+    L.icon({
+      iconUrl: '../../../../assets/img/marker/Marker-init.png',
+      // shadowUrl: 'leaf-shadow.png',
+      iconSize:     [40,40], // size of the icon
+      iconAnchor:   [22,45]
+    }),
+  ];
+
   loadingUpdateSociete:boolean = false;
   societe:Societe;
   categSocieteSubscription: Subscription;
@@ -80,7 +96,7 @@ export class UpdateSocieteComponent implements OnInit,OnDestroy {
       if (this.marker != null) {
         this.map.removeLayer(this.marker);
       }
-      this.marker = L.marker(e.latlng);
+      this.marker = L.marker(e.latlng,{icon: this.iconMarker[0]});
       this.marker.bindPopup("<p>lat: " + e.latlng.lat + "</p><p>lng: " + e.latlng.lng + "</p>").openPopup();
       this.marker.addTo(this.map);
     });
@@ -95,12 +111,23 @@ export class UpdateSocieteComponent implements OnInit,OnDestroy {
       minZoom: 5
     }).addTo(this.map);
     this.map.setView([this.lat,this.lng], 18);
-    this.marker = L.marker([this.lat,this.lng]);
-    this.marker.addTo(this.map);
+    this.markerInit = L.marker([this.lat,this.lng],{icon: this.iconMarker[1]});
+    this.markerInit.bindPopup("chosen position").openPopup();
+    this.markerInit.addTo(this.map);
   }
 
   //AUTRE FONCTION
   onAddCoordSociete() {
+    // afficher la dernier position choisi
+    if(this.markerInit != null){
+      this.map.removeLayer(this.markerInit);
+    }
+    this.markerInit = L.marker(this.marker._latlng,{icon: this.iconMarker[1]});
+    this.markerInit.bindPopup("chosen position").openPopup();
+    this.markerInit.addTo(this.map);
+    // effacer la marker de choix
+    this.map.removeLayer(this.marker);
+    // ajouter au formulaire
     this.lat = this.marker._latlng.lat;
     this.lng = this.marker._latlng.lng;
   }
