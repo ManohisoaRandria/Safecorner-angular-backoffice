@@ -68,9 +68,13 @@ export class InsertService {
                 res['data'].description, res['data'].lieu,
                 res['data'].dateCreation, res['data'].email,
                 res['data'].tel, res['data'].coordonnee,0);
-                this.api.addSociete(societe);
-                console.log(res);
-                this.getService.getStats();
+                // this.api.addSociete(societe);
+                this.getService.getAllSociete().then(res=>{
+                  this.getService.getStats();
+                  resolve(res);
+                }).catch(erro=>{
+
+                });
               resolve(res);
             }, error => {
               reject(error);
@@ -149,8 +153,13 @@ export class InsertService {
             res['data'].dateCreation, res['data'].email,
             res['data'].tel, res['data'].coordonnee);
             //mila manao saddSocieteDesinfection
-            this.api.addSocieteDesinfection(societeD);
-            this.getService.getStats();
+            // this.api.addSocieteDesinfection(societeD);
+            this.getService.getAllSocieteDesinfection().then(res=>{
+              this.getService.getStats();
+              resolve(res)
+            }).catch(erro=>{
+              
+            });
           resolve(res);
         }, error => {
           reject(error);
@@ -219,7 +228,9 @@ export class InsertService {
   deleteSociete(id:String){
     return new Promise((resolve, reject) => {
       this.http.delete(this.authService.getBASE_URL() + 'societe?id='+id).subscribe(res => {
-        this.getService.getAllSociete();
+        this.getService.getAllSociete().then(res=>{
+          this.getService.getStats();
+        });;
         resolve(res);
       }, error => {
         reject(error);
@@ -246,7 +257,9 @@ export class InsertService {
   deleteSocieteDesinfection(id:String){
     return new Promise((resolve, reject) => {
       this.http.delete(this.authService.getBASE_URL() + 'societeDesinfect?id='+id).subscribe(res => {
-        this.getService.getAllSocieteDesinfection();
+        this.getService.getAllSocieteDesinfection().then(res=>{
+          this.getService.getStats();
+        });;
         resolve(res);
       }, error => {
         reject(error);
@@ -277,7 +290,9 @@ export class InsertService {
   deleteProtocole(id:String){
     return new Promise((resolve, reject) => {
       this.http.delete(this.authService.getBASE_URL() + 'protocole?id='+id).subscribe(res => {
-        this.getService.getAllProtocole();
+        this.getService.getAllProtocole().then(res=>{
+          this.getService.getStats();
+        });
         resolve(res);
       }, error => {
         reject(error);
